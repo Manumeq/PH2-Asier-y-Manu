@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Registro</title>
+</head>
+<body>
+	<header>
+		<a href="index.html">
+			<img src="imgs/logo1.png" alt="logotipo">
+		</a>
+		<div>
+			<h1>North & East</h1>
+			<h2>Tu página de viajes</h2>
+		</div>
+	</header>
+	<input type="checkbox" id="ckb-menu">
+	<nav>
+		<ul>
+			<li><label for="ckb-menu"><span aria-hidden="true" class="icon-menu"></span></label></li>
+			<li><a href="index.html"><span aria-hidden="true" class="icon-home"></span>Home</a></li>
+			<li><a href="nueva-entrada.html"><span aria-hidden="true" class="icon-doc-new"></span>Nueva Entrada</a></li>
+			<li><a href="buscar.html"><span aria-hidden="true" class="icon-search"></span>Buscar</a></li>
+			<li><a href="login.html"><span aria-hidden="true" class="icon-login"></span>Login</a></li>
+			<li><a href="index.html"><span aria-hidden="true" class="icon-logout-1"></span>Logout</a></li>
+			<li><a href="registro.html"><span aria-hidden="true" class="icon-edit"></span>Registro</a></li>
+		</ul>
+	</nav>
+	
+	<section>
+		<h2>Registro</h2>
+		<form action="index.html">
+			<fieldset>
+				<ul class="formList">
+					<li>
+					<label>Login</label>
+						<input type="text" placeholder="Login" autofocus required pattern="^[A-Za-z0-9_]{1,15}$" />
+					</li>
+
+					<li>
+					<label>Nombre usuario</label>
+						<input type="text" placeholder="Nombre" required pattern="[a-zA-Z0-9]+"/>
+					</li>
+
+					<li>
+					<label>Contraseña</label>
+						<input type="password" placeholder="Contraseña" maxlength="20" pattern="[a-zA-Z0-9_\-]{4,20}"/>
+					</li>
+
+					<li>
+					<label>Repetir contraseña</label>
+						<input type="password" placeholder="Repetir contraseña" pattern="[a-zA-Z0-9_\-]{4,20}"/>
+					</li>
+
+					<li>
+					<label>Email</label>
+						<input type="email" required  placeholder="Email"/>
+					</li>
+				
+					<li>
+						<input type="submit" value="Aceptar">
+					</li>	
+				</ul>
+			</fieldset>
+		</form>
+	</section>
+
+	<footer>
+		<p>&copy;  Asier Manzano Arévalo | Manuel Escorza Quinto || <time datetime="2017">2017 Ingeniería Multimedia Universidad de Alicante</time> | <a href="acerca.html"><span aria-hidden="true" class="icon-users-1"></span>Acerca de nosotros</a></p>
+	</footer>
+</body>
+</html>

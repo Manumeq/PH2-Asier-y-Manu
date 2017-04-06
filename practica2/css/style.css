@@ -1,0 +1,656 @@
+
+*{
+	box-sizing: border-box;
+	font-family: 'Nunito', sans-serif;;
+}
+
+/*Formularios CSS Asier*/
+
+fieldset{
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+	border: 0;
+}
+
+.formList>li:hover{
+	font-weight: bold;
+}
+
+.formList>li>input:focus{
+	background-color: #FCF0C7;
+}
+
+.formList>li>input:hover{
+	background-color: #FCF0C7;
+}
+
+.formList>li>textarea:focus{
+	background-color: #FCF0C7;
+}
+
+.formList>li>textarea:hover{
+	background-color: #FCF0C7;
+}
+
+input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit]{
+    width: 100%;
+    background-color: orange;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=file]{
+    width: 100%;
+    background-color: orange;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button{
+	width: 100%;
+    background-color: #E39300;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover{
+    background-color: #FFB534 ;
+}
+
+ul{
+	list-style: none;
+	padding: 0;
+}
+/*Terminan los formularios*/
+
+/*Imagenes articulos Asier (Excpecion clase fotoEntrada)*/
+
+/*Esta clase es exclusiva para las imagenes de
+la entrada*/
+section>div>article>figure.fotoEntrada{
+    width: 100%;
+    height: 20em;
+    margin: 1em auto; 
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+section>div>article>figure{
+    width: 90%;
+    height: 16em;
+    margin: 1em auto;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+section>div>article>figure>figcaption{
+    position: absolute;
+    top: .5em;
+    left: .5em;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+section>div>article>figure>img{
+    opacity: 1;
+    transition: opacity 1s;
+    width: 100%;
+    height: 100%;
+}
+
+section>div>article>figure:hover>figcaption{
+    opacity: 1;
+}
+
+section>div>article>figure:hover>img{
+    opacity: .7;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+}
+
+/*section>div>article>figure>figcaption>footer{
+   position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #34495D);
+    width: 100%;
+    padding: .5em;
+}*/
+
+section>div>article>figure:hover>figcaption>footer{
+    opacity: 1;
+}
+
+section>div>article>figure>figcaption>footer>a{
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+/*Termina imagenes articulos Asier*/
+
+/*Imagenes entrada Asier*/
+
+/*Termina imagenes entrada Asier*/
+
+/*a{
+	text-decoration: none;
+}*/
+
+/*Iconos barra navegacion*/
+
+	/*Modificado por Manu*/
+	nav>ul>li:hover:not(:first-of-type){
+		background-color: #F78536;
+	}
+	/*Termina*/
+	nav>ul>li:first-of-type>a>span{
+		display: inline-block;
+	}
+
+	nav>ul>li:first-of-type>a:hover>span{
+		transform: rotate(360deg);
+		transition: .4s;
+	}
+/*Termina css iconos barra navegacion*/
+
+body{
+	min-width:320px;
+	/*max-width: 960px;*/
+	/*position: relative;*/	
+	background-color: #F2F3F4;
+	margin: 0px;
+}
+
+	/*Para seleccionar el color: ctrl+shift+c*/
+	body>header{
+		background-color: #34495D;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		overflow: hidden;
+		margin-top: 1.2em;
+	}
+
+		body>header>a>img{
+			align-self: center;
+			width: 160px;
+			padding: .3em;
+		}
+
+		body>header>h1{
+		}
+
+	body>nav>ul{
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		max-height: 1.2em;
+		overflow: hidden;
+		transition: max-height .5s;
+		background-color: #2C3D4F;
+		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); /*Prueba Asier para sombrear el menu*/
+		font-size: 1.1em;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		left: 0;
+	}
+
+		body>nav>ul>li:first-of-type>label{/*Primer hijo del tipo li*/	
+			display: inline-block;
+			transform: rotate(-90deg);
+			transition: transform .5s;
+			color: white;
+            /*background-color: blue;*/
+		}
+
+			body>nav>ul>li>a{
+				display: block;
+				padding: .1em .4em; /*Modificamos el el espaciado entre la lista de navegacion en tipo movil*/
+				text-decoration: none;
+				color: white;
+                /*background-color: red;*/
+			}
+
+	body>section>h1{
+		margin-left: .5em;
+		/*margin: 0px;*/
+		/*margin-left: 20px;*/
+		/*float:center;*/
+		/*background-color: blue;*/
+	}
+
+	body>section>h2{
+		margin-left: .5em;
+	}
+
+	body>section>h3{
+		margin-left: .5em;
+	}
+
+	body>section>div{
+		/*background-color: #34495D;*/
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	#about{
+		display: flex;
+		background-color: #C1CAD2;
+	}
+
+	#aboutFig{
+		max-width: 270px;
+	}
+	
+	/*ASIER parte pie de paginacion*/
+	.piePaginacion{
+		margin: 20px 0;
+	}
+
+	.piePaginacion>ul{
+		text-align: center;
+	}
+
+	.piePaginacion>ul>li{
+		display: inline-block;
+		margin-right: 10px;
+	}
+
+	.piePaginacion>ul>li>a{
+		display: block;
+		padding: 2px 10px;
+		color: white;
+		background-color: #34495D;
+		text-decoration: none; 
+	}
+
+	.piePaginacion>ul>li>a:hover{
+		background-color: #FAC535;
+	}
+
+	/*Codigo que indicara en que pagina estaremos*/
+	#active{
+		background-color: orange;
+		font-weight: bold;
+	}
+	/*ASIER termina parte pie de paginacion*/
+
+	/*ASIER parte comentarios*/
+	.comentarios{
+		/*border-top: solid 2px #BAB7B7;*/
+		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+		margin-bottom: 10%;
+	}
+
+	.bodComentario{
+		border-bottom: solid 2px #BAB7B7;
+		padding: .5em;
+	}
+	
+	.cabComentario{
+		background-color: #B5C3D1;
+	}
+
+	.pSuspensivos{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.pSuspensivos:hover{
+		width: auto;
+		white-space: initial;
+		overflow: visible;
+		cursor: pointer;
+	}
+
+	body>section>section>div>:nth-of-type(2){
+		background-color: white;
+		padding: .5em;
+	}
+		
+		body>section>section>div>ul{
+			margin-left: 5%;
+			margin: 0;
+			padding: .5em;
+		}
+/*:not(:first-of-type)*/
+			body>section>section>div>ul>li:not(:nth-of-type(3)){
+				display: inline-block;
+			}
+
+			body>section>section>div>ul>li:nth-of-type(3){
+				padding-top: .5em;
+			}
+
+				body>section>section>div>ul>li>span>img{
+					width: 3em;
+					height: 3em;
+					border-radius: 150px;
+				}
+	/*Termina parte comentarios*/
+
+		/*ASIER Para la zona de las fotos de la pagina nueva-entrada*/
+		
+		body>section>form>fieldset>section{
+			overflow:hidden;
+		}
+
+		body>section>form>fieldset>section>div{
+			/*background-color:#F0B651;*/
+			display:flex;
+			flex-wrap:wrap;
+		}
+
+			body>section>form>fieldset>section>div>article{
+				margin: .4em 0;
+				overflow: hidden;
+				background-color: #C1CAD2;
+				padding: .5em;
+				border: solid 1px #EDEDED;
+				box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+				display: flex;
+				flex-direction: column;
+			}
+		/*ASIER Termina la parte para la zona de las fotos de la pagina nueva-entrada*/
+
+		body>section>div>article{
+			margin: .4em 0;
+			overflow: hidden;
+			background-color: #C1CAD2;
+			padding: .5em;
+			border: solid 1px #EDEDED;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+			display: flex;
+			flex-direction: column;
+		}
+
+			body>section>div>article>p{
+				flex-grow: 2;
+			}
+
+			body>section>div>article>h3>a{
+				text-decoration: none;
+			}
+
+			/*
+			body>section>div>article<footer{
+				background-color: #1142B0;
+				color: #fff;
+				overflow: hidden;
+			}*/
+
+				body>section>div>article>footer>ul>li{
+					display: inline-block;
+					float: right;
+					padding: .3em;
+				}
+
+				body>section>div>article>footer>ul>li:nth-of-type(4){
+					display: inline-block;
+					float: left;
+					padding: .3em;
+				}
+
+#ckb-menu{
+	display: none;
+}
+
+#ckb-menu+nav>ul>li:first-of-type>label{
+	transform: rotate(0);
+}
+
+#ckb-menu:checked+nav>ul>li:first-of-type>label{
+	transform: rotate(90deg);
+}
+
+#ckb-menu:checked+nav>ul{
+	max-height: 10.6em; /*Para cambiar el tamaño del desplegable
+						del menu de hamburguesa*/
+}
+
+/*El profesor también puso un aside*/
+body>footer{
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	background-color: #2C3D4F;
+	color: white;
+	text-align: center;
+	padding: 2em;
+}
+	
+	body>footer>p>a{
+		color: white;
+	}
+
+
+/*Media queries*/
+@media all and (min-width: 480px){
+
+
+	body>header{
+		margin-top: 0;
+	}
+
+	/*Por Asier, para modificar el fieldset en el tamaño grande
+	del página web. En la versión movil a está implementado de forma
+	normal, aqui se va a controlar el tamaño del fieldset para que el 
+	formulario no ocupe toda la pantalla*/
+
+/*fieldset{
+	max-width: 400px;
+	margin-left: 10%;
+}*/
+
+	body>header{	
+		text-align: center;
+		overflow: hidden;
+		margin-top: 1.2em;
+	}
+
+		body>header>a{
+			align-self: center;
+			width: 160px;
+			padding: .3em;
+			margin-left: 10%;
+		}
+
+		body>header>div{
+			margin-right: 20%;
+			text-align: center;
+		}
+	
+	/*Parte para fotos nueva entrada*/
+	body>section>form>fieldset>section>div{
+		justify-content: space-around;
+	}
+
+	body>section>form>fieldset>section>div>article{
+		width: 40%;
+	}
+	/*Termina parte para fotos nueva entrada*/
+
+	body>header{
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 0;
+	}	
+
+		body>header>div{
+			flex-grow: 2;
+		}
+
+	body>section{
+		margin-top: 5%;
+	}	
+
+	body>section>h1{
+		/*margin: 0px;*/
+		/*float: center;*/
+		/*background-color: green;*/
+	}
+
+	body>section>div{
+		justify-content: space-around;
+		/*padding: 0;
+		margin: 0;*/
+	}	
+
+		body>section>div>article{
+			width: 48%;
+		}		
+
+	body>nav{
+		height: 1.5em;
+		text-align: center;
+		background-color: red;
+	}
+
+	body>nav>ul{
+			margin: 0;
+			padding: 0;
+			position: relative;
+			margin-bottom: 0;
+			overflow: hidden;
+			max-height: 8em; /*Importante modificar esta opcion en
+							tamaños mayores que 480*/
+			
+	}
+
+	body>nav>ul>li{
+		float: left;
+	}
+
+	body>nav>ul>li:first-of-type{
+		display: none;
+	}
+
+	body>nav>ul>li>a{
+		display: block;
+    	padding: .2em 2.5em;
+	}
+
+	body>nav>ul>li>a:hover{
+		color: white;
+		background-color: #F78536;
+	}
+	
+	/*Nuevo Asier*/
+	/*body>nav>ul>li:hover{
+		background-color: red;
+		color: black;
+	}*/
+	/*Termina nuevo Asier*/
+
+}
+
+@media all and (min-width:960px){
+	
+	/*Parte formularios*/
+	fieldset>ul{
+		border: 0;
+		margin-left: 30%;
+		margin-right: 30%;
+	}
+
+	fieldset>p{
+		margin-left: 30%;
+		margin-right: 30%;
+	}
+
+	fieldset>section>ul{
+		border: 0;
+		margin-left: 30%;
+		margin-right: 30%;
+	}
+
+	#creaEntrada{
+		margin-left: 30%; 
+		width: 40%;
+	}
+
+	#infEntrada>ul{
+		margin-left: 0;
+		margin-right: 0;
+	}
+	/*Termina parte de los formularios*/
+
+
+	body>section{
+		/*background-color: orange;*/
+		overflow: hidden;
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-top: 0;
+	}
+
+		body>section>div>article{
+			width:32%;
+		}
+		
+		body>nav>ul{
+			margin: 0;
+			padding: 0;
+			position: relative;
+			margin-bottom: 0;
+			overflow: hidden;
+		}
+
+		body>nav>ul>li{
+			float: left;
+		}
+
+		body>nav>ul>li:first-of-type{
+			display: none;
+		}
+
+		body>nav>ul>li>a:hover{
+			color: white;
+    		background-color: #F78536;
+		}
+
+
+	body>header{
+		margin-top: 0;
+	}
+
+}

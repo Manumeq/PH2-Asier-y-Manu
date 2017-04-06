@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Entrada</title>
+</head>
+<body>
+	<header>
+		<a href="index.html">
+			<img src="imgs/logo1.png" alt="logotipo">
+		</a>
+		<div>
+			<h1>North & East</h1>
+			<h2>Tu página de viajes</h2>
+		</div>
+	</header>
+	<input type="checkbox" id="ckb-menu">
+	<nav>
+		<ul>
+			<li><label for="ckb-menu"><span aria-hidden="true" class="icon-menu"></span></label></li>
+			<li><a href="index.html"><span aria-hidden="true" class="icon-home"></span>Home</a></li>
+			<li><a href="nueva-entrada.html"><span aria-hidden="true" class="icon-doc-new"></span>Nueva Entrada</a></li>
+			<li><a href="buscar.html"><span aria-hidden="true" class="icon-search"></span>Buscar</a></li>
+			<li><a href="login.html"><span aria-hidden="true" class="icon-login"></span>Login</a></li>
+			<li><a href="index.html"><span aria-hidden="true" class="icon-logout-1"></span>Logout</a></li>
+			<li><a href="registro.html"><span aria-hidden="true" class="icon-edit"></span>Registro</a></li>
+		</ul>
+	</nav>
+	
+	<section id="datosEntrada">
+		<h1>Entrada</h1>
+		<h2>Datos de la entrada</h2>
+		<fieldset id="infEntrada">
+			<ul>
+				<li>
+					<span aria-hidden="true" class="icon-calendar">Fecha de alta: 05/03/2017</span>
+				</li>
+				<li>
+					<p>
+						Este es un buen pedazo de texto que describe la entrada que acabamos de crear. Ahora mismo no sirve para nada porque es un dato estático pero será cambiado en próximas entregas.
+					</p>
+				</li>
+				<li>
+					<a href="#fotosEntrada"><span aria-hidden="true" class="icon-picture">Numero de fotos: 3</span></a>
+				</li>
+				<li>
+					<a href="#comentariosEntrada"><span aria-hidden="true" class="icon-comment"></span>Numero de comentarios de los usuarios: 2</a>
+				</li>
+				<li>
+					<span aria-hidden="true" class="icon-user">Autor:  Nombre de autor genérico nº9274</span>
+				</li>
+			</ul>
+		</fieldset>
+	</section>
+
+	<section id="fotosEntrada">
+		<h2>Fotografías Entrada</h2>
+		<div>
+			<article>
+				<h3>Fotografía 1</h3>
+				<figure class="fotoEntrada">
+            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>          
+            	</figure>
+            	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.</p>  	
+			</article>
+			<article>
+				<h3>Fotografía 2</h3>
+				<figure class="fotoEntrada">
+            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>             
+            	</figure>
+            	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.</p>
+			</article>
+			<article>
+				<h3>Fotografía 3</h3>
+				<figure class="fotoEntrada">
+            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>             
+            	</figure>
+            	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.</p>
+			</article>
+		</div>	
+	</section>
+	
+	<!--Parte comentarios-->
+	<section id="comentariosEntrada" class="comentarios">
+		<h2>Comentarios</h2>
+		<section>
+			<div class="cabComentario">
+				<ul>
+					<li><span><img src="imgs/user1.jpg" alt="usuario1"></span></li>
+					<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
+					<li><span aria-hidden="true" class="icon-calendar"></span>Martes, 14/02/2017, 09:32h</li>
+					<!--<li><a href="entrada.html">Entrada</a></li>-->
+				</ul>
+			</div>
+			<div class="bodComentario">
+				<h4 class="pSuspensivos">Comentario 1 realmente extenso para probar los puntos suspensivos</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro asperiores tenetur ad numquam sequi voluptatibus aut amet totam quibusdam rerum minus quod, repudiandae vitae dignissimos. Nihil accusantium ipsam animi fugiat!</p>
+				<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Entrada realmente extensa y muy larga para probar los puntos suspensivos</p></a>
+			</div>
+		</section>
+	</section>
+	
+	<!--Formulario para realizar comentarios-->
+	<section id="responder">
+		<h2>Realizar comentario</h2>
+		<form>
+			<fieldset>
+				<ul class="formList">	
+					<li>
+						<label for="tituloComentario">Título</label>
+						<input name="tituloComentario" type="text" id="tituloComentario" placeholder="título" required/>
+					</li>
+						
+					<li>
+						<label for="textComentario">Texto comentario</label>
+						<textarea name="textComentario" id="textComentario" maxlength="50" rows=4  required></textarea>
+					</li>
+					
+					<!--<label for="comentarSubmit"></label>-->
+					<!--<input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/>-->	
+				</ul>
+				<p><input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/></p>
+			</fieldset>
+		</form>
+	</section>
+
+	<footer>
+		<p>&copy;  Asier Manzano Arévalo | Manuel Escorza Quinto || <time datetime="2017">2017 Ingeniería Multimedia Universidad de Alicante</time> | <a href="acerca.html"><span aria-hidden="true" class="icon-users-1"></span>Acerca de nosotros</a></p>
+	</footer>
+</body>
+</html>

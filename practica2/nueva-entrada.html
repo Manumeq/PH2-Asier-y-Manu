@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Nueva Entrada</title>
+</head>
+<body>
+	<header>
+		<a href="index.html">
+			<img src="imgs/logo1.png" alt="logotipo">
+		</a>
+		<div>
+			<h1>North & East</h1>
+			<h2>Tu página de viajes</h2>
+		</div>
+	</header>
+	<input type="checkbox" id="ckb-menu">
+	<nav>
+		<ul>
+			<li><label for="ckb-menu"><span aria-hidden="true" class="icon-menu"></span></label></li>
+			<li><a href="index.html"><span aria-hidden="true" class="icon-home"></span>Home</a></li>
+			<li><a href="nueva-entrada.html"><span aria-hidden="true" class="icon-doc-new"></span>Nueva Entrada</a></li>
+			<li><a href="buscar.html"><span aria-hidden="true" class="icon-search"></span>Buscar</a></li>
+			<li><a href="login.html"><span aria-hidden="true" class="icon-login"></span>Login</a></li>
+			<li><a href="index.html"><span aria-hidden="true" class="icon-logout-1"></span>Logout</a></li>
+			<li><a href="registro.html"><span aria-hidden="true" class="icon-edit"></span>Registro</a></li>
+		</ul>
+	</nav>
+	
+
+	<section>
+		<h2>Crear una nueva entrada</h2>
+		<form>
+			<fieldset>
+				<section id="datosEntrada">
+					<ul class="formList">
+						<li>
+							<label for="titleEntrada">Título</label>
+							<input type="text" name="titleEntrada" id="titleEntrada" maxlength="200" required>
+						</li>
+
+						<li>
+							<label for="descEntrada">Descripción</label>
+							<textarea name="descEntrada" id="descEntrada" rows=4 cols="80" maxlength="300" required></textarea>
+						</li>
+					</ul>
+				</section>
+			
+				<!--Zona del formualario donde se mostraran las imaganes asociadas a cada entrega-->
+				<section id="imagenesEntrada">
+					<h2>Fotografías Entrada</h2>
+					<div>
+						<article>
+							<h3>Fotografia 1</h3>
+							<figure class="fotoEntrada">
+			            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>         
+			            	</figure>
+							
+							<ul>
+								<li>
+									<p><input type="file" id="foto1" name="foto1" ></p>
+								</li>
+								<li>
+									<button>Eliminar foto</button>
+								<li>
+							</ul>
+						</article>
+						<article>
+							<h3>Fotografia 1</h3>
+							<figure class="fotoEntrada">
+			            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>         
+			            	</figure>
+							
+							<ul>
+								<li>
+									<p><input type="file" id="foto2" name="foto2"></p>
+								</li>
+								<li>
+									<button>Eliminar foto</button>
+								<li>
+							</ul>
+						</article>
+						<article>
+							<h3>Fotografia 1</h3>
+							<figure class="fotoEntrada">
+			            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>         
+			            	</figure>
+							
+							<ul>
+								<li>
+									<p><input type="file" id="foto3" name="foto3"></p>
+								</li>
+								<li>
+									<button>Eliminar foto</button>
+								<li>
+							</ul>
+						</article>
+					</div>
+				</section>
+				<input type="submit" name="creaEntrada" id="creaEntrada" value="Crear Entrada">
+			</fieldset>
+		</form>			
+	</section>
+	
+	<footer>
+		<p>&copy;  Asier Manzano Arévalo | Manuel Escorza Quinto || <time datetime="2017">2017 Ingeniería Multimedia Universidad de Alicante</time> | <a href="acerca.html"><span aria-hidden="true" class="icon-users-1"></span>Acerca de nosotros</a></p>
+	</footer>
+</body>
+</html>
