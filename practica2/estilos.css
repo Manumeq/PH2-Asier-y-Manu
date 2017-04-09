@@ -1,0 +1,13 @@
+section{
+	display: inline-block;
+	width: 80%;
+	border: .1em solid #234;
+	margin: 1em;
+	padding: 4em;
+}
+
+
+form>div>label{
+	display:inline-block;
+	width: 6em;
+}

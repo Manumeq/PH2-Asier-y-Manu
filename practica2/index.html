@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="css/fontello.css">
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<script src="funciones.js"></script>
 	<title>Index</title>
 </head>
 <body>
@@ -35,7 +36,8 @@
 		<h1>Parte Principal</h1>
 		<div>
 			<article>
-				<h3><a href="entrada.html">Entrada 1</a></h3>
+				<h3><a href="entrada.html" onclick="cargarEntrada(this);" id="1">Entrada 1</a></h3>
+				<button onclick="cargarEntrada(this);" value="entrada1" id="2"> Entrada 1</button>
 				<figure>
             		<img src="imgs/paisaje1.jpg" alt="entrada"/>
                 		<figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.
