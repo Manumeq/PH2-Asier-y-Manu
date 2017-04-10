@@ -34,8 +34,34 @@
 	</nav>
 	<section>
 		<h1>Parte Principal</h1>
+
+		<form onsubmit="return mostrarEntradas(this);">
+					<div>
+						<span>Página:</span>
+						<input type="text" name="pag" value="0">
+						<span>de</span>
+						<input type="text" name="lpag" value="4">
+						<input type="submit">
+					</div>
+		</form>
+
+		<h2>Entradas</h2>
+
 		<div>
+		<template>
 			<article>
+				<h3>Titulo de la entrada</h3>
+					<div>
+						<img src="" alt="">
+						<p></p>
+					</div>
+					<footer>
+						<p></p>
+						<time></time>
+						<p></p>
+						<p></p>
+					</footer>
+				<!--
 				<h3><a href="entrada.html" onclick="cargarEntrada(this);" id="1">Entrada 1</a></h3>
 				<button onclick="cargarEntrada(this);" value="entrada1" id="2"> Entrada 1</button>
 				<figure>
@@ -52,7 +78,10 @@
 						<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
 					</ul>
 				</footer>
-			</article>	
+				-->
+			</article>
+		</template>
+		<!--
 			<article>
 				<h3><a href="entrada.html">Entrada 1</a></h3>
 				<figure>
@@ -138,6 +167,7 @@
 					</ul>
 				</footer>
 			</article>		
+			-->
 		</div>
 	</section>
 	
