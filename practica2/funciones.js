@@ -45,21 +45,68 @@ function mostrarEntradas(frm){
 					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
 
 				html += '<article>';
-				html += 	'<h3>' + e.nombre + '</h3>';
-				html += 	'<div>';
+				html += 	'<h3><a href="entrada.html">' + e.nombre + '</a></h3>';
+				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<p>' + e.descripcion + '</p>';
-				html += 	'</div>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 	'</figure>';
 				html += 	'<footer>';
-				html += 		'<p>' + e.login + '</p>';
-				html += 		'<time datetime="'+ e.fecha + '">' + e.fecha + '</time>';
-				html += 		'<p>' + e.nfotos + ' fotos</p>';
-				html += 		'<p>' + e.ncomentarios + ' comentarios</p>';
+				html += 	'<ul>';
+				html += 		'<li><span aria-hidden="true" class="icon-comment"></span>' + e.ncomentarios + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-picture"></span>' + e.nfotos + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 	'</ul>';
 				html += 	'</footer>';
 				html += '</article>';
 
 			}//for(let i=0; i<v.FILAS.length; i++)
 			section.querySelector('h2+div').innerHTML = html;
+		}
+	}
+
+	xhr.send();
+
+	return false;
+}
+
+function mostrarComentarios(frm){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
+		section = frm.parentNode.parentNode;
+
+	// url += '?pag=' + frm.pag.value + '&lpag=' + frm.lpag.value; 
+
+	xhr.open('GET', url, true);
+
+	xhr.onload = function(){
+		let v = JSON.parse(xhr.responseText);
+		if(v.RESULTADO == 'ok'){
+			let html = '';
+
+			for(let i=0; i<v.FILAS.length; i++){
+				let e = v.FILAS[i],
+
+					foto = 'http://localhost/PHII/practica2/imgs/user1.jpg/' + e.fichero;
+
+				html += '<article>';
+				html += 	'<h3><a href="entrada.html">' + e.nombre + '</a></h3>';
+				html += 	'<figure>';
+				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 	'</figure>';
+				html += 	'<footer>';
+				html += 	'<ul>';
+				html += 		'<li><span aria-hidden="true" class="icon-comment"></span>' + e.ncomentarios + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-picture"></span>' + e.nfotos + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 	'</ul>';
+				html += 	'</footer>';
+				html += '</article>';
+
+			}//for(let i=0; i<v.FILAS.length; i++)
+			section.querySelector('h2+section').innerHTML = html;
 		}
 	}
 
