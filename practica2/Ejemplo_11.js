@@ -47,7 +47,7 @@ function mostrarEntradas(frm){
 //metodo 2 para añadir entradas
 function mostrarEntradas2(frm){
 	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost:4443/ph2/rest/entrada/',
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
 		section = frm.parentNode.parentNode;
 
 	url += '?pag=' + frm.pag.value + '&lpag=' + frm.lpag.value; 
@@ -66,7 +66,7 @@ function mostrarEntradas2(frm){
 
 			for(let i=0; i<v.FILAS.length; i++){
 				let e = v.FILAS[i],
-					foto = 'http://localhost:4443/ph2/fotos/' + e.fichero;
+					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
 					let article = document.createElement('article'),	//el nombre de la variable no tiene porque ser lo mismo
 						h3= document.createElement('h3'),
 						div= document.createElement('div'),
@@ -117,7 +117,7 @@ function mostrarEntradas2(frm){
 //metodo 3 para añadir entradas
 function mostrarEntradas3(frm){
 	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost:4443/ph2/rest/entrada/',
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
 
 		section = frm.parentNode.parentNode;
 
@@ -136,7 +136,7 @@ function mostrarEntradas3(frm){
 
 			for(let i=0; i<v.FILAS.length; i++){
 				let e = v.FILAS[i],
-					foto = 'http://localhost:4443/ph2/fotos/' + e.fichero;
+					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
 
 					let article = section.querySelector('div>template').content.cloneNode(true);
 
