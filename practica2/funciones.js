@@ -24,8 +24,12 @@ function cargarEntrada(entrada){ //ENTRADA ES EL THIS
 }
 
 
+
+
 // Nueva funcion de prueba para mostrar las entradas cogido del ejemplo_11 (probando el primer ejemplo)
 function mostrarEntradas(frm){
+	pageText = 'Página ' + frm.pag.value;
+
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/',
 		section = frm.parentNode.parentNode;
@@ -74,8 +78,7 @@ function mostrarEntradasDefault(frm){
 	console.log(frm.document.body.getElementsByTagName("SECTION")[0]);
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/',
-		algo = frm.document.body;
-		section = algo.childNodes[7];
+		section = frm.document.body.getElementsByTagName("SECTION")[0];
 
 	url += '?pag=' + 0 + '&lpag=' + 4; 
 
@@ -123,6 +126,49 @@ function mostrarComentarios(frm){
 		url = 'http://localhost/PHII/practica2/rest/comentario/';
 		section = frm.parentNode.parentNode; // ASIER - NO SE PARA QUE sirve
 
+
+	url += '?u=10'; // + frm.pag.value + '&lpag=' + frm.lpag.value; 
+
+	xhr.open('GET', url, true);
+
+	xhr.onload = function(){
+		let v = JSON.parse(xhr.responseText);
+		if(v.RESULTADO == 'ok'){
+			let html = '';
+
+			for(let i=0; i<v.FILAS.length && i<10; i++){
+				let e = v.FILAS[i],
+
+					foto = 'http://localhost/PHII/practica2/imgs/user1.jpg';
+
+				html += '<div class="cabComentario">';
+				html += 	'<ul>';
+				html += 		'<li><span><img src="' + foto + '"></span></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 	'</ul>';
+				html += '</div>';
+				html += '<div class="bodComentario">';
+				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
+				html += 	'<p>' + e.descripcion + '</p>';
+				html += 	'<a href="entrada.html#incioComentarios"><p class="pSuspensivos"></p>' + e.nombre_entrada + '</a>';
+				html += '</div>';
+
+			}//for(let i=0; i<v.FILAS.length; i++)
+			section.querySelector('h2+section').innerHTML = html;
+		}
+	}
+
+	xhr.send();
+
+	return false;
+}
+
+function mostrarComentariosDefault(frm){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/comentario/';
+		section = frm.document.body.getElementsByTagName("SECTION")[2] // ASIER - NO SE PARA QUE sirve
+		console.log(section);
 
 	url += '?u=10'; // + frm.pag.value + '&lpag=' + frm.lpag.value; 
 

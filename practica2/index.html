@@ -9,7 +9,7 @@
 	<script src="funciones.js"></script>
 	<title>Index</title>
 </head>
-<body onload="mostrarEntradasDefault(this);">
+<body onload="mostrarEntradasDefault(this); mostrarComentariosDefault(this);">
 	<header>
 		<a href="index.html">
 			<img src="imgs/logo1.png" alt="logotipo">
@@ -68,6 +68,9 @@
 				
 			</article>
 		</template>
+
+	
+
 		<!--
 			<article>
 				<h3><a href="entrada.html" onclick="cargarEntrada(this);" id="1">Entrada 1</a></h3>
@@ -163,11 +166,16 @@
 	<section class="piePaginacion">
 		<ul>
 			<li><a href="index.html"><span aria-hidden="true" class="icon-left-open"></span></a></li>
-			<li><a href="index.html" id="active">1</a></li>
-			<li><a href="index2.html">2</a></li>
-			<li><a href="index3.html">3</a></li>
-			<li><a href="index4.html">4</a></li>
-			<li><a href="index5.html">5</a></li>
+			
+			<!--
+				<li><a href="index.html" id="active">1</a></li>
+				<li><a href="index2.html">2</a></li>
+				<li><a href="index3.html">3</a></li>
+				<li><a href="index4.html">4</a></li>
+				<li><a href="index5.html">5</a></li>
+			-->
+			
+
 			<li><a href="index5.html"><span aria-hidden="true" class="icon-right-open"></span></a></li>
 		</ul>
 	</section>
@@ -202,7 +210,7 @@
 	</section>
 
 		
-		<!--<h2>Comentarios</h2>
+	<!--<h2>Comentarios</h2>
 		<section>
 			<div class="cabComentario">
 				<ul>
