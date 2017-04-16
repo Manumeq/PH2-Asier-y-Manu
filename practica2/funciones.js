@@ -70,6 +70,54 @@ function mostrarEntradas(frm){
 	return false;
 }
 
+function mostrarEntradasDefault(frm){
+	console.log(frm.document.body.getElementsByTagName("SECTION")[0]);
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
+		algo = frm.document.body;
+		section = algo.childNodes[7];
+
+	url += '?pag=' + 0 + '&lpag=' + 4; 
+
+	xhr.open('GET', url, true);
+	xhr.onload = function(){
+		let v = JSON.parse(xhr.responseText);
+		if(v.RESULTADO == 'ok'){
+			let html = '';
+
+			for(let i=0; i<v.FILAS.length && i<6; i++){
+				let e = v.FILAS[i],
+
+					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
+
+				html += '<article>';
+				html += 	'<h3><a href="entrada.html">' + e.nombre + '</a></h3>';
+				html += 	'<figure>';
+				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 	'</figure>';
+				html += 	'<footer>';
+				html += 	'<ul>';
+				html += 		'<li><span aria-hidden="true" class="icon-comment"></span>' + e.ncomentarios + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-picture"></span>' + e.nfotos + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 	'</ul>';
+				html += 	'</footer>';
+				html += '</article>';
+
+			}//for(let i=0; i<v.FILAS.length; i++)
+			section.querySelector('h2+div').innerHTML = html;
+
+		}
+	}
+
+	xhr.send();
+
+	return false;
+}
+
+
 function mostrarComentarios(frm){
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/comentario/';
