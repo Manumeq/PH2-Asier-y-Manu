@@ -1,0 +1,28 @@
+*{
+	box-sizing: border-box;
+}
+
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+section{
+	border: .1em solid #234;
+	padding: .5em;
+	width: 20em;
+	margin: 1em;
+}
+
+form>label{
+	display: block;
+}
+
+	form>label>span{
+		display: inline-block;
+		width: 5em;
+	}
+
+[type=file]{
+	display: none;
+}
