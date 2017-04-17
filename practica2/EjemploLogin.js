@@ -1,10 +1,14 @@
 function hacerLogin(frm){
 
 	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost/PHII/practica2/rest/login/'; //Preguntar porque NO FUNCIONA el servidor
-		fd = new FormData(frm);
+		url = 'http://localhost/PHII/practica2/rest/login/',
+		fd = new FormData(frm); // le pasamos al constructor  la referencia al formulario
 
-	xhr.open('POST', url, true);
+		// El FormData accederá e ese formulario y todos los campos input
+		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
+
+	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
+
 
 	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
 	xhr.onload = function(){
@@ -13,14 +17,19 @@ function hacerLogin(frm){
 		
 		if (du.RESULTADO == 'ok'){
 			//GUARDAMOS EN EL SESSION STORAGE
-			sessionStorage['du'] = xhr.responseText;
+			// Ya tendriamos toda la informacion del usuario
+			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
+			// Luego sacar el mensaje de login correcto
 		}else{
-			frm.parentNode.querySelector('p').textContent = xhr.responseText;
+			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
+			// avisando que lo volvamos a intentar
+			frm.parentNode.querySelector('p').textContent = xhr.responseText; // textContent o innerHtml
+			// textContent no interpreta html sino texto. innerHtml interpreta el html.
 		}
 			
 	};
 
-	xhr.send(fd);
+	xhr.send(fd); // Enviamos el FormData
 
 	return false;
 }
@@ -36,9 +45,9 @@ function mostrarFoto(inp) {
 	fr.readAsDataURL(inp.files[0]);
 }
 
-function enviarFoto(this){
+/*function enviarFoto(this){
 	let xhr = new XMLHRequest(),
-		url = 'ruta de la foto',
+		url = 'http://localhost/PHII/practica2/rest/foto/',
 		fd = new FormData(),
 		du = JSON.parse(sessionStorage['du']);
 
@@ -53,4 +62,4 @@ function enviarFoto(this){
 	};
 	xhr.setRequestHeader('Authorization', du.clave);
 	xhr.send(fd);
-}
+}*/

@@ -4,6 +4,43 @@
 	font-family: 'Nunito', sans-serif;;
 }
 
+/* CSS PARA JAVASCRIPT MODIFICADO POR ASIER */
+
+/*CSS Mensaje emergenete no login*/
+
+.capa-fondo{
+    background-color: rgba(255,255,255,.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.capa-frente{
+    width: 20em;
+    border: .2em solid #234;
+    padding: 1em;
+    position: fixed;
+    top: 5em;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: #ccc;
+    z-index: 1;
+}
+
+.capa-frente>h2{
+    margin: 0;
+    padding: .2em;
+    background-color: #00a;
+    color: #fff;
+}
+
+/* *********************************** */
+
+
 /*Formularios CSS Asier*/
 
 fieldset{
@@ -228,7 +265,7 @@ body{
 		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); /*Prueba Asier para sombrear el menu*/
 		font-size: 1.1em;
 		position: fixed;
-		z-index: 1;
+		z-index: 1; /*sirve para poner los elementos delante o detrás de otros*/
 		top: 0;
 		left: 0;
 	}

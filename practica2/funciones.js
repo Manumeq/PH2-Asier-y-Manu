@@ -206,3 +206,87 @@ function mostrarComentariosDefault(frm){
 
 	return false;
 }
+
+function hacerLogin(frm){
+
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/login/',
+		fd = new FormData(frm); // le pasamos al constructor  la referencia al formulario
+
+		// El FormData accederá e ese formulario y todos los campos input
+		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
+
+	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
+
+
+	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+		let du = JSON.parse(xhr.responseText);
+		
+		if (du.RESULTADO == 'ok'){
+			//GUARDAMOS EN EL SESSION STORAGE
+			// Ya tendriamos toda la informacion del usuario
+			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
+			// Luego sacar el mensaje de login correcto
+		}else{
+			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
+			// avisando que lo volvamos a intentar
+			mostrarMensajeNoLogin();
+			//frm.parentNode.querySelector('article').textContent = xhr.responseText; // textContent o innerHtml
+			// textContent no interpreta html sino texto. innerHtml interpreta el html.
+		}
+			
+	};
+
+	xhr.send(fd); // Enviamos el FormData
+
+	return false;
+}
+
+// Función para mostrar el mensaje emergente cuando no se ha 
+// podido iniciar sesión.
+function mostrarMensajeNoLogin(){
+    let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+        //texto = document.querySelector('body>input[name="mensaje"]').value,
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>Login incorrecto</h2>';
+    //html+= '<p>' + texto + '</p>';
+    html+= '<button onclick="this.parentNode.parentNode.remove();">Cerrar</button>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
+}
+
+
+/*function menu(){
+  let html = '';
+  if (sessionStorage['du']!=null){
+    html += '<ul>';
+    html +=   '<li><label for="ckb-menu">&equiv;</label></li>';
+    html +=   '<li><a href="index.html"><span aria-hidden="true" class="icon-venus-double"></span>Incio</a></li>';
+    html +=   '<li><a href="buscar.html"><span aria-hidden="true" class="icon-flashlight"></span>Buscar</a></li>';
+    html +=   '<li><a href="nueva-entrada.html"><span aria-hidden="true" class="icon-doc-new"></span>Nueva entrada</a></li>';
+    html +=   '<li><a  onclick="hacerlogout();" href="index.html"><span aria-hidden="true" class="icon-logout"></span>Logout</a></li>';
+    html += '</ul>';
+    document.querySelector('body>nav').innerHTML = html;
+  }
+  else{
+    html += '<ul>';
+    html +=   '<li><label for="ckb-menu">&equiv;</label></li>';
+    html +=   '<li><a href="index.html"><span aria-hidden="true" class="icon-venus-double"></span>Incio</a></li>';
+    html +=   '<li><a href="buscar.html"><span aria-hidden="true" class="icon-flashlight"></span>Buscar</a></li>';
+    html +=   '<li><a href="login.html"><span aria-hidden="true" class="icon-login"></span>Login</a></li>';
+    html +=   '<li><a href="registro.html"><span aria-hidden="true" class="icon-child"></span>Registro</a></li>';
+    html += '</ul>';
+    document.querySelector('body>nav').innerHTML = html;
+  }
+}*/

@@ -5,10 +5,11 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/fontello.css">
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<script src="funciones.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Login</title>
 </head>
-<body>
+<body><!--onload="menu()"-->
 	<header>
 		<a href="index.html">
 			<img src="imgs/logo1.png" alt="logotipo">
@@ -28,30 +29,32 @@
 			<li><a href="login.html"><span aria-hidden="true" class="icon-login"></span>Login</a></li>
 			<li><a href="index.html"><span aria-hidden="true" class="icon-logout-1"></span>Logout</a></li>
 			<li><a href="registro.html"><span aria-hidden="true" class="icon-edit"></span>Registro</a></li>
-		</ul>
+		</ul><!--Comentar el ul del nav para mostrar con javascript el menu si esta logueado-->
 	</nav>
 
 	<section>
 		<h2>Login</h2>
-		<form>
+		<form onsubmit="return hacerLogin(this);">
 			<fieldset>
 				<ul class="formList">	
 					<li>
 						<label for="loginName">Login</label>
-						<input autofocus name="login" type="text" id="loginName" placeholder="Login" pattern="[0-9a-zA-Z]" required/>
+						<input autofocus name="login" type="text" id="loginName" placeholder="Login" required/> <!--pattern="[0-9a-zA-Z]"-->
 					</li>
 
 					<li>
 						<label for="loginPass">Contraseña</label>
-						<input name="Contraseña" type="password" id="loginPass" pattern="[a-zA-Z0-9_\-]{4,20}" placeholder="Contraseña" required/>
+						<input name="pwd" type="password" id="loginPass" pattern="[a-zA-Z0-9_\-]{4,20}" placeholder="Contraseña" required/>
 					</li>
 
-					<!--<label for="loginSubmit"></label>-->
-					<!--<input name="submit" value="Entrar" type="Submit" id="loginSubmit"/>-->
 				</ul>
-				<p><input name="submit" value="Entrar" type="Submit" id="loginSubmit"/></p>
+				<p><input type="submit"/></p>
 			</fieldset>
+			<!--<label><span>Login:</span><input type="text" name="login"></label>
+			<label><span>Password:</span><input type="text" name="pwd"></label>
+			<input type="submit">-->
 		</form>
+		<article></article>
 	</section>
 	
 	<footer>
