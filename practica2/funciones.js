@@ -228,11 +228,13 @@ function hacerLogin(frm){
 			//GUARDAMOS EN EL SESSION STORAGE
 			// Ya tendriamos toda la informacion del usuario
 			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
+			var fecha_acceso = du.ultimo_acceso;
 			// Luego sacar el mensaje de login correcto
+			mostrarMensajeLoginCorrecto(fecha_acceso);
 		}else{
 			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
 			// avisando que lo volvamos a intentar
-			mostrarMensajeNoLogin();
+			mostrarMensajeLoginIncorrecto();
 			//frm.parentNode.querySelector('article').textContent = xhr.responseText; // textContent o innerHtml
 			// textContent no interpreta html sino texto. innerHtml interpreta el html.
 		}
@@ -246,18 +248,19 @@ function hacerLogin(frm){
 
 // Función para mostrar el mensaje emergente cuando no se ha 
 // podido iniciar sesión.
-function mostrarMensajeNoLogin(){
+function mostrarMensajeLoginIncorrecto(){
     let capa_fondo = document.createElement('div'),
         capa_frente = document.createElement('article'),
         //texto = document.querySelector('body>input[name="mensaje"]').value,
 
         html = '';
 
+
+
     capa_fondo.appendChild(capa_frente);    
 
-    html+= '<h2>Login incorrecto</h2>';
-    //html+= '<p>' + texto + '</p>';
-    html+= '<button onclick="this.parentNode.parentNode.remove();">Cerrar</button>';
+    html+= '<h2>Login Incorrecto</h2>';
+    html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
     
     capa_frente.innerHTML = html;
     capa_fondo.classList.add('capa-fondo'); 
@@ -266,27 +269,61 @@ function mostrarMensajeNoLogin(){
     document.body.appendChild(capa_fondo);
 }
 
+// Función para mostrar el mensaje emergente cuando se
+// ha podido iniciar inicar sesión correctamente
+function mostrarMensajeLoginCorrecto(fecha_acceso){
+    let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+        //texto = document.querySelector('body>input[name="mensaje"]').value,
 
-/*function menu(){
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>Login Correcto</h2>';
+    html+= '<p>Bienvenido a nuestra web</p>';
+    html+= '<p>Último acceso: ' + fecha_acceso + '</p>';
+    html+= '<a href="index.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
+}
+
+// Función para mostrar dos menús distintos en función si
+// hemos iniciado sesion o no.
+function menu(){
   let html = '';
   if (sessionStorage['du']!=null){
+
     html += '<ul>';
-    html +=   '<li><label for="ckb-menu">&equiv;</label></li>';
-    html +=   '<li><a href="index.html"><span aria-hidden="true" class="icon-venus-double"></span>Incio</a></li>';
-    html +=   '<li><a href="buscar.html"><span aria-hidden="true" class="icon-flashlight"></span>Buscar</a></li>';
-    html +=   '<li><a href="nueva-entrada.html"><span aria-hidden="true" class="icon-doc-new"></span>Nueva entrada</a></li>';
-    html +=   '<li><a  onclick="hacerlogout();" href="index.html"><span aria-hidden="true" class="icon-logout"></span>Logout</a></li>';
+    html +=   '<li><label for="ckb-menu"><span aria-hidden="true" class="icon-menu"></span></label></li>';
+    html +=   '<li><a href="index.html"><span aria-hidden="true" class="icon-home"></span>Home</a></li>';
+    html +=   '<li><a href="buscar.html"><span aria-hidden="true" class="icon-search"></span>Buscar</a></li>';
+    html +=   '<li><a href="nueva-entrada.html"><span aria-hidden="true" class="icon-doc-new"></span>Nueva Entrada</a></li>';
+    html +=   '<li><a onclick="hacerlogout();" href="index.html"><span aria-hidden="true" class="icon-logout"></span>Logout</a></li>';
     html += '</ul>';
     document.querySelector('body>nav').innerHTML = html;
-  }
-  else{
+
+  }else{
+
     html += '<ul>';
-    html +=   '<li><label for="ckb-menu">&equiv;</label></li>';
-    html +=   '<li><a href="index.html"><span aria-hidden="true" class="icon-venus-double"></span>Incio</a></li>';
-    html +=   '<li><a href="buscar.html"><span aria-hidden="true" class="icon-flashlight"></span>Buscar</a></li>';
+    html +=   '<li><label for="ckb-menu"><span aria-hidden="true" class="icon-menu"></span></label></li>';
+    html +=   '<li><a href="index.html"><span aria-hidden="true" class="icon-home"></span>Home</a></li>';
+    html +=   '<li><a href="buscar.html"><span aria-hidden="true" class="icon-search"></span>Buscar</a></li>';
     html +=   '<li><a href="login.html"><span aria-hidden="true" class="icon-login"></span>Login</a></li>';
-    html +=   '<li><a href="registro.html"><span aria-hidden="true" class="icon-child"></span>Registro</a></li>';
+    html +=   '<li><a href="registro.html"><span aria-hidden="true" class="icon-edit"></span>Registro</a></li>';
     html += '</ul>';
     document.querySelector('body>nav').innerHTML = html;
   }
-}*/
+}
+
+// Función para cerrar la sesión actual
+function hacerlogout(){
+	sessionStorage['du'].clear();
+	
+	// menu();
+
+}

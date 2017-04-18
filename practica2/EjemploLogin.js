@@ -45,7 +45,7 @@ function mostrarFoto(inp) {
 	fr.readAsDataURL(inp.files[0]);
 }
 
-/*function enviarFoto(this){
+function enviarFoto(this){
 	let xhr = new XMLHRequest(),
 		url = 'http://localhost/PHII/practica2/rest/foto/',
 		fd = new FormData(),
@@ -62,4 +62,4 @@ function mostrarFoto(inp) {
 	};
 	xhr.setRequestHeader('Authorization', du.clave);
 	xhr.send(fd);
-}*/
+}
