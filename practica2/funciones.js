@@ -49,7 +49,7 @@ function mostrarEntradas(frm){
 					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
 
 				html += '<article>';
-				html += 	'<h3><a href="entrada.html">' + e.nombre + '</a></h3>';
+				html += 	'<h3><a href="entrada.html/?id=' + e.id + '">' + e.nombre + '</a></h3>';
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
 				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
@@ -94,7 +94,7 @@ function mostrarEntradasDefault(frm){
 					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
 
 				html += '<article>';
-				html += 	'<h3><a href="entrada.html">' + e.nombre + '</a></h3>';
+				html += 	'<h3><a href="entrada.html/?id=' + e.id + '">' + e.nombre + '</a></h3>';
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
 				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
