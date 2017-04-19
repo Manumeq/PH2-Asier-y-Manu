@@ -9,7 +9,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Entrada</title>
 </head>
-<body onload="menu()">
+
+<body onload="menu(); mostrarEntradaId(this, getID());">
 	<header>
 		<a href="index.html">
 			<img src="imgs/logo1.png" alt="logotipo">
@@ -34,6 +35,7 @@
 	
 	<section id="datosEntrada">
 		<h1>Entrada</h1>
+		<!--
 		<h2>Datos de la entrada</h2>
 		<fieldset id="infEntrada">
 			<ul>
@@ -56,45 +58,27 @@
 				</li>
 			</ul>
 		</fieldset>
+		-->
 	</section>
 
 	<section id="fotosEntrada">
 		<h2>Fotografías Entrada</h2>
-		<div>
-			<article>
-				<h3>Fotografía 1</h3>
-				<figure class="fotoEntrada">
-            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>          
-            	</figure>
-            	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.</p>  	
-			</article>
-			<article>
-				<h3>Fotografía 2</h3>
-				<figure class="fotoEntrada">
-            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>             
-            	</figure>
-            	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.</p>
-			</article>
-			<article>
-				<h3>Fotografía 3</h3>
-				<figure class="fotoEntrada">
-            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>             
-            	</figure>
-            	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.</p>
-			</article>
-		</div>	
+		
 	</section>
 	
 	<!--Parte comentarios-->
 	<section id="comentariosEntrada" class="comentarios">
+		<!--
 		<h2>Comentarios</h2>
 		<section>
+
 			<div class="cabComentario">
 				<ul>
 					<li><span><img src="imgs/user1.jpg" alt="usuario1"></span></li>
 					<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
 					<li><span aria-hidden="true" class="icon-calendar"></span>Martes, 14/02/2017, 09:32h</li>
 					<!--<li><a href="entrada.html">Entrada</a></li>-->
+				<!--
 				</ul>
 			</div>
 			<div class="bodComentario">
@@ -103,6 +87,7 @@
 				<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Entrada realmente extensa y muy larga para probar los puntos suspensivos</p></a>
 			</div>
 		</section>
+		-->
 	</section>
 	
 	<!--Formulario para realizar comentarios-->
