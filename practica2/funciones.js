@@ -120,6 +120,153 @@ function mostrarEntradasDefault(frm){
 	return false;
 }
 
+/* MODIFICACIONES DE MANU*/
+function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/entrada/' + id;
+		section = frm.document.body.getElementsByTagName("SECTION")[0]; //Seccion datos de entrada
+		
+
+	xhr.open('GET', url, true);
+
+	xhr.onload = function(){
+		let v = JSON.parse(xhr.responseText);
+		if(v.RESULTADO == 'ok'){
+		//<-----DATOS DE LA ENTRADA-------->
+			let html = '';
+			let e = v.FILAS[0];
+
+			html += '<h2>Datos de la entrada</h2>';
+			html +=	'<fieldset id="infEntrada">';
+			html += 	'<ul>';
+			html += 		'<li>';
+			html += 			'<span aria-hidden="true" class="icon-calendar">';
+			html += 			'Fecha de alta: ' + e.fecha + '</span>';
+			html += 		'</li>';
+			html +=			'<li>';
+			html +=				'<p>' + e.descripcion + '</p>';
+			html +=			'</li>';
+			html +=			'<li>';
+			html +=				'<a href="#fotosEntrada"><span aria-hidden="true"' +
+									'class="icon-picture"> Numero de fotos: ' + e.nfotos + '</span>';
+			html +=				'</a>';
+			html +=			'</li>';
+			html +=			'<li>';
+			html +=				'<a href="#comentariosEntrada"><span aria-hidden=' +
+								'"true" class="icon-comment"></span>Numero de comentarios de' +
+								'los usuarios: ' + e.ncomentarios + '</a>';
+			html +=			'</li>';
+			html +=			'<li>';
+			html +=				'<span aria-hidden="true" class="icon-user">';
+			html +=				'Autor: ' + e.login + '</span>';	 		
+			html +=			'</li>';
+			html +=		'</ul>';
+			html +=	'</fieldset>';
+			section.innerHTML = html;
+			
+		}
+	}
+	xhr.send();
+
+	let xhr2 = new XMLHttpRequest(),
+		url2 = 'http://localhost/PHII/practica2/rest/entrada/' + id + '/fotos';
+		section2 = frm.document.body.getElementsByTagName("SECTION")[1]; //Seccion fotos de entrada
+		
+
+
+	xhr2.open('GET', url2, true);
+
+	xhr2.onload = function(){
+		let v2 = JSON.parse(xhr2.responseText);
+		if(v2.RESULTADO == 'ok'){
+			
+			html = '';
+			html += '<h2>Fotografías Entrada</h2>';
+			html += '<div>';
+			for(let i=0; i<v2.FILAS.length; i++){
+				let e = v2.FILAS[i],
+					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
+					console.log(e);
+			//<-------FOTOS DE LA ENTRADA-------->
+			
+				
+				html += '<article>';
+				html += '<h3>Fotografía ' + e.id + '</h3>';
+				html += '<figure class="fotoEntrada">';
+				html +=		'<img src="' + foto + '" alt="' + e.texto + '"/>';
+				html += '</figure>';
+				html +=	'<p>' + e.texto + '</p>'; 
+				html += '</article>';
+				
+			}
+			html += '</div>';
+			section2.innerHTML = html;
+		}
+	}
+	xhr2.send();
+
+
+	let xhr3 = new XMLHttpRequest(),
+		url3 = 'http://localhost/PHII/practica2/rest/entrada/' + id + '/comentarios';
+		section3 = frm.document.body.getElementsByTagName("SECTION")[2]; //Seccion comentarios de la entrada
+		
+	xhr3.open('GET', url3, true);
+
+	xhr3.onload = function(){
+		let v3 = JSON.parse(xhr3.responseText);
+		if(v3.RESULTADO == 'ok'){
+			html = '';
+			html += '<h2>Comentarios</h2>';
+			
+			for(let i=0; i<v3.FILAS.length && i<10; i++){
+				let e = v3.FILAS[i];
+			html += '<section>';
+			//<-------COMENTARIOS DE LA ENTRADA-------->			
+				
+				html += '<div class="cabComentario">';
+				html += 	'<ul>';
+				html += 		'<li><span><img src="imgs/user1.jpg" alt="' + e.login + '"></span></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span> <time = datetime="' + e.fecha + '">' + e.fecha + '</time> </li>';
+				html += 	'</ul>';
+				html += '</div>';
+				html +=	'<div class="bodComentario">';
+				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
+				html +=		'<p>' + e.texto + '</p>';
+				html +=	'</div>';
+			html += '</section>';
+			}
+			
+			section3.innerHTML = html;
+		}
+	}
+	xhr3.send();
+
+	return false;
+}
+
+function getID(){
+	var $_GET = {};
+	if(document.location.toString().indexOf('?') !== -1) {
+	    var query = document.location
+	                   .toString()
+	                   // get the query string
+	                   .replace(/^.*?\?/, '')
+	                   // and remove any existing hash string (thanks, @vrijdenker)
+	                   .replace(/#.*$/, '')
+	                   .split('&');
+
+	    for(var i=0, l=query.length; i<l; i++) {
+	       var aux = decodeURIComponent(query[i]).split('=');
+	       $_GET[aux[0]] = aux[1];
+	    }
+	}
+
+	return $_GET['id'];
+}
+
+/* FIN DE MODIFICACIONES DE MANU*/
+
 
 function mostrarComentarios(frm){
 	let xhr = new XMLHttpRequest(),
