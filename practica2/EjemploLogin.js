@@ -35,7 +35,9 @@ function hacerLogin(frm){
 }
 
 function mostrarFoto(inp) {
-	let fr = new fileReader(); // let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
+
+	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
+	let fr = new fileReader(); 
 
 	fr.onload = function(){
 		inp.parentNode.querySelector('img').src = fr.result;
@@ -45,15 +47,15 @@ function mostrarFoto(inp) {
 	fr.readAsDataURL(inp.files[0]);
 }
 
-function enviarFoto(this){
-	let xhr = new XMLHRequest(),
+function enviarFoto(btn){
+	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/foto/',
 		fd = new FormData(),
 		du = JSON.parse(sessionStorage['du']);
 
-	fd.append('login');
-	fd.append('id_enrada', 1);
-	fd.append('descripcion', btn.parentNode.querySelector('textarea').value);
+	fd.append('login', du.login);
+	fd.append('id_entrada', 1);
+	fd.append('texto', btn.parentNode.querySelector('textarea').value);
 	fd.append('foto', btn.parentNode.querySelector('[type=file]').file[0]);
 
 	xhr.open('POST', url, true);

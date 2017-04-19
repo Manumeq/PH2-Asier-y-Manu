@@ -579,7 +579,7 @@ body>footer{
 	body>nav{
 		height: 1.5em;
 		text-align: center;
-		background-color: red;
+		/*background-color: red;*/
 	}
 
 	body>nav>ul{

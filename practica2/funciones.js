@@ -211,7 +211,7 @@ function hacerLogin(frm){
 
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/login/',
-		fd = new FormData(frm); // le pasamos al constructor  la referencia al formulario
+		fd = new FormData(frm); // le pasamos al constructor la referencia al formulario
 
 		// El FormData accederá e ese formulario y todos los campos input
 		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
@@ -229,6 +229,7 @@ function hacerLogin(frm){
 			// Ya tendriamos toda la informacion del usuario
 			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
 			var fecha_acceso = du.ultimo_acceso;
+
 			// Luego sacar el mensaje de login correcto
 			mostrarMensajeLoginCorrecto(fecha_acceso);
 		}else{
@@ -254,8 +255,6 @@ function mostrarMensajeLoginIncorrecto(){
         //texto = document.querySelector('body>input[name="mensaje"]').value,
 
         html = '';
-
-
 
     capa_fondo.appendChild(capa_frente);    
 
@@ -322,8 +321,32 @@ function menu(){
 
 // Función para cerrar la sesión actual
 function hacerlogout(){
-	sessionStorage['du'].clear();
-	
-	// menu();
+	sessionStorage.clear();
+}
+
+// Función para registrar a un nuevo usuario
+function hacerRegistro(frm){
+
+	console.log('funciona');
+
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/usuario/',
+		fd = new FormData();
+
+
+
+	fd.append('login', frm.parentNode.querySelector('input[name=login]').value);
+	fd.append('nombre', frm.parentNode.querySelector('input[name=nombre]').value);
+	fd.append('pwd', frm.parentNode.querySelector('input[name=pwd]').value);
+	fd.append('pwd2', frm.parentNode.querySelector('input[name=pwd2]').value);
+	fd.append('email', frm.parentNode.querySelector('input[name=email]').value);
+
+
+	xhr.open('POST', url, true);
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+	};
+
+	xhr.send(fd);
 
 }
