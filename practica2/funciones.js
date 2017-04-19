@@ -220,6 +220,8 @@ function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
 			
 			for(let i=0; i<v3.FILAS.length && i<10; i++){
 				let e = v3.FILAS[i];
+				answer = 'RE: ' + e.titulo;
+
 			html += '<section>';
 			//<-------COMENTARIOS DE LA ENTRADA-------->			
 				
@@ -228,6 +230,7 @@ function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
 				html += 		'<li><span><img src="imgs/user1.jpg" alt="' + e.login + '"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
 				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span> <time = datetime="' + e.fecha + '">' + e.fecha + '</time> </li>';
+				html += 		'<li><a href="#responder" onclick="rellenaForm(answer)"><button>Responder</button></a></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html +=	'<div class="bodComentario">';
@@ -265,6 +268,13 @@ function getID(){
 	return $_GET['id'];
 }
 
+
+
+function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
+	//console.log(document.getElementById("tituloComentario"));
+	var text = document.getElementById("tituloComentario").setAttribute("value", Answer);
+}
+
 /* FIN DE MODIFICACIONES DE MANU*/
 
 
@@ -297,7 +307,7 @@ function mostrarComentarios(frm){
 				html += '</div>';
 				html += '<div class="bodComentario">';
 				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
-				html += 	'<p>' + e.descripcion + '</p>';
+				html += 	'<p>' + e.texto + '</p>';
 				html += 	'<a href="entrada.html#incioComentarios"><p class="pSuspensivos"></p>' + e.nombre_entrada + '</a>';
 				html += '</div>';
 
@@ -335,12 +345,12 @@ function mostrarComentariosDefault(frm){
 				html += 	'<ul>';
 				html += 		'<li><span><img src="' + foto + '"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
-				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html += '<div class="bodComentario">';
 				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
-				html += 	'<p>' + e.descripcion + '</p>';
+				html += 	'<p>' + e.texto + '</p>';
 				html += 	'<a href="entrada.html#incioComentarios"><p class="pSuspensivos"></p>' + e.nombre_entrada + '</a>';
 				html += '</div>';
 
@@ -353,6 +363,8 @@ function mostrarComentariosDefault(frm){
 
 	return false;
 }
+
+
 
 function hacerLogin(frm){
 
