@@ -34,27 +34,27 @@
 
 	<section>
 		<h2>Buscar</h2>
-		<form action="buscar.html#busqueda">
+		<form onsubmit="return hacerRegistro(this)";><!--action="buscar.html#busqueda"-->
 			<fieldset>
 				<ul class="formList">
 					<li>
 					<label>Título</label>
-						<input type="text" placeholder="Título" autofocus required pattern="^[A-Za-z0-9_]{1,15}$" />
+						<input type="text" placeholder="Título" autofocus pattern="^[A-Za-z0-9_]{1,15}$" />
 					</li>
 
 					<li>
 					<label>Texto</label>
-						<input type="text" placeholder="Texto" required/>
+						<input type="text" placeholder="Texto"/>
 					</li>
 
 					<li>
 					<label>Autor de la entrada</label>
-						<input type="text" required placeholder="Autor"/>
+						<input type="text" placeholder="Autor"/>
 					</li>
 
 					<li>
 					<label>Fecha</label>
-						desde<input type="date" required/>hasta<input type="date" required/>
+						desde<input type="date"/>hasta<input type="date"/>
 					</li>
 				
 					<li>

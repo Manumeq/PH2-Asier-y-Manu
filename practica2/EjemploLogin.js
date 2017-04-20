@@ -37,12 +37,12 @@ function hacerLogin(frm){
 function mostrarFoto(inp) {
 
 	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
-	let fr = new fileReader(); 
+	let fr = new FileReader(); 
 
 	fr.onload = function(){
 		inp.parentNode.querySelector('img').src = fr.result;
 		inp.parentNode.querySelector('img').alt = inp.files[0].name;
-	}
+	};
 
 	fr.readAsDataURL(inp.files[0]);
 }
@@ -56,7 +56,7 @@ function enviarFoto(btn){
 	fd.append('login', du.login);
 	fd.append('id_entrada', 1);
 	fd.append('texto', btn.parentNode.querySelector('textarea').value);
-	fd.append('foto', btn.parentNode.querySelector('[type=file]').file[0]);
+	fd.append('foto', btn.parentNode.querySelector('[type=file]').files[0]);
 
 	xhr.open('POST', url, true);
 	xhr.onload = function(){

@@ -377,7 +377,6 @@ function hacerLogin(frm){
 
 	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
 
-
 	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
 	xhr.onload = function(){
 		console.log(xhr.responseText);
@@ -486,26 +485,139 @@ function hacerlogout(){
 // Función para registrar a un nuevo usuario
 function hacerRegistro(frm){
 
-	console.log('funciona');
+	//console.log('funciona');
 
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/usuario/',
 		fd = new FormData();
 
 
+	
+	var login_value = frm.parentNode.querySelector('input[name=login]').value;				
+	var nombre_value = frm.parentNode.querySelector('input[name=nombre]').value;
+	var pwd_value = frm.parentNode.querySelector('input[name=pwd]').value;
+	var pwd2_value = frm.parentNode.querySelector('input[name=pwd2]').value;
+	var email_value = frm.parentNode.querySelector('input[name=email]').value;
 
-	fd.append('login', frm.parentNode.querySelector('input[name=login]').value);
-	fd.append('nombre', frm.parentNode.querySelector('input[name=nombre]').value);
-	fd.append('pwd', frm.parentNode.querySelector('input[name=pwd]').value);
-	fd.append('pwd2', frm.parentNode.querySelector('input[name=pwd2]').value);
-	fd.append('email', frm.parentNode.querySelector('input[name=email]').value);
 
+
+	/*Pruebas*/	
+	/*
+	console.log(a);
+	console.log(s);
+	console.log(d);
+	console.log(f);
+	console.log(g);
+	*/
+
+	
+	
 
 	xhr.open('POST', url, true);
 	xhr.onload = function(){
 		console.log(xhr.responseText);
+		let du = JSON.parse(xhr.responseText);
+
+		if(du.RESULTADO == 'error' && du.DESCRIPCION == 'Login no válido, ya está en uso.'){
+			console.log("entra login incorrecto");
+
+			// Mostrar un mensaje en rojo al lado del login
+			// indicandole al usuario que el login ya está en uso
+			alert("Login ya está en uso, introcude otro");
+
+		}else{
+			if(du.RESULTADO == 'error' && du.DESCRIPCION == 'Contraseñas distintas'){
+				console.log("entra constraseñas distintas");
+
+				// Mostrar un mensaje en rojo al lado de la contraseña
+				// indicando que no ha repetido la misma contraseña
+				alert("Constraseñas distintas");
+			}
+		}
 	};
+
+	fd.append('login', login_value);
+	fd.append('nombre', nombre_value);
+	fd.append('pwd', pwd_value);
+	fd.append('pwd2', pwd2_value);
+	fd.append('email', email_value);
 
 	xhr.send(fd);
 
+	return false;
+}
+
+
+function hacerLogin(frm){
+
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/login/',
+		fd = new FormData(frm); // le pasamos al constructor la referencia al formulario
+
+		// El FormData accederá e ese formulario y todos los campos input
+		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
+
+	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
+
+	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+		let du = JSON.parse(xhr.responseText);
+		
+		if (du.RESULTADO == 'ok'){
+			//GUARDAMOS EN EL SESSION STORAGE
+			// Ya tendriamos toda la informacion del usuario
+			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
+			var fecha_acceso = du.ultimo_acceso;
+
+			// Luego sacar el mensaje de login correcto
+			mostrarMensajeLoginCorrecto(fecha_acceso);
+		}else{
+			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
+			// avisando que lo volvamos a intentar
+			mostrarMensajeLoginIncorrecto();
+			//frm.parentNode.querySelector('article').textContent = xhr.responseText; // textContent o innerHtml
+			// textContent no interpreta html sino texto. innerHtml interpreta el html.
+		}
+			
+	};
+
+	xhr.send(fd); // Enviamos el FormData
+
+	return false;
+}
+
+/*PETICIONES AJAX entradas*/
+
+/*
+■ rest/entrada/?u={número}
+Devuelve las últimas (número) entradas más recientes.
+■ rest/entrada/?n={texto}
+Devuelve las entradas que tengan la subcadena t exto en el nombre.
+■ rest/entrada/?d={texto}
+Devuelve las entradas que tengan la subcadena t exto en la
+descripción .
+■ rest/entrada/?l={login}
+Devuelve las entradas creadas por el usuario login .
+■ rest/entrada/?fi={aaaa-mm-dd}
+Devuelve las entradas cuya fecha sea posterior a la fecha fi .
+■ rest/entrada/?ff={aaaa-mm-dd}
+Devuelve las entradas cuya fecha sea anterior a la fecha ff .
+■ rest/entrada/?pag={pagina}&lpag={registros_por_pagina}
+*/
+
+// Función que realiza la busqueda
+function realizarBusqueda(){
+
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
+		fd = new FormData(frm),
+		section = frm.parentNode.parentNode;
+
+
+	xhr.open('POST', url, true);
+
+
+
+	return false;
 }
