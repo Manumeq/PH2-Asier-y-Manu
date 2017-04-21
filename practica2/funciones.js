@@ -302,13 +302,13 @@ function mostrarComentarios(frm){
 				html += 	'<ul>';
 				html += 		'<li><span><img src="' + foto + '"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 		'<h3><li><a href="entrada.html#incioComentarios"><p class="pSuspensivos">' + e.nombre_entrada + '</p></a></h3>';
 				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html += '<div class="bodComentario">';
 				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
 				html += 	'<p>' + e.texto + '</p>';
-				html += 	'<a href="entrada.html#incioComentarios"><p class="pSuspensivos"></p>' + e.nombre_entrada + '</a>';
 				html += '</div>';
 
 			}//for(let i=0; i<v.FILAS.length; i++)
@@ -344,14 +344,14 @@ function mostrarComentariosDefault(frm){
 				html += '<div class="cabComentario">';
 				html += 	'<ul>';
 				html += 		'<li><span><img src="' + foto + '"></span></li>';
-				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
-				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>'; 		
+				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><h3><a href="entrada.html?id=' + e.id_entrada + '"><p class="pSuspensivos">' + e.nombre_entrada + '</p></a></h3></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html += '<div class="bodComentario">';
 				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
 				html += 	'<p>' + e.texto + '</p>';
-				html += 	'<a href="entrada.html#incioComentarios"><p class="pSuspensivos"></p>' + e.nombre_entrada + '</a>';
 				html += '</div>';
 
 			}//for(let i=0; i<v.FILAS.length; i++)
