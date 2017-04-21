@@ -1,3 +1,7 @@
+if(sessionStorage['pointer']==undefined){
+	sessionStorage['pointer'] = 0;
+}
+
 function cargarEntrada(entrada){ //ENTRADA ES EL THIS
 	console.log('ENTRA');
 	let idEntrada = entrada.id;
@@ -76,12 +80,12 @@ function mostrarEntradas(frm){
 
 function mostrarEntradasDefault(frm){
 	console.log(frm.document.body.getElementsByTagName("SECTION")[0]);
+	console.log(sessionStorage['pointer']);
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/',
 		section = frm.document.body.getElementsByTagName("SECTION")[0];
 
-	url += '?pag=' + 0 + '&lpag=' + 4; 
-
+	url += '?pag=' + sessionStorage['pointer'] + '&lpag=' + 4; 
 	xhr.open('GET', url, true);
 	xhr.onload = function(){
 		let v = JSON.parse(xhr.responseText);
@@ -268,11 +272,23 @@ function getID(){
 	return $_GET['id'];
 }
 
+function prevPage(){
+	if(sessionStorage['pointer']>0){
+		sessionStorage['pointer']--;
+	}
+}
 
+function nextPage(){
+		sessionStorage['pointer']++;
+}
 
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
 	var text = document.getElementById("tituloComentario").setAttribute("value", Answer);
+}
+
+function numPag(frm){
+	frm.document
 }
 
 /* FIN DE MODIFICACIONES DE MANU*/

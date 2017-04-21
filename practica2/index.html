@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Index</title>
 </head>
-<body onload="mostrarEntradasDefault(this); mostrarComentariosDefault(this); menu()">
+<body onload="mostrarEntradasDefault(this); mostrarComentariosDefault(this); menu(); numPag(this)">
 	<header>
 		<a href="index.html">
 			<img src="imgs/logo1.png" alt="logotipo">
@@ -165,8 +165,8 @@
 	<!--Perte del pie de paginacion-->
 	<section class="piePaginacion">
 		<ul>
-			<li><a href="index.html"><span aria-hidden="true" class="icon-left-open"></span></a></li>
-			
+			<li><a href="index.html"><span aria-hidden="true" onclick="prevPage();" class="icon-left-open"></span></a></li>
+			<li onload="numPag(this);"></li>
 			<!--
 				<li><a href="index.html" id="active">1</a></li>
 				<li><a href="index2.html">2</a></li>
@@ -174,9 +174,7 @@
 				<li><a href="index4.html">4</a></li>
 				<li><a href="index5.html">5</a></li>
 			-->
-			
-
-			<li><a href="index5.html"><span aria-hidden="true" class="icon-right-open"></span></a></li>
+			<li><a href="index.html"><span aria-hidden="true" onclick="nextPage();" class="icon-right-open"></span></a></li>
 		</ul>
 	</section>
 
