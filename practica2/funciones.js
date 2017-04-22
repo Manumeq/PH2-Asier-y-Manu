@@ -2,6 +2,14 @@ if(sessionStorage['pointer']==undefined){
 	sessionStorage['pointer'] = 0;
 }
 
+firstpointer=0;
+
+
+if(sessionStorage['maxpointer']==undefined){
+	sessionStorage['maxpointer']=0;
+}
+
+
 function cargarEntrada(entrada){ //ENTRADA ES EL THIS
 	console.log('ENTRA');
 	let idEntrada = entrada.id;
@@ -46,7 +54,7 @@ function mostrarEntradas(frm){
 		let v = JSON.parse(xhr.responseText);
 		if(v.RESULTADO == 'ok'){
 			let html = '';
-
+			sessionStorage['maxpointer'] = v.FILAS.length/6;
 			for(let i=0; i<v.FILAS.length && i<6; i++){
 				let e = v.FILAS[i],
 
@@ -90,6 +98,7 @@ function mostrarEntradasDefault(frm){
 	xhr.onload = function(){
 		let v = JSON.parse(xhr.responseText);
 		if(v.RESULTADO == 'ok'){
+			sessionStorage['maxpointer'] = Math.floor(v.FILAS.length/6);
 			let html = '';
 
 			for(let i=0; i<v.FILAS.length && i<6; i++){
@@ -125,6 +134,7 @@ function mostrarEntradasDefault(frm){
 }
 
 /* MODIFICACIONES DE MANU*/
+
 function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/' + id;
@@ -279,6 +289,7 @@ function prevPage(){
 }
 
 function nextPage(){
+	if(sessionStorage['pointer']<maxpointer)
 		sessionStorage['pointer']++;
 }
 
@@ -288,7 +299,21 @@ function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario
 }
 
 function numPag(frm){
-	frm.document
+
+	mysection = frm.document.body.getElementsByTagName("SECTION")[1];
+	mysection = mysection.getElementsByTagName("UL")[0];
+	mysection = mysection.getElementsByTagName("LI")[1];
+
+	myhtml = '';
+	myhtml += 'Página ';
+	myhtml += sessionStorage['pointer'];
+	myhtml += ' de ';
+	myhtml += sessionStorage['maxpointer'];
+
+	mysection.innerHTML = myhtml;
+
+	console.log(mysection);
+	
 }
 
 /* FIN DE MODIFICACIONES DE MANU*/
