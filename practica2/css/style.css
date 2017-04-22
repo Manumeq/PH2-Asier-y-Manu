@@ -40,6 +40,19 @@
 
 /* *********************************** */
 
+/*Creado para los errores del registro*/
+#loginRepetido{
+	color: red;
+	margin-bottom: .6em;
+	font-size: 10pt;
+}
+
+#contrasenyaRepetida{
+	color: red;
+	margin-bottom: .6em;
+	font-size: 10pt;
+}
+/*Termina errores del registro*/
 
 /*Formularios CSS Asier*/
 
