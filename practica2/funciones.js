@@ -415,44 +415,18 @@ function mostrarComentariosDefault(frm){
 }
 
 
+// Función para comprobar si el usuario está logeado
+// para que no pueda entrar en la página index.html
+function comprobarLogin(){
+	if(sessionStorage['du']!=null){
+		location.replace('index.html');
+	}
+}
 
-function hacerLogin(frm){
-
-	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost/PHII/practica2/rest/login/',
-		fd = new FormData(frm); // le pasamos al constructor la referencia al formulario
-
-		// El FormData accederá e ese formulario y todos los campos input
-		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
-
-	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
-
-	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
-	xhr.onload = function(){
-		console.log(xhr.responseText);
-		let du = JSON.parse(xhr.responseText);
-		
-		if (du.RESULTADO == 'ok'){
-			//GUARDAMOS EN EL SESSION STORAGE
-			// Ya tendriamos toda la informacion del usuario
-			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
-			var fecha_acceso = du.ultimo_acceso;
-
-			// Luego sacar el mensaje de login correcto
-			mostrarMensajeLoginCorrecto(fecha_acceso);
-		}else{
-			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
-			// avisando que lo volvamos a intentar
-			mostrarMensajeLoginIncorrecto();
-			//frm.parentNode.querySelector('article').textContent = xhr.responseText; // textContent o innerHtml
-			// textContent no interpreta html sino texto. innerHtml interpreta el html.
-		}
-			
-	};
-
-	xhr.send(fd); // Enviamos el FormData
-
-	return false;
+function comprobarLoginNuevaEntrada(){
+	if(sessionStorage['du']==null){
+		location.replace('index.html');
+	}
 }
 
 // Función para mostrar el mensaje emergente cuando no se ha 
@@ -499,6 +473,28 @@ function mostrarMensajeLoginCorrecto(fecha_acceso){
     document.body.appendChild(capa_fondo);
 }
 
+// Función para mostrar el mensaje emergente cuando se ha 
+// podido registrar un usuario.
+function mostrarMensajeRegistroCorrecto(){
+    let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+        //texto = document.querySelector('body>input[name="mensaje"]').value,
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>Registro completado</h2>';
+    html+= '<p>Bienvenido a North & East</p>'
+    html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
+}
+
 // Función para mostrar dos menús distintos en función si
 // hemos iniciado sesion o no.
 function menu(){
@@ -527,6 +523,7 @@ function menu(){
   }
 }
 
+
 // Función para cerrar la sesión actual
 function hacerlogout(){
 	sessionStorage.clear();
@@ -535,12 +532,8 @@ function hacerlogout(){
 // Función para registrar a un nuevo usuario
 function hacerRegistro(frm){
 
-	//console.log('funciona');
-
-	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost/PHII/practica2/rest/usuario/',
-		fd = new FormData();
-
+	let xhr1 = new XMLHttpRequest(),
+		url1 = 'http://localhost/PHII/practica2/rest/login/';
 
 	
 	var login_value = frm.parentNode.querySelector('input[name=login]').value;				
@@ -549,41 +542,78 @@ function hacerRegistro(frm){
 	var pwd2_value = frm.parentNode.querySelector('input[name=pwd2]').value;
 	var email_value = frm.parentNode.querySelector('input[name=email]').value;
 
+	let login_disponible = false;
 
+	url1 += login_value;
 
-	/*Pruebas*/	
-	/*
-	console.log(a);
-	console.log(s);
-	console.log(d);
-	console.log(f);
-	console.log(g);
-	*/
+	xhr1.open('GET', url1, true);
 
-	
-	
+	xhr1.onload = function(){
+		console.log(xhr1.responseText);
+		let v1 = JSON.parse(xhr1.responseText);
 
-	xhr.open('POST', url, true);
-	xhr.onload = function(){
-		console.log(xhr.responseText);
-		let du = JSON.parse(xhr.responseText);
+		let error_login = false;
+		let error_contrasenya = false;
 
-		if(du.RESULTADO == 'error' && du.DESCRIPCION == 'Login no válido, ya está en uso.'){
-			console.log("entra login incorrecto");
+		if(v1.DISPONIBLE == 'true' && login_value!=''){
+			login_disponible = true;
+		}
 
-			// Mostrar un mensaje en rojo al lado del login
-			// indicandole al usuario que el login ya está en uso
-			alert("Login ya está en uso, introcude otro");
+		if((pwd_value != pwd2_value) && (login_disponible == false)){
+
+				//Mensajes de login ya usado y contraseñas no iguales
+				document.getElementById("contrasenyaRepetida").innerHTML = "Repite la misma contraseña";
+
+				document.getElementById("loginRepetido").innerHTML = "Login ya está en uso, introduce otro";
+
+				error_login = true;
+				error_contrasenya = true;
 
 		}else{
-			if(du.RESULTADO == 'error' && du.DESCRIPCION == 'Contraseñas distintas'){
-				console.log("entra constraseñas distintas");
-
-				// Mostrar un mensaje en rojo al lado de la contraseña
-				// indicando que no ha repetido la misma contraseña
-				alert("Constraseñas distintas");
+			if(pwd_value != pwd2_value){
+				//Mensaje de contraseñas no iguales
+				document.getElementById("contrasenyaRepetida").innerHTML = "Repite la misma contraseña";
+				error_contrasenya = true;
+			}else{
+				if(login_disponible == false){
+					//Mensaje de login ya usado
+					document.getElementById("loginRepetido").innerHTML = "Login ya está en uso, introduce otro";
+					error_login = true;
+				}
 			}
 		}
+
+		if(error_login == false){
+			// Para eliminar el error del login en el html
+			document.getElementById("loginRepetido").innerHTML = "";
+		}
+
+		if(error_contrasenya == false){
+			// Para eliminar el error de contraseñas no iguales en el html
+			document.getElementById("contrasenyaRepetida").innerHTML = "";
+		}
+
+	}
+
+	xhr1.send();
+
+
+
+	let xhr2 = new XMLHttpRequest(),
+		url2 = 'http://localhost/PHII/practica2/rest/usuario/',
+		fd = new FormData();
+
+
+	xhr2.open('POST', url2, true);
+
+	xhr2.onload = function(){
+		console.log(xhr2.responseText);
+		let v2 = JSON.parse(xhr2.responseText);
+
+		if(v2.RESULTADO != 'error'){
+			mostrarMensajeRegistroCorrecto();
+		}
+
 	};
 
 	fd.append('login', login_value);
@@ -592,47 +622,7 @@ function hacerRegistro(frm){
 	fd.append('pwd2', pwd2_value);
 	fd.append('email', email_value);
 
-	xhr.send(fd);
-
-	return false;
-}
-
-
-function hacerLogin(frm){
-
-	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost/PHII/practica2/rest/login/',
-		fd = new FormData(frm); // le pasamos al constructor la referencia al formulario
-
-		// El FormData accederá e ese formulario y todos los campos input
-		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
-
-	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
-
-	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
-	xhr.onload = function(){
-		console.log(xhr.responseText);
-		let du = JSON.parse(xhr.responseText);
-		
-		if (du.RESULTADO == 'ok'){
-			//GUARDAMOS EN EL SESSION STORAGE
-			// Ya tendriamos toda la informacion del usuario
-			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
-			var fecha_acceso = du.ultimo_acceso;
-
-			// Luego sacar el mensaje de login correcto
-			mostrarMensajeLoginCorrecto(fecha_acceso);
-		}else{
-			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
-			// avisando que lo volvamos a intentar
-			mostrarMensajeLoginIncorrecto();
-			//frm.parentNode.querySelector('article').textContent = xhr.responseText; // textContent o innerHtml
-			// textContent no interpreta html sino texto. innerHtml interpreta el html.
-		}
-			
-	};
-
-	xhr.send(fd); // Enviamos el FormData
+	xhr2.send(fd);
 
 	return false;
 }
@@ -642,6 +632,7 @@ function hacerLogin(frm){
 /*
 ■ rest/entrada/?u={número}
 Devuelve las últimas (número) entradas más recientes.
+
 ■ rest/entrada/?n={texto}
 Devuelve las entradas que tengan la subcadena t exto en el nombre.
 ■ rest/entrada/?d={texto}
@@ -655,19 +646,74 @@ Devuelve las entradas cuya fecha sea posterior a la fecha fi .
 Devuelve las entradas cuya fecha sea anterior a la fecha ff .
 ■ rest/entrada/?pag={pagina}&lpag={registros_por_pagina}
 */
+/*ejemplo: http://localhost/PHII/practica2/rest/entrada/?l=usu1&&t=a*/
 
 // Función que realiza la busqueda
-function realizarBusqueda(){
+function realizarBusqueda(frm){
 
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/',
-		fd = new FormData(frm),
 		section = frm.parentNode.parentNode;
 
+	/*Recojo los parámetros del formulario*/
+	var titulo_value = document.getElementById("titulo").value;
+	var descripcion_value = document.getElementById("descripcion").value;
+	var autor_value = document.getElementById("autor").value;
+	var fi_value = document.getElementById("fecha_inicio").value;
+	var ff_value = document.getElementById("fecha_final").value;
 
-	xhr.open('POST', url, true);
+	url += '?n=' + titulo_value + '&d=' + descripcion_value + '&l=' + autor_value + '&fi=' + fi_value + '&ff=' + ff_value;
 
+	/*Pruebas para ver si recojo bien el value del formulario*/
+	/*console.log(titulo_value);
+	console.log(descripcion_value);
+	console.log(autor_value);
+	console.log(fi_value);
+	console.log(ff_value);*/	
 
+	xhr.open('GET', url, true);
+
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+		let v = JSON.parse(xhr.responseText);
+		console.log(v.RESULTADO);
+
+		if(v.RESULTADO == 'ok' && (titulo_value!='' || descripcion_value!='' || autor_value!='' || fi_value!='' || ff_value!='')){
+			let html = '';
+
+			for(let i=0; i<v.FILAS.length && i<6; i++){
+				let e = v.FILAS[i];
+
+					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
+
+				html += '<article>';
+				html +=   '<h3><a href="entrada.html?id=' + e.id + '">' + e.nombre + '</a></h3>'; 
+				html += 	'<figure>';
+				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 	'</figure>';
+				html += 	'<footer>';
+				html += 	'<ul>';
+				html += 		'<li><span aria-hidden="true" class="icon-comment"></span>' + e.ncomentarios + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-picture"></span>' + e.nfotos + '</li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
+				html += 	'</ul>';
+				html += 	'</footer>';
+				html += '</article>';
+
+			}
+			section.querySelector('h2+div').innerHTML = html;
+
+		}else{
+			// Mostrar un mensaje avisando al usuario de que incluya algún parámetro de búsqueda
+			alert("Ningún resultado. Incluye algún parámetro de búsqueda");
+			location.replace('buscar.html');
+		}
+
+	};
+
+	xhr.send();
 
 	return false;
 }
