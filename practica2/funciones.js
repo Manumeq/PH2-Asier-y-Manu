@@ -282,6 +282,11 @@ function getID(){
 	return $_GET['id'];
 }
 
+
+function firstPage(){
+	sessionStorage['pointer'] = firstpointer;
+}
+
 function prevPage(){
 	if(sessionStorage['pointer']>0){
 		sessionStorage['pointer']--;
@@ -293,6 +298,10 @@ function nextPage(){
 		sessionStorage['pointer']++;
 }
 
+function lastPage(){
+	sessionStorage['pointer']=maxpointer;
+}
+
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
 	var text = document.getElementById("tituloComentario").setAttribute("value", Answer);
@@ -302,7 +311,7 @@ function numPag(frm){
 
 	mysection = frm.document.body.getElementsByTagName("SECTION")[1];
 	mysection = mysection.getElementsByTagName("UL")[0];
-	mysection = mysection.getElementsByTagName("LI")[1];
+	mysection = mysection.getElementsByTagName("LI")[2];
 
 	myhtml = '';
 	myhtml += 'Página ';
