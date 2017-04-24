@@ -10,7 +10,7 @@
 	<title>Entrada</title>
 </head>
 
-<body onload="menu(); mostrarEntradaId(this, getID());">
+<body onload="menu(); mostrarEntradaId(this, getID()); mostrarFormComentario();">
 	<header>
 		<a href="index.html">
 			<img src="imgs/logo1.png" alt="logotipo">
@@ -93,9 +93,9 @@
 	<!--Formulario para realizar comentarios-->
 	<section id="responder" name="responder">
 		<h2>Realizar comentario</h2>
-		<form>
+		<form onsubmit="return realizarComentario(this)";>
 			<fieldset>
-				<ul class="formList">	
+				<!--<ul class="formList">	
 					<li>
 						<label for="tituloComentario">Título</label>
 						<input name="tituloComentario" value="" type="text" id="tituloComentario" placeholder="título" required/>
@@ -104,12 +104,9 @@
 					<li>
 						<label for="textComentario">Texto comentario</label>
 						<textarea name="textComentario" id="textComentario" maxlength="50" rows=4  required></textarea>
-					</li>
-					
-					<!--<label for="comentarSubmit"></label>-->
-					<!--<input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/>-->	
+					</li>	
 				</ul>
-				<p><input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/></p>
+				<p><input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/></p>-->
 			</fieldset>
 		</form>
 	</section>

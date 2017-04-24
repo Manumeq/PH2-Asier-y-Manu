@@ -135,7 +135,19 @@ function mostrarEntradasDefault(frm){
 
 /* MODIFICACIONES DE MANU*/
 
+function comprobarPaginaEntrada(id){
+	if(id==null){
+		location.replace('index.html');
+	}
+}
+
 function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
+
+	// ASIER MODIFICADO
+	// console.log(id);
+	comprobarPaginaEntrada(id);
+	// Termina Modificación Asier
+
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/' + id;
 		section = frm.document.body.getElementsByTagName("SECTION")[0]; //Seccion datos de entrada
@@ -485,7 +497,7 @@ function mostrarMensajeRegistroCorrecto(){
     capa_fondo.appendChild(capa_frente);    
 
     html+= '<h2>Registro completado</h2>';
-    html+= '<p>Bienvenido a North & East</p>'
+    html+= '<p>Bienvenido a North & East</p>';
     html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
     
     capa_frente.innerHTML = html;
@@ -717,3 +729,131 @@ function realizarBusqueda(frm){
 
 	return false;
 }
+
+
+/* NUEVO HECHO por ASIER*/
+
+function hacerLogin(frm){
+
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/login/',
+		fd = new FormData(frm); // le pasamos al constructor la referencia al formulario
+
+		// El FormData accederá e ese formulario y todos los campos input
+		// que tengan name cogerán su valor e irá encapsulando esa lista de pares nombre/valor
+
+	xhr.open('POST', url, true); // Metodo POST por temas de seguridad, o porque no queremos modificar la base de datos
+
+	//ONLOAD SE DISPARA CUANDO YA HEMOS RECIBIDO LA PETICION Y TENEMOS EL RESULTADO
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+		let du = JSON.parse(xhr.responseText);
+		
+		if (du.RESULTADO == 'ok'){
+			//GUARDAMOS EN EL SESSION STORAGE
+			// Ya tendriamos toda la informacion del usuario
+			sessionStorage['du'] = xhr.responseText; // Guardar toda la información que nos devuelva el servidor
+			var fecha_acceso = du.ultimo_acceso;
+
+			// Luego sacar el mensaje de login correcto
+			mostrarMensajeLoginCorrecto(fecha_acceso);
+		}else{
+			// Si es error, es decir, no es 'ok', hacemos que se muestre un mensaje emergente
+			// avisando que lo volvamos a intentar
+			mostrarMensajeLoginIncorrecto();
+			//frm.parentNode.querySelector('article').textContent = xhr.responseText; // textContent o innerHtml
+			// textContent no interpreta html sino texto. innerHtml interpreta el html.
+		}
+			
+	};
+
+	xhr.send(fd); // Enviamos el FormData
+
+	return false;
+}
+
+
+function realizarComentario(btn){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/comentario/',
+		fd = new FormData(),
+		du = JSON.parse(sessionStorage['du']);
+
+		var id_entrada = getID();
+
+		fd.append('login', du.login);
+		fd.append('titulo', btn.parentNode.querySelector('[type=text]').value);
+		fd.append('texto', btn.parentNode.querySelector('textarea').value);
+		fd.append('id_entrada', id_entrada);
+
+
+		//console.log(id_entrada);
+		
+
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			let v = JSON.parse(xhr.responseText);
+
+			if(v.RESULTADO = 'ok'){
+				mensajeComentarioCorrecto();
+			}
+
+		};
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(fd);
+		
+		return false;
+}
+
+function mostrarFormComentario(){
+	let html = '';
+	if (sessionStorage['du']!=null){
+
+    	html +=	'<ul class="formList">';	
+		html += 	'<li>';
+		html +=			'<label for="tituloComentario">Título</label>';
+		html += 		'<input name="tituloComentario" value="" type="text" id="tituloComentario" placeholder="título" required/>';
+		html += 	'</li>';				
+		html +=		'<li>';
+		html +=			'<label for="textComentario">Texto comentario</label>';
+		html +=			'<textarea name="textComentario" id="textComentario" maxlength="200" rows=4  required></textarea>';
+		html +=		'</li>';	
+		html += '</ul>';
+		html += '<p><input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/></p>';
+	   
+	    document.querySelector('body>section>form>fieldset').innerHTML = html;
+
+	  }else{
+
+	    html += '<p>Para dejar un comentario debes inicar sesión</p>';
+	    html += '<p><a href="login.html">Iniciar sesión</a></p>';
+	    
+	    document.querySelector('body>section>form>fieldset').innerHTML = html;
+	  }
+}
+
+function mensajeComentarioCorrecto(){
+	let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+        //texto = document.querySelector('body>input[name="mensaje"]').value,
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>Comentario correcto</h2>';
+    html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
+}
+
+function mensajeComentarioIncorrecto(){
+
+}
+
+/*FIN NUEVO HECHO POR ASIER*/
