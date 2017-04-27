@@ -26,3 +26,5 @@ form>label{
 [type=file]{
 	display: none;
 }
+
+/*word-break: break-all;   PARA ROMPER LAS PALABRAS Y QUE NO SE SALGAN DE SU RECUADRO*/

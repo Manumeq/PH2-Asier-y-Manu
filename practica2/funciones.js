@@ -136,7 +136,7 @@ function mostrarEntradasDefault(frm){
 /* MODIFICACIONES DE MANU*/
 
 function comprobarPaginaEntrada(id){
-	if(id==null){
+	if(id==null || id==''){
 		location.replace('index.html');
 	}
 }
@@ -806,6 +806,10 @@ function realizarComentario(btn){
 		return false;
 }
 
+// Función que muestra el formulario para hacer el comentario de una entrada
+// si has iniciciado sesión.
+// Y si no has inicado sesión no se muestra el formulario sino un mensaje para
+// iniciar sesión.
 function mostrarFormComentario(){
 	let html = '';
 	if (sessionStorage['du']!=null){
@@ -826,7 +830,7 @@ function mostrarFormComentario(){
 
 	  }else{
 
-	    html += '<p>Para dejar un comentario debes inicar sesión</p>';
+	  	html += '<p>Para dejar un comentario debes inicar sesión</p>';
 	    html += '<p><a href="login.html">Iniciar sesión</a></p>';
 	    
 	    document.querySelector('body>section>form>fieldset').innerHTML = html;
@@ -842,8 +846,11 @@ function mensajeComentarioCorrecto(){
 
     capa_fondo.appendChild(capa_frente);    
 
-    html+= '<h2>Comentario correcto</h2>';
-    html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    // id de la entrada actual
+    var id_entrada = getID();
+
+    html+= '<h2>Comentario realizado de forma correcta</h2>';
+    html+= '<a href="entrada.html?id=' + id_entrada + '"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
     
     capa_frente.innerHTML = html;
     capa_fondo.classList.add('capa-fondo'); 
@@ -852,8 +859,42 @@ function mensajeComentarioCorrecto(){
     document.body.appendChild(capa_fondo);
 }
 
-function mensajeComentarioIncorrecto(){
-
-}
 
 /*FIN NUEVO HECHO POR ASIER*/
+
+
+/*ASIER NUEVA ENTRADA*/
+
+function mostrarFoto(inp) {
+
+	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
+	let fr = new FileReader(); 
+
+	fr.onload = function(){
+		inp.parentNode.querySelector('img').src = fr.result;
+		inp.parentNode.querySelector('img').alt = inp.files[0].name;
+	};
+
+	fr.readAsDataURL(inp.files[0]);
+}
+
+function enviarFoto(btn){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/foto/',
+		fd = new FormData(),
+		du = JSON.parse(sessionStorage['du']);
+
+	fd.append('login', du.login);
+	fd.append('id_entrada', 1);
+	fd.append('texto', btn.parentNode.querySelector('textarea').value);
+	fd.append('foto', btn.parentNode.querySelector('[type=file]').files[0]);
+
+	xhr.open('POST', url, true);
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+	};
+	xhr.setRequestHeader('Authorization', du.clave);
+	xhr.send(fd);
+}
+
+/*ASIER TERMIAN NUEVA ENTRADA*/

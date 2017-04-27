@@ -37,7 +37,16 @@
 		<h2>Crear una nueva entrada</h2>
 		<form>
 			<fieldset>
-				<section id="datosEntrada">
+				<section>
+					<h2>Subir foto:</h2>
+					<div>
+						<img src="imgs/users.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector('[type=file]').click();" class="n-entrada-img">
+						<textarea placeholder="descripcion aquí"></textarea>
+						<input type="file" accept="image/*" onchange="mostrarFoto(this);"/> <!--Con atributo multimple permite mas ficheros-->
+						<button onclick="enviarFoto(this);">Enviar</button>
+					</div>
+				</section>
+				<!--<section id="datosEntrada">
 					<ul class="formList">
 						<li>
 							<label for="titleEntrada">Título</label>
@@ -49,10 +58,10 @@
 							<textarea name="descEntrada" id="descEntrada" rows=4 cols="80" maxlength="300" required></textarea>
 						</li>
 					</ul>
-				</section>
+				</section>-->
 			
 				<!--Zona del formualario donde se mostraran las imaganes asociadas a cada entrega-->
-				<section id="imagenesEntrada">
+				<!--<section id="imagenesEntrada">
 					<h2>Fotografías Entrada</h2>
 					<div>
 						<article>
@@ -70,39 +79,9 @@
 								<li>
 							</ul>
 						</article>
-						<article>
-							<h3>Fotografia 1</h3>
-							<figure class="fotoEntrada">
-			            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>         
-			            	</figure>
-							
-							<ul>
-								<li>
-									<p><input type="file" id="foto2" name="foto2"></p>
-								</li>
-								<li>
-									<button>Eliminar foto</button>
-								<li>
-							</ul>
-						</article>
-						<article>
-							<h3>Fotografia 1</h3>
-							<figure class="fotoEntrada">
-			            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>         
-			            	</figure>
-							
-							<ul>
-								<li>
-									<p><input type="file" id="foto3" name="foto3"></p>
-								</li>
-								<li>
-									<button>Eliminar foto</button>
-								<li>
-							</ul>
-						</article>
 					</div>
 				</section>
-				<input type="submit" name="creaEntrada" id="creaEntrada" value="Crear Entrada">
+				<input type="submit" name="creaEntrada" id="creaEntrada" value="Crear Entrada">-->
 			</fieldset>
 		</form>			
 	</section>
