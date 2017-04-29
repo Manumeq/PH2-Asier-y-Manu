@@ -213,7 +213,6 @@ div>article>div>textarea{
 
 div>article>div>input{
     width: 30%;
-    height: 20em;
     margin: 1em auto; 
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
     border-radius: 5px;

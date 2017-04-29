@@ -323,7 +323,7 @@ function lastPage(){
 }
 
 function nuevaFotoEntrada(frm){
-	console.log(frm);
+	//console.log(frm);
 	var test = frm.parentNode.firstChild.nextSibling.nextSibling.nextSibling;
 	if(first==undefined){
 		test.innerHTML = '';
@@ -335,16 +335,40 @@ function nuevaFotoEntrada(frm){
 	newPic += 	 '<div>';
 	newPic += 		'<img src="imgs/users.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
 	newPic += 		'<textarea placeholder="descripcion aquí"></textarea>';
-	newPic +=			'<input type="file" accept="image/*" onchange="mostrarFoto(this);"/>';
+	newPic +=		'<span></span>'
+	newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
 	newPic +=	 '</div>';
 	newPic += 	'<button type="button" id="delFoto" onclick="borrarFotoEntrada(this);"> Eliminar Foto </button>';
 	newPic += '</article>';
 	
-	console.log(test);
+	//console.log(test);
 	test.innerHTML += newPic;
 	
 	//document.getElementsByTagName("h2")[3].innerHTML = html;	
 	
+}
+
+function comprobarTamanyo(input){
+	var parent;
+	parent = input.parentNode;
+	parent = parent.firstChild;
+	console.log(parent);
+	input = input.files[0];
+	 
+	if(input.size>51000){
+		parent.setAttribute("style", "border: solid 3px red;");
+		parent = parent.nextSibling;
+		parent = parent.nextSibling;
+		parent.innerHTML= 'Vamos a ver subnormal, ¿tu que parte de 500 kb no has entendido?';
+		parent.setAttribute("style", "color:red;");
+	}
+	else{
+		parent.setAttribute("style", "");
+		parent = parent.nextSibling;
+		parent = parent.nextSibling;
+		parent.innerHTML= '';
+	}
+
 }
 
 //borra la foto de la entrada obteniendo su padre (article) a partir del boton "Eliminar Foto" que la llama. Después borra el código HTML de dicho article
@@ -356,10 +380,9 @@ function borrarFotoEntrada(frm){
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
 	console.log(Answer);
-<<<<<<< Updated upstream
+
 	//document.getElementById("tituloComentario").innerHTML = Answer;
-=======
->>>>>>> Stashed changes
+
 	var text = document.getElementById("tituloComentario").setAttribute("value", Answer);
 }
 
