@@ -36,8 +36,6 @@ function cargarEntrada(entrada){ //ENTRADA ES EL THIS
 }
 
 
-
-
 // Nueva funcion de prueba para mostrar las entradas cogido del ejemplo_11 (probando el primer ejemplo)
 function mostrarEntradas(frm){
 	pageText = 'Página ' + frm.pag.value;
@@ -93,7 +91,7 @@ function mostrarEntradasDefault(frm){
 		url = 'http://localhost/PHII/practica2/rest/entrada/',
 		section = frm.document.body.getElementsByTagName("SECTION")[0];
 
-	url += '?pag=' + sessionStorage['pointer'] + '&lpag=' + 4; 
+	url += '?pag=' + sessionStorage['pointer'] + '&lpag=' + 6; 
 	xhr.open('GET', url, true);
 	xhr.onload = function(){
 		let v = JSON.parse(xhr.responseText);
@@ -101,7 +99,8 @@ function mostrarEntradasDefault(frm){
 			sessionStorage['maxpointer'] = Math.floor(v.FILAS.length/6);
 			let html = '';
 
-			for(let i=0; i<v.FILAS.length && i<6; i++){
+			for(let i=0; i<v.FILAS.length; i++){
+				console.log(v.FILAS.length);
 				let e = v.FILAS[i],
 
 					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
@@ -247,23 +246,24 @@ function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
 			for(let i=0; i<v3.FILAS.length && i<10; i++){
 				let e = v3.FILAS[i];
 				answer = 'RE: ' + e.titulo;
+				console.log(answer);
 
-			html += '<section>';
-			//<-------COMENTARIOS DE LA ENTRADA-------->			
-				
+				html += '<section>';
+				//<-------COMENTARIOS DE LA ENTRADA-------->			
+					
 				html += '<div class="cabComentario">';
 				html += 	'<ul>';
 				html += 		'<li><span><img src="imgs/user1.jpg" alt="' + e.login + '"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
 				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span> <time = datetime="' + e.fecha + '">' + e.fecha + '</time> </li>';
-				html += 		'<li><a href="#responder" onclick="rellenaForm(answer)"><button>Responder</button></a></li>';
+				html += 		'<li><a href="#textComentario"><button onclick="rellenaForm(\''+answer+'\');">Responder</button></a></li>'; // IMportante pasar por parametro de esta forma a la funcion
 				html += 	'</ul>';
 				html += '</div>';
 				html +=	'<div class="bodComentario">';
 				html += 	'<h4 class="pSuspensivos">' + e.titulo + '</h4>';
 				html +=		'<p>' + e.texto + '</p>';
 				html +=	'</div>';
-			html += '</section>';
+				html += '</section>';
 			}
 			
 			section3.innerHTML = html;
@@ -316,6 +316,8 @@ function lastPage(){
 
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
+	console.log(Answer);
+	//document.getElementById("tituloComentario").innerHTML = Answer;
 	var text = document.getElementById("tituloComentario").setAttribute("value", Answer);
 }
 
@@ -402,13 +404,13 @@ function mostrarComentariosDefault(frm){
 				let e = v.FILAS[i],
 
 					foto = 'http://localhost/PHII/practica2/imgs/user1.jpg';
-
+				console.log(e.id);
 				html += '<div class="cabComentario">';
 				html += 	'<ul>';
 				html += 		'<li><span><img src="' + foto + '"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>'; 		
 				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
-				html += 		'<li><h3><a href="entrada.html?id=' + e.id_entrada + '"><p class="pSuspensivos">' + e.nombre_entrada + '</p></a></h3></li>';
+				html += 		'<li><h3><a href="entrada.html?id=' + e.id_entrada + '&&id_comentario=' + e.id + '"><p class="pSuspensivos">' + e.nombre_entrada + '</p></a></h3></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html += '<div class="bodComentario">';
@@ -671,10 +673,18 @@ function realizarBusqueda(frm){
 	var titulo_value = document.getElementById("titulo").value;
 	var descripcion_value = document.getElementById("descripcion").value;
 	var autor_value = document.getElementById("autor").value;
-	var fi_value = document.getElementById("fecha_inicio").value;
-	var ff_value = document.getElementById("fecha_final").value;
+	var dia_inicio_value = document.getElementById("dia_inicio").value; console.log(dia_inicio_value);
+	var mes_inicio_value = document.getElementById("mes_inicio").value; console.log(mes_inicio_value);
+	var anyo_inicio_value = document.getElementById("anyo_inicio").value; console.log(anyo_inicio_value);
+	var dia_final_value = document.getElementById("dia_final").value;
+	var mes_final_value = document.getElementById("mes_final").value;
+	var anyo_final_value = document.getElementById("anyo_final").value;
 
-	url += '?n=' + titulo_value + '&d=' + descripcion_value + '&l=' + autor_value + '&fi=' + fi_value + '&ff=' + ff_value;
+	url += '?n=' + titulo_value + '&d=' + descripcion_value + '&l=' + autor_value;
+	url += '&fi=' + anyo_inicio_value + '-' + mes_inicio_value + '-' + dia_inicio_value;
+	url += '&ff=' + anyo_final_value + '-' + mes_final_value + '-' + dia_final_value;
+
+	console.log(url);
 
 	/*Pruebas para ver si recojo bien el value del formulario*/
 	/*console.log(titulo_value);
@@ -690,10 +700,12 @@ function realizarBusqueda(frm){
 		let v = JSON.parse(xhr.responseText);
 		console.log(v.RESULTADO);
 
-		if(v.RESULTADO == 'ok' && (titulo_value!='' || descripcion_value!='' || autor_value!='' || fi_value!='' || ff_value!='')){
+		if(v.RESULTADO == 'ok' && ((titulo_value!='' || descripcion_value!='' || autor_value!='') || 
+			(dia_inicio_value!='' && mes_inicio_value!='' && anyo_inicio_value!='' && dia_final_value!='' && mes_final_value!='' && anyo_final_value!=''))){
+
 			let html = '';
 
-			for(let i=0; i<v.FILAS.length && i<6; i++){
+			for(let i=0; i<v.FILAS.length && i<10; i++){
 				let e = v.FILAS[i];
 
 					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
@@ -716,10 +728,14 @@ function realizarBusqueda(frm){
 
 			}
 			section.querySelector('h2+div').innerHTML = html;
+			// console.log(v.FILAS.length);
+			if(v.FILAS.length == 0 ){
+				alert("Ningún resultado coincide con los parámetros de búsqueda");
+			}
 
 		}else{
 			// Mostrar un mensaje avisando al usuario de que incluya algún parámetro de búsqueda
-			alert("Ningún resultado. Incluye algún parámetro de búsqueda");
+			alert("Incluye algún parámetro de búsqueda correcto");
 			location.replace('buscar.html');
 		}
 
@@ -786,10 +802,8 @@ function realizarComentario(btn){
 		fd.append('texto', btn.parentNode.querySelector('textarea').value);
 		fd.append('id_entrada', id_entrada);
 
-
 		//console.log(id_entrada);
 		
-
 		xhr.open('POST', url, true);
 		xhr.onload = function(){
 			console.log(xhr.responseText);
@@ -797,6 +811,8 @@ function realizarComentario(btn){
 
 			if(v.RESULTADO = 'ok'){
 				mensajeComentarioCorrecto();
+			}else{
+				mensajeComentarioIncorrecto();
 			}
 
 		};
@@ -817,11 +833,11 @@ function mostrarFormComentario(){
     	html +=	'<ul class="formList">';	
 		html += 	'<li>';
 		html +=			'<label for="tituloComentario">Título</label>';
-		html += 		'<input name="tituloComentario" value="" type="text" id="tituloComentario" placeholder="título" required/>';
+		html += 		'<input name="tituloComentario" maxlength="50" type="text" id="tituloComentario" placeholder="título" required/>';
 		html += 	'</li>';				
 		html +=		'<li>';
 		html +=			'<label for="textComentario">Texto comentario</label>';
-		html +=			'<textarea name="textComentario" id="textComentario" maxlength="200" rows=4  required></textarea>';
+		html +=			'<textarea name="textComentario" id="textComentario" maxlength="200" rows=4 required></textarea>';
 		html +=		'</li>';	
 		html += '</ul>';
 		html += '<p><input name="submit" value="Comentar" type="Submit" id="comentarSubmit"/></p>';
@@ -840,6 +856,7 @@ function mostrarFormComentario(){
 function mensajeComentarioCorrecto(){
 	let capa_fondo = document.createElement('div'),
         capa_frente = document.createElement('article'),
+
         //texto = document.querySelector('body>input[name="mensaje"]').value,
 
         html = '';
@@ -856,9 +873,32 @@ function mensajeComentarioCorrecto(){
     capa_fondo.classList.add('capa-fondo'); 
     capa_frente.classList.add('capa-frente');
 
+    //location.replace("index.html");
+
     document.body.appendChild(capa_fondo);
 }
 
+function mensajeComentarioIncorrecto(){
+	let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+        //texto = document.querySelector('body>input[name="mensaje"]').value,
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    // id de la entrada actual
+    var id_entrada = getID();
+
+    html+= '<h2>Comentario realizado de forma incorrecta</h2>';
+    html+= '<a href="entrada.html?id=' + id_entrada + '"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
+}
 
 /*FIN NUEVO HECHO POR ASIER*/
 
