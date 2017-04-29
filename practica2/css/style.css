@@ -177,6 +177,50 @@ section>div>article>figure.fotoEntrada{
     position: relative;
 }
 
+#seccionFotos>div{
+    width: 25%;
+    height: 18em;
+    margin: 1em auto; 
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+#delFoto{
+	width:25%;
+}
+
+div>article>div>img{
+    width: 25%;
+    height: 17em;
+    margin: 1em auto; 
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+div>article>div>textarea{
+    width: 27%;
+    height: 13em;
+    margin: 1em auto; 
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+div>article>div>input{
+    width: 30%;
+    height: 20em;
+    margin: 1em auto; 
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); 
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
 section>div>article>figure{
     width: 100%;
     height: 16em;

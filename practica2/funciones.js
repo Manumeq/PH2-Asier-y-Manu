@@ -1,3 +1,5 @@
+var first;
+
 if(sessionStorage['pointer']==undefined){
 	sessionStorage['pointer'] = 0;
 }
@@ -96,15 +98,21 @@ function mostrarEntradasDefault(frm){
 	xhr.onload = function(){
 		let v = JSON.parse(xhr.responseText);
 		if(v.RESULTADO == 'ok'){
-			sessionStorage['maxpointer'] = Math.floor(v.FILAS.length/6);
+			if(v.FILAS.length>=6){
+				console.log("entras");
+				sessionStorage['maxpointer'] = Math.floor(v.FILAS.length/6);
+			}
+			else{
+				
+				sessionStorage['maxpointer'] = 0;
+			}
 			let html = '';
 
 			for(let i=0; i<v.FILAS.length; i++){
 				console.log(v.FILAS.length);
 				let e = v.FILAS[i],
-
 					foto = 'http://localhost/PHII/practica2/fotos/' + e.fichero;
-
+				
 				html += '<article>';
 				html +=   '<h3><a href="entrada.html?id=' + e.id + '">' + e.nombre + '</a></h3>'; 
 				html += 	'<figure>';
@@ -314,10 +322,44 @@ function lastPage(){
 	sessionStorage['pointer']=maxpointer;
 }
 
+function nuevaFotoEntrada(frm){
+	console.log(frm);
+	var test = frm.parentNode.firstChild.nextSibling.nextSibling.nextSibling;
+	if(first==undefined){
+		test.innerHTML = '';
+		first = false;
+	}
+	
+	newPic = '';
+	newPic += '<article>';
+	newPic += 	 '<div>';
+	newPic += 		'<img src="imgs/users.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
+	newPic += 		'<textarea placeholder="descripcion aquí"></textarea>';
+	newPic +=			'<input type="file" accept="image/*" onchange="mostrarFoto(this);"/>';
+	newPic +=	 '</div>';
+	newPic += 	'<button type="button" id="delFoto" onclick="borrarFotoEntrada(this);"> Eliminar Foto </button>';
+	newPic += '</article>';
+	
+	console.log(test);
+	test.innerHTML += newPic;
+	
+	//document.getElementsByTagName("h2")[3].innerHTML = html;	
+	
+}
+
+//borra la foto de la entrada obteniendo su padre (article) a partir del boton "Eliminar Foto" que la llama. Después borra el código HTML de dicho article
+function borrarFotoEntrada(frm){
+	var foto = frm.parentNode;
+	foto.innerHTML='';
+}
+
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
 	console.log(Answer);
+<<<<<<< Updated upstream
 	//document.getElementById("tituloComentario").innerHTML = Answer;
+=======
+>>>>>>> Stashed changes
 	var text = document.getElementById("tituloComentario").setAttribute("value", Answer);
 }
 
