@@ -69,7 +69,7 @@ function mostrarEntradas(frm){
 				html += 	'<h3><a href="entrada.html/?id=' + e.id + '">' + e.nombre + '</a></h3>';
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a href="entrada.html?id=' + e.id + '">Ver más</a></footer></figcaption>';
 				html += 	'</figure>';
 				html += 	'<footer>';
 				html += 	'<ul>';
@@ -150,7 +150,7 @@ function mostrarEntradasDefault(frm){
 				html +=   '<h3><a href="entrada.html?id=' + e.id + '">' + e.nombre + '</a></h3>'; 
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a href="entrada.html?id=' + e.id + '">Ver más</a></footer></figcaption>';
 				html += 	'</figure>';
 				html += 	'<footer>';
 				html += 	'<ul>';
@@ -287,7 +287,7 @@ function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
 		let v3 = JSON.parse(xhr3.responseText);
 		if(v3.RESULTADO == 'ok'){
 			html = '';
-			html += '<h2>Comentarios</h2>';
+			//html += '<h2>Comentarios</h2>';
 			
 			for(let i=0; i<v3.FILAS.length && i<10; i++){
 				let e = v3.FILAS[i];
@@ -376,7 +376,7 @@ function nuevaFotoEntrada(frm){
 	newPic += 	 '<div>';
 	newPic += 		'<img src="imgs/imagen_no_disponible.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
 	newPic += 		'<textarea placeholder="descripcion aquí"></textarea>';
-	newPic +=		'<span></span>'
+	newPic +=		'<span></span>';
 	newPic +=		'<input type="file" multiple accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
 	/*newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);">';*/
 	newPic +=	 '</div>';
@@ -507,37 +507,29 @@ function enviarFoto(id_entrada){
 		let article = foto[i].parentNode.parentNode;
 		console.log(article);
 
-		//console.log(article.querySelector('[type=file]').files[0].size);
+		console.log(article.querySelector('[type=file]').files[0]);
+		console.log(article.querySelector('textarea').value);
 
-		//if(article.querySelector('[type=file]').files[0].size < 512000){
+		form.append('login', du.login);
+		form.append('id_entrada', id_entrada);
+		form.append('texto', article.querySelector('textarea').value);
+		form.append('foto', article.querySelector('[type=file]').files[0]);
 
-			console.log(article.querySelector('[type=file]').files[0]);
-			console.log(article.querySelector('textarea').value);
+		//console.log(form.get("foto"));
 
-			form.append('login', du.login);
-			form.append('id_entrada', id_entrada);
-			form.append('texto', article.querySelector('textarea').value);
-			form.append('foto', article.querySelector('[type=file]').files[0]);
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			console.log("entra");
+		};
 
-			//console.log(form.get("foto"));
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(form);
 
-			xhr.open('POST', url, true);
-			xhr.onload = function(){
-				console.log(xhr.responseText);
-				console.log("entra");
-			};
+		// Reiniciamos el xhr y el FormData
+		form = new FormData();
+		xhr = new XMLHttpRequest();
 
-			xhr.setRequestHeader('Authorization', du.clave);
-			xhr.send(form);
-
-			// Reiniciamos el xhr y el FormData
-			form = new FormData();
-			xhr = new XMLHttpRequest();
-
-			//return false;
-		//}else{
-			//alert("Las fotos no deben superar los 500KB");
-		//}
 	}			
 }
 
@@ -657,10 +649,10 @@ function mostrarComentariosDefault(frm){
 				console.log(e.id);
 				html += '<div class="cabComentario">';
 				html += 	'<ul>';
-				html += 		'<li><span><img src="' + foto + '"></span></li>';
+				html += 		'<li><span><img src="' + foto + '" alt="foto_perfil"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>'; 		
-				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
-				html += 		'<li><h3><a href="entrada.html?id=' + e.id_entrada + '&&id_comentario=' + e.id + '"><p class="pSuspensivos">' + e.nombre_entrada + '</p></a></h3></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><h3><a class="pSuspensivos" href="entrada.html?id=' + e.id_entrada + '&&id_comentario=' + e.id + '">' + e.nombre_entrada + '</a></h3></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html += '<div class="bodComentario">';
@@ -897,25 +889,6 @@ function hacerRegistro(frm){
 
 /*PETICIONES AJAX entradas*/
 
-/*
-■ rest/entrada/?u={número}
-Devuelve las últimas (número) entradas más recientes.
-
-■ rest/entrada/?n={texto}
-Devuelve las entradas que tengan la subcadena t exto en el nombre.
-■ rest/entrada/?d={texto}
-Devuelve las entradas que tengan la subcadena t exto en la
-descripción .
-■ rest/entrada/?l={login}
-Devuelve las entradas creadas por el usuario login .
-■ rest/entrada/?fi={aaaa-mm-dd}
-Devuelve las entradas cuya fecha sea posterior a la fecha fi .
-■ rest/entrada/?ff={aaaa-mm-dd}
-Devuelve las entradas cuya fecha sea anterior a la fecha ff .
-■ rest/entrada/?pag={pagina}&lpag={registros_por_pagina}
-*/
-/*ejemplo: http://localhost/PHII/practica2/rest/entrada/?l=usu1&&t=a*/
-
 // Función que realiza la busqueda
 function realizarBusqueda(frm){
 
@@ -938,14 +911,7 @@ function realizarBusqueda(frm){
 	url += '&fi=' + anyo_inicio_value + '-' + mes_inicio_value + '-' + dia_inicio_value;
 	url += '&ff=' + anyo_final_value + '-' + mes_final_value + '-' + dia_final_value;
 
-	console.log(url);
-
-	/*Pruebas para ver si recojo bien el value del formulario*/
-	/*console.log(titulo_value);
-	console.log(descripcion_value);
-	console.log(autor_value);
-	console.log(fi_value);
-	console.log(ff_value);*/	
+	console.log(url);	
 
 	xhr.open('GET', url, true);
 
@@ -968,13 +934,13 @@ function realizarBusqueda(frm){
 				html +=   '<h3><a href="entrada.html?id=' + e.id + '">' + e.nombre + '</a></h3>'; 
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a href="entrada.html?id=' + e.id + '">Ver más</a></footer></figcaption>';
 				html += 	'</figure>';
 				html += 	'<footer>';
 				html += 	'<ul>';
 				html += 		'<li><span aria-hidden="true" class="icon-comment"></span>' + e.ncomentarios + '</li>';
 				html += 		'<li><span aria-hidden="true" class="icon-picture"></span>' + e.nfotos + '</li>';
-				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha +'">' + e.fecha + '</time></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
 				html += 	'</ul>';
 				html += 	'</footer>';
@@ -1131,10 +1097,6 @@ function mensajeComentarioCorrecto(){
 
     document.body.appendChild(capa_fondo);
 }
-
-/*function accederFocoComentario(id){
-	location.replace("http://localhost/PHII/practica2/entrada.html?id="+ id +"#tituloComentario");
-}*/
 
 function mensajeComentarioIncorrecto(){
 	let capa_fondo = document.createElement('div'),

@@ -34,14 +34,14 @@
 	
 	<section>
 		<h2>Registro</h2>
-		<form onsubmit="return hacerRegistro(this)";><!--action="index.html"-->
+		<form onsubmit="return hacerRegistro(this);"><!--action="index.html"-->
 			<fieldset>
 				<ul class="formList">
 					<li>
 					<label>Login</label>
 						<input type="text" name="login" placeholder="Login" autofocus required pattern="^[A-Za-z0-9_]{1,20}$" />
 					</li>
-					<section id="loginRepetido"></section>
+					<li id="loginRepetido"></li>
 					<li>
 					<label>Nombre usuario</label>
 						<input type="text" name="nombre" placeholder="Nombre" required/><!--pattern="[a-zA-Z0-9]+"-->
@@ -56,7 +56,7 @@
 					<label>Repetir contraseña</label>
 						<input type="password" name="pwd2" placeholder="Repetir contraseña" pattern="[a-zA-Z0-9_\-]{4,20}" required/>
 					</li>
-					<section id="contrasenyaRepetida"></section>
+					<li id="contrasenyaRepetida"></li>
 					<li>
 					<label>Email</label>
 						<input type="email" name="email" required  placeholder="Email"/>
