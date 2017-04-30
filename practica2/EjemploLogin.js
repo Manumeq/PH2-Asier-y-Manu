@@ -65,3 +65,46 @@ function enviarFoto(btn){
 	xhr.setRequestHeader('Authorization', du.clave);
 	xhr.send(fd);
 }
+
+/*Ejemplo enviar Foto Santi*/
+function enviarFoto(idEntrada){
+    //alert("vamos a ver");
+    //alert("numero todal de fotos "+ numeroFotos);
+    let datosUsuario = JSON.parse(sessionStorage['du']);
+    let xhr = new XMLHttpRequest();
+    let url = 'http://localhost/practica2/rest/foto/';
+    let form = new FormData();
+    let padre = document.querySelector('article>form>div');
+   // console.log(padre);
+  
+
+    for(let a =1; a<=numeroFotos;a++){
+        if(a == 1 ){
+            padre = document.querySelector('article>form>div>div:first-of-type');
+        }
+        else{
+             padre = document.querySelector('article>form>div>div:nth-of-type('+a+')');
+        }
+        
+        //console.log(padre);
+     
+       // alert("valor de a: "+ a + "valor de numeroFotos: " + numeroFotos);
+        form.append('login', datosUsuario.login);
+        form.append('id_entrada', idEntrada);
+        form.append('texto', padre.querySelector('textarea').value);
+        form.append('foto', padre.querySelector('[type=file]').files[0]);
+    
+        xhr.open('POST', url, true);
+        xhr.onload = function(){
+        	console.log(xhr.responseText);
+        }
+          
+        xhr.setRequestHeader('Authorization', datosUsuario.clave);
+        xhr.send(form);
+        
+        form = new FormData();
+        xhr = new XMLHttpRequest();
+     
+    }
+        
+}

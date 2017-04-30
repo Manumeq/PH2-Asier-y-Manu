@@ -377,7 +377,7 @@ function nuevaFotoEntrada(frm){
 	newPic += 		'<img src="imgs/imagen_no_disponible.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
 	newPic += 		'<textarea placeholder="descripcion aquí"></textarea>';
 	newPic +=		'<span></span>'
-	newPic +=		'<input type="file" name="image[]" multiple accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
+	newPic +=		'<input type="file" multiple accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
 	/*newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);">';*/
 	newPic +=	 '</div>';
 	newPic += 	'<button type="button" id="delFoto" onclick="borrarFotoEntrada(this);"> Eliminar Foto </button>';
@@ -421,7 +421,7 @@ function borrarFotoEntrada(frm){
 function mostrarFoto(inp) {
 
 	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
-	let fr = new FileReader(); 
+	var fr = new FileReader(); 
 
 	fr.onload = function(){
 		inp.parentNode.querySelector('img').src = fr.result;
@@ -432,116 +432,126 @@ function mostrarFoto(inp) {
 }
 
 function enviarEntrada(btn){
-	let xhr = new XMLHttpRequest(),
+
+
+	let foto = document.querySelectorAll('[type=file]');
+	console.log(foto);
+	
+	let tamanyo_grande = false;
+
+	for(var i=0; i<foto.length; i++){
+		
+		let article = foto[i].parentNode.parentNode;
+		console.log(article);
+
+		if(article.querySelector('[type=file]').files[0].size > 512000){
+			tamanyo_grande = true;
+		}
+
+	}
+
+	if(tamanyo_grande == false){
+
+		let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/entrada/',
 		fd = new FormData(),
 		du = JSON.parse(sessionStorage['du']);
 
 		//console.log(btn);
-	fd.append('login', du.login);
-	fd.append('nombre', btn.parentNode.querySelector('[type=text]').value);
-	fd.append('descripcion', btn.parentNode.querySelector('textarea').value);
+		fd.append('login', du.login);
+		fd.append('nombre', btn.parentNode.querySelector('[type=text]').value);
+		fd.append('descripcion', btn.parentNode.querySelector('textarea').value);
 
-	xhr.open('POST', url, true);
-	xhr.onload = function(){
-		console.log(xhr.responseText);
-		let v = JSON.parse(xhr.responseText);
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			let v = JSON.parse(xhr.responseText);
 
-		if(v.RESULTADO == 'ok'){
-			enviarFoto(btn, v.id);
-		}
+			if(v.RESULTADO == 'ok'){
+				enviarFoto(v.id);
+				mostrarMensajeEntradaCorrecta();
+			}
 
-	};
-	xhr.setRequestHeader('Authorization', du.clave);
-	xhr.send(fd);
+		};
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(fd);
 
+		return false;
+	}else{
+		alert("Las fotos no deben superar los 500KB");
+	}
 	return false;
 }
 
 
-function enviarFoto(btn, id_entrada){
-
-	let foto = document.querySelectorAll('[type=file]'); // obtenemos todos los inputs file
-	console.log(foto);
-
-	for(let i=0; i<foto.length; i++){
-
-		let article = foto[i].parentNode.parentNode;
-
-		console.log(article);
-
-		var value = article.querySelector('textarea').value;
-		var file = article.querySelector('[type=file]').files[0];
-
-		console.log(article.querySelector('[type=file]').files[0]);
-		console.log(article.querySelector('textarea').value);
-
-		enviarAllFotos(id_entrada, i, foto, value, file);
-
-		/*let xhr = new XMLHttpRequest(),
-			url = 'http://localhost/PHII/practica2/rest/foto/',
-			fd = new FormData(),
-			du = JSON.parse(sessionStorage['du']);
-			
-		let article = foto[i].parentNode.parentNode;
-
-		console.log(article);
-
-		console.log(article.querySelector('[type=file]').files[0]);
-		console.log(article.querySelector('textarea').value);
-
-		fd.append('login', du.login);
-		fd.append('id_entrada', id_entrada);
-		fd.append('texto', article.querySelector('textarea').value);
-		fd.append('foto', article.querySelector('[type=file]').files[0]);
-
-		xhr.open('POST', url, true);
-		xhr.onload = function(){
-			console.log(xhr.responseText);
-			console.log("entra");
-		};
-
-		xhr.setRequestHeader('Authorization', du.clave);
-		xhr.send(fd);*/
-	}
-
-
-	/*let foto = document.querySelectorAll('[type=file]'); // obtenemos todos los inputs file
-
-	let article = foto[0].parentNode.parentNode;
-
-	console.log(article.querySelector('textarea').value);
-	console.log(foto);*/
-	//console.log('caca', id_entrada);
-}
-
-function enviarAllFotos(id_entrada, i, foto, value, file){
+function enviarFoto(id_entrada){
 
 	let xhr = new XMLHttpRequest(),
 			url = 'http://localhost/PHII/practica2/rest/foto/',
-			fd = new FormData(),
+			form = new FormData(),
 			du = JSON.parse(sessionStorage['du']);
-			
-		/*let article = foto[i].parentNode.parentNode;
 
+	let foto = document.querySelectorAll('[type=file]');
+	console.log(foto);
+	
+	for(var i=0; i<foto.length; i++){
+		
+		
+		let article = foto[i].parentNode.parentNode;
 		console.log(article);
 
-		console.log(article.querySelector('[type=file]').files);
-		console.log(article.querySelector('textarea').value);*/
+		//console.log(article.querySelector('[type=file]').files[0].size);
 
-		fd.append('login', du.login);
-		fd.append('id_entrada', id_entrada);
-		fd.append('texto', value);
-		fd.append('foto', file);
+		//if(article.querySelector('[type=file]').files[0].size < 512000){
 
-		xhr.open('POST', url, true);
-		xhr.onload = function(){
-			console.log(xhr.responseText);
-			console.log("entra");
-		};
+			console.log(article.querySelector('[type=file]').files[0]);
+			console.log(article.querySelector('textarea').value);
 
-		xhr.setRequestHeader('Authorization', du.clave);
-		xhr.send(fd);
+			form.append('login', du.login);
+			form.append('id_entrada', id_entrada);
+			form.append('texto', article.querySelector('textarea').value);
+			form.append('foto', article.querySelector('[type=file]').files[0]);
+
+			//console.log(form.get("foto"));
+
+			xhr.open('POST', url, true);
+			xhr.onload = function(){
+				console.log(xhr.responseText);
+				console.log("entra");
+			};
+
+			xhr.setRequestHeader('Authorization', du.clave);
+			xhr.send(form);
+
+			// Reiniciamos el xhr y el FormData
+			form = new FormData();
+			xhr = new XMLHttpRequest();
+
+			//return false;
+		//}else{
+			//alert("Las fotos no deben superar los 500KB");
+		//}
+	}			
+}
+
+// Función para mostrar el mensaje emergente cuando se
+// ha enviado la entrada correctamente.
+function mostrarMensajeEntradaCorrecta(){
+    let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>Entrada realizada correctamente</h2>';
+    html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
 }
 
 /** TERMINA NUEVA ENTRADA **/
