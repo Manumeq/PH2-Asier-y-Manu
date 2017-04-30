@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,36 +41,106 @@
 						<img src="imgs/logo1.png" alt="logo de North & East">
 					</figure>
 					<p>
-						Práctica 1 para la asignatura Programación Hipermedia II del grado en Ingeniería Multimedia
-						Universidad de Alicante
-						España
+						<h3>
+							Práctica 1 para la asignatura <strong>Programación Hipermedia II</strong> del grado en <strong>Ingeniería Multimedia</strong>
+							
+							<strong>Universidad de Alicante</strong>
+							<strong>España</strong>
 
-						Autores:
+							<h4>Autores:</h4>
 
-						Asier Manzano Arévalo | asier.ma.95@gmail.com | 74392687S
-						Manuel Escorza Quinto | manumeq@gmail.com | 29522824R
-						Grupo: Jueves 09:00-11:00 
+							<strong>Asier Manzano Arévalo | asier.ma.95@gmail.com | 74392687S</strong>
+							<strong>Manuel Escorza Quinto | manumeq@gmail.com | 29522824R</strong>
+							<strong>Grupo: Jueves 09:00-11:00</strong> 
+						</h3>
 					</p>
 				</article>
 			</div>
 	</section>
 
 	<section>
-		<p>
+		<h2>
 			Sumario de la práctica:
-		</p>
-		<p>
-			En general, estamos contentos con el desarrollo de la práctica. Los únicos apartados que no hemos podido implementar correctamente han sido los relativos a las expresiones regulares, ya que nuestro
-			login no controla que se introduzca una cadena que comience con un número. El resto de expresiones regulares se encuentran implementadas correctamente
-		</p>
+		</h2>
+		<h3>
+			<p>
+			Hemos realizado la mayor parte de los apartados de la practica satisfactoriamente.
+			</p>
+		</h3>
+		
+		<h3>
+			<strong>Funcionamiento:</strong>
+				
+				<h4><strong> Index </strong></h4>
+					<p>
+					La página "Index" actúa como la página principal de la web que se carga por defecto al entrar a esta. Index utiliza las funciones Js "mostrarEntradasDefault" y "mostrarComentariosDefault". Con estas funciones se cargan las últimas 6 entradas y los últimos 10 comentarios que han sido añadidos a la web, todos con sus respectivos enlaces a la página de detalle de Entrada (la información de entradas que aparece en Index es una versión reducida con el título, una foto y una descripción). Tanto las entradas como los comentarios se obtienen mediante peticiones facilitadas en el enunciado de la practica. 
+					</p>
+					<p>
+					En esta página se encuentra también el selector de paginación que, en caso de que se encuentren en la página más de 6 entradas, mostrará la página actual, el número máximo de páginas y cuatro botones de navegación que nos permitirán ir cambiando entre página anterior, página siguiente, primera página y última página.
+					</p>
 
-		<p>
-			No hemos tenido problemas de incompatibilidades entre navegadores. Hemos probado nuestra página en Internet Explorer, Google Chrome, Mozilla Firefox y Opera. Ninguno de estos navegadores ha mostrado un comportamiento inesperado de ninguno de nuestros html.
-		</p>
+				<h4><strong> Buscar </strong></h4>
+					<p>
+					La página "Buscar" se puede acceder desde la barra de navegación independientemente de si el usuario está logeado o es un visitante. 
+					</p>
+					<p>
+					Se realiza una petición GET y se recogen todos los datos del formulario. Los datos de este formulario se van concatenando paso a paso y se construye la petición GET que devuelve las entradas. 
+					</p>
+					<p>
+					La información se muestra comprobando si los resultados son correctos y si hay campos vacíos en el formulario. En el caso de no introducir ningún campo del formulario, se emite una alerta que indica al usuario que debe de rellenar como poco uno de los campos de búsqueda para obtener un resultado. De la misma forma tampoco es necesario que un usuario rellene todos los campos, si no que la busqueda se realiza en función y por el orden de los campos que estén rellenos siempre y cuando se complete como mínimo uno de ellos. Como alternativa al input date (ya que no es soportado en Firefox) se ha implementado una select con varias opciones que permite escoger la fecha mediante drop-down lists.
+					</p>
+				<h4><strong> Nueva Entrada </strong></h4>	
+					<p>
+					La página "Nueva Entrada" solo es accesible una vez el usuario ha iniciado sesion y las respectivas variables se encuentran en el sessionStorage. De no cumplirse esta condición, "nueva entrada" no aparecerá en el menú.
+					</p>
 
-		<p>
-			Por último, cabe destacar un apartado en el que si hemos tenido unos pequeños problemas: la validación. A pesar de que ninguno de nuestros html contiene errores, todos tienen una advertencia debido al uso indebido de las etiquetas h (el uso de h2 y h3 sin un h1, principalmente). Puesto que hemos notado este problema en un estado muy avanzado de los html, hemos decidido no corregirlo para no arriesgarnos a generar problemas en la estructura del código a última hora. También cabe destacar que algunos de los archivos css no creados por nosotros para el uso de la fuente y símbolos "fontello" (de los que se debían de copiar a la carpeta de nuestra web) han reportado errores que no sabemos solucionar, no obstante nuestro CSS (el que hemos escrito nosotros) si está validado.
-		</p>
+					<p>
+					"Nueva Entrada" muestra un formulario en el que se solicitan con las correspondientes restricciones los campos de título y descripción de la entrada. Bajo estos dos campos, se encuentra la seccion "fotos de la entrada" donde aparece inicialmente un espacio vacío con un botón "añadir foto" y debajo de este, el botón para enviar la nueva entrada a la web.
+					</p>
+
+					<p>
+					Al pulsar el botón de "añadir foto" se generará una nueva ficha genérica para insertar una foto en la entrada. En esta ficha se podrá seleccionar una foto y colocarle una descripción. En el caso de que la foto que se seleccione supere los 500kb de tamaño, la foto aparecerá con un grueso marco rojo alrededor y al lado de la descripción de esta aparecerá un mensaje de alerta.
+					</p>
+
+					<p>
+					El formulario de "Nueva Entrada" no exige que se añada ninguna foto a la entrada, por lo que no es necesario hacerlo para poder crear una nueva; bastará con su nombre y su descripción.
+					</p>
+
+				<h4><strong> Registro </strong></h4>
+					<p>
+					La pagina "Registro" es accesible cuando el usuario es un visitante (no esta logeado). Esta página muestra un formulario que contiene los campos "Login", "Nombre usuario", "Contraseña", "Repetir contraseña" y "Email". 
+					</p>
+					<p>
+					La función de Js denominada "hacerRegistro" hace uso de dos peticiones para validar este formulario y registrar al usuario en la base de datos.
+					</p>
+					<p>
+					En primer lugar, se utiliza una petición XML para comprobar si el Login que el usuario ha introducido está disponible para su uso en la base de datos (no se encuentra en uso por ningún otro usuario); esta misma petición se utiliza para comprobar que las dos contraseñas introducidas por el usuario coinciden.
+					</p>
+					<p>
+					En segundo lugar, se utiliza otra petición XML para enviar el formulario a la base de datos y añadir el nuevo usuario, una vez se haya pulsado el botón de "Aceptar" y se hayan validado el resto de campos.
+					</p>
+
+				<h4><strong> Login </strong></h4>
+					<p>
+					La página "Login" es accesible cuando el usuario es un visitante. Esta página es una versión simplificada de la página "Registro". 
+					</p>
+					<p>
+					Realiza una petición para comprobar si los datos de login introducidos son correctos. En caso afirmativo, se inicia la variable sessionStorage para indicar al sistema que el usuario ha iniciado sesión y poder así activar y desactivar las funcionalidades correspondientes.
+					</p>
+				<h4><strong> Entrada </strong></h4>
+					<p>
+					La página "Entrada" no es accesible de forma natural por el usuario, sino que en su lugar se trata de una página solo accesible al usar cualquiera de los enlaces en las entradas de la página principal
+					</p>
+					<p>
+					Esta página recibe mediante el método POST un valor que contiene el Id de la entrada en concreto a mostrar. Al cargar la página, se recoge dicha Id mediante una función javaScript, y posteriormente se llama a la función MostrarEntradasId.
+					</p>
+					<p>
+					Esta función es particularmente grande y contiene 3 solicitudes XML distintas con las que se construye por completo la página en detalle de la entrada. La primera de estas peticiones se emplea para cargar los datos de la entrada en una sección, la segunda petición recoge las fotos de la entrada y la última petición los comentarios asociados a la misma. Todas y cada una de estas peticiones utilizan la Id que recibe la página cuando es llamada a través de los enlaces de la página principal.
+					</p>
+					<p>
+					Como último detalle acerca de esta página, cabe destacar que se al cargar los comentarios se añade un botón "Responder" que contiene un enlace simple hacia el final de la sección de comentarios de la web, donde se encuentra el formulario de realizar un comentario. Si se usa el botón "Responder", este llamará a una función en Js que se encargará de colocar automáticamente en el título del comentario, "RE:" seguido del título del comentario desde el cual se ha usado el botón "Responder".
+					</p>
+		</h3>
 	</section>
 
 	<footer>

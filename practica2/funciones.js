@@ -1,11 +1,16 @@
 var first;
+var section;
+var pagmax;
+var pagaux1;
+var pagaux2;
 
 if(sessionStorage['pointer']==undefined){
 	sessionStorage['pointer'] = 0;
+
 }
 
 firstpointer=0;
-
+var lastpointer=0;
 
 if(sessionStorage['maxpointer']==undefined){
 	sessionStorage['maxpointer']=0;
@@ -86,6 +91,32 @@ function mostrarEntradas(frm){
 	return false;
 }
 
+function maxPageCalc(){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PH2/Practica2/rest/entrada/',
+		pagaux1=0;
+	xhr.open('GET', url, true);
+	//Cuando es get no se pasa nada por parametros, se concatena con la url
+	//url += '?pag=' + frm.pag.value + '&lpag=' + frm.lpag.value;
+	xhr.onload = function(){
+		let v = JSON.parse(xhr.responseText);
+
+		if(v.RESULTADO == 'ok'){
+			pagmax=v.FILAS.length;
+			console.log("Numero de entradas: "+pagmax);
+			pagaux1=pagmax/3;
+			sessionStorage['maxpointer']=parseInt(pagmax/6);
+			lastpointer = parseInt(pagmax/6);
+			if(pagaux1>pagaux2){
+				sessionStorage['maxpointer']=pagaux2+1;
+				lastpointer = pagaux2+1;
+			}
+			console.log("Paginas totales: "+pagaux2);
+		}
+	};
+	xhr.send();
+}
+
 function mostrarEntradasDefault(frm){
 	console.log(frm.document.body.getElementsByTagName("SECTION")[0]);
 	console.log(sessionStorage['pointer']);
@@ -99,12 +130,14 @@ function mostrarEntradasDefault(frm){
 		let v = JSON.parse(xhr.responseText);
 		if(v.RESULTADO == 'ok'){
 			if(v.FILAS.length>=6){
-				console.log("entras");
-				sessionStorage['maxpointer'] = Math.floor(v.FILAS.length/6);
+				console.log("entras: " + v.RESULTADO.length);
+				//sessionStorage['maxpointer'] = v.RESULTADO.length;
+				//console.log("esta asignatura es una puta mierda: " + sessionStorage['maxpointer']);
+				//lastpointer = Math.floor(v.RESULTADO.length);
 			}
 			else{
 				
-				sessionStorage['maxpointer'] = 0;
+				//sessionStorage['maxpointer'] = 0;
 			}
 			let html = '';
 
@@ -131,6 +164,11 @@ function mostrarEntradasDefault(frm){
 
 			}//for(let i=0; i<v.FILAS.length; i++)
 			section.querySelector('h2+div').innerHTML = html;
+			
+			section = frm.document.getElementById("contpag");
+			var suma = (parseFloat(sessionStorage['pointer']) + 1); // SI, EFECTIVAMENTE HACE FALTA PORQUE JAVASCRIPT
+			section.innerHTML = 'Pagina ' + suma + ' de ' + sessionStorage['maxpointer']; 
+			console.log("section: " + section);
 
 		}
 	}
@@ -310,16 +348,18 @@ function firstPage(){
 function prevPage(){
 	if(sessionStorage['pointer']>0){
 		sessionStorage['pointer']--;
+		mostrarEntradasDefault(section);
 	}
 }
 
 function nextPage(){
-	if(sessionStorage['pointer']<maxpointer)
+	if(sessionStorage['pointer']<sessionStorage['maxpointer'])
 		sessionStorage['pointer']++;
+		mostrarEntradasDefault(section);
 }
 
 function lastPage(){
-	sessionStorage['pointer']=maxpointer;
+	sessionStorage['pointer'] = parseFloat(sessionStorage['maxpointer']) -1 ;
 }
 
 /** NUEVA ENTRADA* */
@@ -516,7 +556,7 @@ function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario
 }
 
 function numPag(frm){
-
+/*
 	mysection = frm.document.body.getElementsByTagName("SECTION")[1];
 	mysection = mysection.getElementsByTagName("UL")[0];
 	mysection = mysection.getElementsByTagName("LI")[2];
@@ -530,7 +570,7 @@ function numPag(frm){
 	mysection.innerHTML = myhtml;
 
 	console.log(mysection);
-	
+*/	
 }
 
 /* FIN DE MODIFICACIONES DE MANU*/
