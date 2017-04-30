@@ -167,7 +167,7 @@ function mostrarEntradasDefault(frm){
 			
 			section = frm.document.getElementById("contpag");
 			var suma = (parseFloat(sessionStorage['pointer']) + 1); // SI, EFECTIVAMENTE HACE FALTA PORQUE JAVASCRIPT
-			section.innerHTML = 'Pagina ' + suma + ' de ' + sessionStorage['maxpointer']; 
+			section.innerHTML = 'Página ' + suma + ' de ' + sessionStorage['maxpointer']; 
 			console.log("section: " + section);
 
 		}
@@ -444,9 +444,16 @@ function enviarEntrada(btn){
 		let article = foto[i].parentNode.parentNode;
 		console.log(article);
 
-		if(article.querySelector('[type=file]').files[0].size > 512000){
-			tamanyo_grande = true;
-		}
+		// Ponemos esta primera condicin porque si se añaden más fotos
+		// a la entrada, se ponen como undefined y entonces no se podría
+		// sacar el tamaño del input file del article y no se mostraría
+		// nada por consola y no haría nada.
+		if(article.querySelector('[type=file]').files[0] != undefined){ 
+
+			if(article.querySelector('[type=file]').files[0].size > 512000){
+				tamanyo_grande = true;
+			}
+		}					
 
 	}
 
@@ -480,7 +487,7 @@ function enviarEntrada(btn){
 	}else{
 		alert("Las fotos no deben superar los 500KB");
 	}
-	return false;
+	// return false;
 }
 
 
