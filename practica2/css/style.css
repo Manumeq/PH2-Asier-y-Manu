@@ -19,7 +19,8 @@ section>form>fieldset>section{
 	margin: 1em;
 }
 
-[type=file]{
+/*Dejamos solo invisible el primer input file*/
+[type=file]:nth-of-type(1){
 	display: none;
 }
 

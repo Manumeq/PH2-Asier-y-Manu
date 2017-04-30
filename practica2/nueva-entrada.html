@@ -36,7 +36,7 @@
 	<section>
 		<h2>Crear una nueva entrada</h2>
 
-		<form onsubmit="return hacerRegistro(this)";><!--action="index.html"-->
+		<form onsubmit="return enviarEntrada(this)"; enctype="multipart/form-data"><!--action="index.html"-->
 			<fieldset>
 				<ul class="formList">
 					<li>
@@ -53,8 +53,18 @@
 
 			<fieldset>
 				<h2>Fotos de la entrada:</h2>
-					<div id="seccionFotos"> </div>
-					<button type="button" onclick="nuevaFotoEntrada(this);">Añadir foto</button>
+					<div id="seccionFotos"></div>
+					<!--<article>
+						<div>
+							<img src="imgs/imagen_no_disponible.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">
+							<textarea placeholder="descripcion aquí"></textarea>
+							<span></span>
+							<input type="file" required accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>
+							<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);">
+							</div>
+							<button type="button" id="delFoto" onclick="borrarFotoEntrada(this);"> Eliminar Foto </button>
+					</article>-->
+					<button type="button" onclick="nuevaFotoEntrada(this);">Añadir foto</button>					
 				  <!--
 					<section>
 						<div>

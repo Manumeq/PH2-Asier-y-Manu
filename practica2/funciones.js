@@ -322,6 +322,7 @@ function lastPage(){
 	sessionStorage['pointer']=maxpointer;
 }
 
+/** NUEVA ENTRADA* */
 function nuevaFotoEntrada(frm){
 	//console.log(frm);
 	var test = frm.parentNode.firstChild.nextSibling.nextSibling.nextSibling;
@@ -333,10 +334,11 @@ function nuevaFotoEntrada(frm){
 	newPic = '';
 	newPic += '<article>';
 	newPic += 	 '<div>';
-	newPic += 		'<img src="imgs/users.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
+	newPic += 		'<img src="imgs/imagen_no_disponible.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
 	newPic += 		'<textarea placeholder="descripcion aquí"></textarea>';
 	newPic +=		'<span></span>'
-	newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
+	newPic +=		'<input type="file" name="image[]" multiple accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
+	/*newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);">';*/
 	newPic +=	 '</div>';
 	newPic += 	'<button type="button" id="delFoto" onclick="borrarFotoEntrada(this);"> Eliminar Foto </button>';
 	newPic += '</article>';
@@ -344,8 +346,7 @@ function nuevaFotoEntrada(frm){
 	//console.log(test);
 	test.innerHTML += newPic;
 	
-	//document.getElementsByTagName("h2")[3].innerHTML = html;	
-	
+	//document.getElementsByTagName("h2")[3].innerHTML = html;		
 }
 
 function comprobarTamanyo(input){
@@ -355,11 +356,11 @@ function comprobarTamanyo(input){
 	console.log(parent);
 	input = input.files[0];
 	 
-	if(input.size>51000){
+	if(input.size>512000){
 		parent.setAttribute("style", "border: solid 3px red;");
 		parent = parent.nextSibling;
 		parent = parent.nextSibling;
-		parent.innerHTML= 'Vamos a ver subnormal, ¿tu que parte de 500 kb no has entendido?';
+		parent.innerHTML= 'Vamos a ver Javier, ¿tú que parte de 500 kb no has entendido?';
 		parent.setAttribute("style", "color:red;");
 	}
 	else{
@@ -376,6 +377,134 @@ function borrarFotoEntrada(frm){
 	var foto = frm.parentNode;
 	foto.innerHTML='';
 }
+
+function mostrarFoto(inp) {
+
+	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
+	let fr = new FileReader(); 
+
+	fr.onload = function(){
+		inp.parentNode.querySelector('img').src = fr.result;
+		inp.parentNode.querySelector('img').alt = inp.files[0].name;
+	};
+
+	fr.readAsDataURL(inp.files[0]);
+}
+
+function enviarEntrada(btn){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
+		fd = new FormData(),
+		du = JSON.parse(sessionStorage['du']);
+
+		//console.log(btn);
+	fd.append('login', du.login);
+	fd.append('nombre', btn.parentNode.querySelector('[type=text]').value);
+	fd.append('descripcion', btn.parentNode.querySelector('textarea').value);
+
+	xhr.open('POST', url, true);
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+		let v = JSON.parse(xhr.responseText);
+
+		if(v.RESULTADO == 'ok'){
+			enviarFoto(btn, v.id);
+		}
+
+	};
+	xhr.setRequestHeader('Authorization', du.clave);
+	xhr.send(fd);
+
+	return false;
+}
+
+
+function enviarFoto(btn, id_entrada){
+
+	let foto = document.querySelectorAll('[type=file]'); // obtenemos todos los inputs file
+	console.log(foto);
+
+	for(let i=0; i<foto.length; i++){
+
+		let article = foto[i].parentNode.parentNode;
+
+		console.log(article);
+
+		var value = article.querySelector('textarea').value;
+		var file = article.querySelector('[type=file]').files[0];
+
+		console.log(article.querySelector('[type=file]').files[0]);
+		console.log(article.querySelector('textarea').value);
+
+		enviarAllFotos(id_entrada, i, foto, value, file);
+
+		/*let xhr = new XMLHttpRequest(),
+			url = 'http://localhost/PHII/practica2/rest/foto/',
+			fd = new FormData(),
+			du = JSON.parse(sessionStorage['du']);
+			
+		let article = foto[i].parentNode.parentNode;
+
+		console.log(article);
+
+		console.log(article.querySelector('[type=file]').files[0]);
+		console.log(article.querySelector('textarea').value);
+
+		fd.append('login', du.login);
+		fd.append('id_entrada', id_entrada);
+		fd.append('texto', article.querySelector('textarea').value);
+		fd.append('foto', article.querySelector('[type=file]').files[0]);
+
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			console.log("entra");
+		};
+
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(fd);*/
+	}
+
+
+	/*let foto = document.querySelectorAll('[type=file]'); // obtenemos todos los inputs file
+
+	let article = foto[0].parentNode.parentNode;
+
+	console.log(article.querySelector('textarea').value);
+	console.log(foto);*/
+	//console.log('caca', id_entrada);
+}
+
+function enviarAllFotos(id_entrada, i, foto, value, file){
+
+	let xhr = new XMLHttpRequest(),
+			url = 'http://localhost/PHII/practica2/rest/foto/',
+			fd = new FormData(),
+			du = JSON.parse(sessionStorage['du']);
+			
+		/*let article = foto[i].parentNode.parentNode;
+
+		console.log(article);
+
+		console.log(article.querySelector('[type=file]').files);
+		console.log(article.querySelector('textarea').value);*/
+
+		fd.append('login', du.login);
+		fd.append('id_entrada', id_entrada);
+		fd.append('texto', value);
+		fd.append('foto', file);
+
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			console.log("entra");
+		};
+
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(fd);
+}
+
+/** TERMINA NUEVA ENTRADA **/
 
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
@@ -406,11 +535,10 @@ function numPag(frm){
 
 /* FIN DE MODIFICACIONES DE MANU*/
 
-
 function mostrarComentarios(frm){
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/comentario/';
-		section = frm.parentNode.parentNode; // ASIER - NO SE PARA QUE sirve
+		section = frm.parentNode.parentNode;
 
 
 	url += '?u=10'; // + frm.pag.value + '&lpag=' + frm.lpag.value; 
@@ -453,7 +581,7 @@ function mostrarComentarios(frm){
 function mostrarComentariosDefault(frm){
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/comentario/';
-		section = frm.document.body.getElementsByTagName("SECTION")[2] // ASIER - NO SE PARA QUE sirve
+		section = frm.document.body.getElementsByTagName("SECTION")[2]
 		console.log(section);
 
 	url += '?u=10'; // + frm.pag.value + '&lpag=' + frm.lpag.value; 
@@ -540,9 +668,13 @@ function mostrarMensajeLoginCorrecto(fecha_acceso){
 
     capa_fondo.appendChild(capa_frente);    
 
+ 	fecha = fecha_acceso.split(" ");
+ 	sinhoras = fecha[0].split("-");
+ 	fecha_completa = sinhoras[2]+'/'+sinhoras[1]+'/'+sinhoras[0]+' a las '+fecha[1]+' h';
+
     html+= '<h2>Login Correcto</h2>';
     html+= '<p>Bienvenido a nuestra web</p>';
-    html+= '<p>Último acceso: ' + fecha_acceso + '</p>';
+    html+= '<p>Su último acceso fue: ' + fecha_completa + '</p>';
     html+= '<a href="index.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
     
     capa_frente.innerHTML = html;
@@ -943,6 +1075,10 @@ function mensajeComentarioCorrecto(){
     document.body.appendChild(capa_fondo);
 }
 
+/*function accederFocoComentario(id){
+	location.replace("http://localhost/PHII/practica2/entrada.html?id="+ id +"#tituloComentario");
+}*/
+
 function mensajeComentarioIncorrecto(){
 	let capa_fondo = document.createElement('div'),
         capa_frente = document.createElement('article'),
@@ -966,40 +1102,3 @@ function mensajeComentarioIncorrecto(){
 }
 
 /*FIN NUEVO HECHO POR ASIER*/
-
-
-/*ASIER NUEVA ENTRADA*/
-
-function mostrarFoto(inp) {
-
-	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
-	let fr = new FileReader(); 
-
-	fr.onload = function(){
-		inp.parentNode.querySelector('img').src = fr.result;
-		inp.parentNode.querySelector('img').alt = inp.files[0].name;
-	};
-
-	fr.readAsDataURL(inp.files[0]);
-}
-
-function enviarFoto(btn){
-	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost/PHII/practica2/rest/foto/',
-		fd = new FormData(),
-		du = JSON.parse(sessionStorage['du']);
-
-	fd.append('login', du.login);
-	fd.append('id_entrada', 1);
-	fd.append('texto', btn.parentNode.querySelector('textarea').value);
-	fd.append('foto', btn.parentNode.querySelector('[type=file]').files[0]);
-
-	xhr.open('POST', url, true);
-	xhr.onload = function(){
-		console.log(xhr.responseText);
-	};
-	xhr.setRequestHeader('Authorization', du.clave);
-	xhr.send(fd);
-}
-
-/*ASIER TERMIAN NUEVA ENTRADA*/
