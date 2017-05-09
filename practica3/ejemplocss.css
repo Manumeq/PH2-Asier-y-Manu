@@ -1,0 +1,13 @@
+*{
+    box-sizing: border-box;
+}
+
+canvas{
+    border: .1em solid;
+}
+
+section{
+    display: inline-block;
+    float: left;
+    margin-right: .5em;
+}
