@@ -1,0 +1,24 @@
+*{
+    box-sizing:border-box;
+}
+
+section{
+    float:left;
+    margin-right: .5em;
+    display:inline-block;
+}
+
+/*CSS para el terreno de juego*/
+
+/*canvas, svg{
+    border: solid .1em red;
+}*/
+
+canvas[data-down]{
+    cursor: crosshair;
+}
+
+.img_peq{
+    max-width: 240px;
+}
+/*Fin CSS para terreno del juego*/
