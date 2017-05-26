@@ -3,9 +3,9 @@
 }
 
 section{
-    float:left;
+    float: left;
     margin-right: .5em;
-    display:inline-block;
+    display: inline-block;
 }
 
 /*CSS para el terreno de juego*/
@@ -22,3 +22,9 @@ canvas[data-down]{
     max-width: 240px;
 }
 /*Fin CSS para terreno del juego*/
+
+/*Fichas*/
+svg{
+	border: .1em solid #234;
+}
+/*Termina Fichas*/
