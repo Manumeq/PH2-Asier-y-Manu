@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="funciones.js"></script>
+	<title>Juego</title>
+</head>
+<body>
+	<header>
+		<div>
+			<h1> FUTBOL CHAPAS BOI!</h1>
+			<h2> Porque el FIFA y el PES son muy mainstream</h2>
+		</div>
+		
+
+		<div>
+			<form name="formEquipos">
+				<ul style="list-style: none;">
+					<li>
+						<label for="equipo1">Nombre equipo 1</label>
+						<input type="text" onchange="checkform();" name="equipo1" required>
+					</li>
+					<li>							
+						<label for="equipo2">Nombre equipo 2</label>
+						<input type="text" onchange="checkform();" name="equipo2" required>
+					</li>
+				</ul>
+				<label for="aJugar"></label>
+				<input id="aJugarB" type="hidden" name="aJugar" value="A jugar!">
+			</form>
+		</div>
+	</header>
+</body>

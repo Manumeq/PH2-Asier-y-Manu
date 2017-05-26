@@ -65,3 +65,20 @@ function dibujarCampoFutbol(){
 
 
 }
+
+//FUNCIONES TO WAPAS DEL MANU ESE
+function checkform(){
+
+     var f = document.forms["formEquipos"].elements;
+        var cansubmit = true;
+        if (f[0].value.length == 0 || f[1].value.length == 0) {
+            cansubmit = false;
+        }
+
+        if (cansubmit) {
+            document.getElementById('aJugarB').type = 'submit';
+        }
+        else{
+            document.getElementById('aJugarB').type = 'hidden';   
+        }
+}
