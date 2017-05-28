@@ -116,10 +116,9 @@ function dibujarCampoFutbol(){
 
 }
 
-/*
 function prepararDragnDropFichas(){
     //Zona drag (las fichas)
-    let v = document.querySelectorAll('body>img');
+    let v = document.querySelectorAll('body>div>div>img');
 
     for (let i = 0; i < v.length; i++) {
         v[i].setAttribute('draggable', 'true');
@@ -174,7 +173,6 @@ function prepararDragnDropFichas(){
         //ctx.drawImage(document.getElementById(id),x,y);
     }
 }
-*/
 
 // Index
 //FUNCIONES TO WAPAS DEL MANU ESE
