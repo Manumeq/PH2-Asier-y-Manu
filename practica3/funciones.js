@@ -116,6 +116,7 @@ function dibujarCampoFutbol(){
 
 }
 
+/*
 function prepararDragnDropFichas(){
     // Zona Drag
     let v = document.querySelectorAll('body>img'),
@@ -131,6 +132,7 @@ function prepararDragnDropFichas(){
     // Zona drop
     let cv = document.getElementById('cv01');
 }
+*/
 
 // Index
 //FUNCIONES TO WAPAS DEL MANU ESE
@@ -152,15 +154,12 @@ function checkform(){
 
 // Almacena los nombres de los equipos en Session Storage
 function guardarEquipos(frm){
- 
     sessionStorage.setItem('equipo1', frm.elements.item(0).value);
- 
     sessionStorage.setItem('equipo2', frm.elements.item(1).value);
- 
 }
  
-function escribirEquipos(frm){
- 
-  //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
- 
+function escribirEquipos(){
+  document.getElementById("team1text").innerHTML = sessionStorage['equipo1'];
+  document.getElementById("team2text").innerHTML = sessionStorage['equipo2'];
+    //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
 }
