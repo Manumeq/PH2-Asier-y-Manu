@@ -21,6 +21,11 @@ canvas[data-down]{
 .img_peq{
     max-width: 240px;
 }
+
+#campo{
+	margin:auto;
+	display: block;
+}
 /*Fin CSS para terreno del juego*/
 
 /*Fichas*/
@@ -53,6 +58,36 @@ body>header{
 #imgDado{
 	 max-height: 100px; 
 	 max-width: 100px;
+}
+
+#team1text{
+	font-size: 2em;
+	text-align: center;
+	background-color: green;
+}
+#team2text{
+	font-size: 2em;
+	text-align: center;
+	background-color: red;
+}
+
+.ficha{
+	max-width: 40px;
+	max-height: 40px;
+}
+
+#banquillos{
+	display: inline-flex;
+	margin-left: 10%;
+}
+
+#team1{
+}
+
+#team2{
+	position: absolute;
+	right:0;
+	margin-right: 10%;
 }
 
 @media all and (min-width:480px){ 
