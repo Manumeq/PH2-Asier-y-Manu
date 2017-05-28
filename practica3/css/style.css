@@ -50,6 +50,11 @@ body>header{
 		}
 
 
+#imgDado{
+	 max-height: 100px; 
+	 max-width: 100px;
+}
+
 @media all and (min-width:480px){ 
 	div>form>ul>li{
 		width:90%;

@@ -163,3 +163,34 @@ function escribirEquipos(){
   document.getElementById("team2text").innerHTML = sessionStorage['equipo2'];
     //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
 }
+
+//lanza el dado y actualiza su imagen en el html
+function lanzarDado(){
+    var res = Math.floor(Math.random() * 6) + 1;
+    switch(res){
+        case 1:
+            document.getElementById("imgDado").src = "dado1.png";
+            document.getElementById("imgDado").alt = "1"; 
+            break;
+        case 2:
+            document.getElementById("imgDado").src = "dado2.png";
+            document.getElementById("imgDado").alt = "2"; 
+            break;
+        case 3:
+            document.getElementById("imgDado").src = "dado3.png";
+            document.getElementById("imgDado").alt = "3"; 
+            break;
+        case 4:
+            document.getElementById("imgDado").src = "dado4.png";
+            document.getElementById("imgDado").alt = "4"; 
+            break;
+        case 5:
+            document.getElementById("imgDado").src = "dado5.png";
+            document.getElementById("imgDado").alt = "5"; 
+            break;
+        case 6:
+            document.getElementById("imgDado").src = "dado6.png";
+            document.getElementById("imgDado").alt = "6"; 
+            break;
+    }
+}
