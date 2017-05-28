@@ -152,6 +152,15 @@ function checkform(){
         }
 }
 
+//rellena el formulario de index si se recarga la pagina
+function rellenaForm(){
+    if(sessionStorage['equipo1']!=null){
+        document.forms["formEquipos"].elements[0].value=sessionStorage['equipo1'];
+        document.forms["formEquipos"].elements[1].value=sessionStorage['equipo2'];
+        document.getElementById('aJugarB').type = 'submit';
+    }
+}
+
 // Almacena los nombres de los equipos en Session Storage
 function guardarEquipos(frm){
     sessionStorage.setItem('equipo1', frm.elements.item(0).value);
