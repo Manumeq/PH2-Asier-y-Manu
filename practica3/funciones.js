@@ -5,7 +5,7 @@ function dibujarCampoFutbol(){
         dim = cv.width / 20;
     //console.log(dim);
     // fondo terreno
-    ctx.beginPath();
+    /*ctx.beginPath();
     ctx.rect(dim, dim, dim*18, dim*9);
     ctx.fillStyle = "#BDFFBA";
     ctx.fill();
@@ -18,7 +18,7 @@ function dibujarCampoFutbol(){
     ctx.beginPath();
     ctx.rect(dim*19, dim*4, dim, dim*3);
     ctx.fillStyle = "#728491";
-    ctx.fill();
+    ctx.fill();*/
     // lineas canvas terreno
     ctx.beginPath(); //para limpiar y que no se ponga todo del mismo color, tam, etc
     ctx.lineWidth = 1;
@@ -118,19 +118,61 @@ function dibujarCampoFutbol(){
 
 /*
 function prepararDragnDropFichas(){
-    // Zona Drag
-    let v = document.querySelectorAll('body>img'),
+    //Zona drag (las fichas)
+    let v = document.querySelectorAll('body>img');
 
-    for(let i = 0; i< v.length; i++){
+    for (let i = 0; i < v.length; i++) {
         v[i].setAttribute('draggable', 'true');
         v[i].id = 'img' + i;
         v[i].ondragstart = function(e){
-            e.dataTransfer.setData('text/plain', v[i0.id]);
+            e.dataTransfer.setData('text/plain', v[i].id);
         }
     }
 
-    // Zona drop
-    let cv = document.getElementById('cv01');
+    //Zona drop
+    let cv = document.getElementById('campo');
+    cv.ondragover = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let x = e.offsetX,
+            y = e.offsetY,
+            ctx = cv.getContext('2d'),
+            dim = cv.width / 20,
+            fila = Math.floor(y / dim),
+            columna = Math.floor(x / dim);
+
+        dibujarCampoFutbol();
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#f00';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(columna*dim, fila*dim, dim, dim); //x,y,ancho,alto
+    }
+
+    cv.ondrop = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        let x = e.offsetX,
+            y = e.offsetY,
+            id = e.dataTransfer.getData('text/plain'),
+            ctx = cv.getContext('2d'),
+            img = new Image();
+
+        //cv.querySelector('canvas').appendChild(document.getElementById(id));
+
+        img.onload = function(){
+            let dim = cv.width / 20,
+                fila = Math.floor(y / dim),
+                columna = Math.floor(x / dim);
+            //ctx.drawImage(img,x,y);
+            ctx.drawImage(img, columna*dim, fila*dim, dim, dim);
+            //ctx.drawImage(img,0,0,cv.width,cv.height);
+            //img.src= document.getElementById(id).src;
+            dibujarCampoFutbol();
+        }
+        img.src = document.getElementById(id).src;
+        //ctx.drawImage(document.getElementById(id),x,y);
+    }
 }
 */
 
