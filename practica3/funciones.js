@@ -82,3 +82,13 @@ function checkform(){
             document.getElementById('aJugarB').type = 'hidden';   
         }
 }
+
+//Almacena los nombres de los equipos en Session Storage
+function guardarEquipos(frm){
+    sessionStorage.setItem('equipo1', frm.elements.item(0).value);
+    sessionStorage.setItem('equipo2', frm.elements.item(1).value);
+}
+
+function escribirEquipos(frm){
+  //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
+}
