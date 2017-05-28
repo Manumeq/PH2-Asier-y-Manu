@@ -24,12 +24,10 @@ canvas[data-down]{
 /*Fin CSS para terreno del juego*/
 
 /*Fichas*/
-svg{
+/*svg{
 	border: .1em solid #234;
 }
 /*Termina Fichas*/
-
-//VAMOS A DARLE CSS A ESTA COSA BY MANU
 body{}
 body>header{
 		background-image: url(../banner.jpg);
@@ -58,7 +56,7 @@ body>header{
 	}
 }
 
-@media all and (min-width:960px){ //-------------------RESOLUCIONES DE PC BOI-------------------//
+@media all and (min-width:960px){
 
 	div>form{
 		font-size: 2em;

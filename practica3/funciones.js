@@ -1,23 +1,59 @@
-
+// Juego
 function dibujarCampoFutbol(){
     let cv = document.getElementById('campo'),
         ctx = cv.getContext('2d'),
         dim = cv.width / 20;
     //console.log(dim);
-    // Terreno de juego
+    // fondo terreno
+    ctx.beginPath();
+    ctx.rect(dim, dim, dim*18, dim*9);
+    ctx.fillStyle = "#BDFFBA";
+    ctx.fill();
+    // fondo porteria 1
+    ctx.beginPath();
+    ctx.rect(0, dim*4, dim, dim*3);
+    ctx.fillStyle = "#728491";
+    ctx.fill();
+    // fondo porteria 2
+    ctx.beginPath();
+    ctx.rect(dim*19, dim*4, dim, dim*3);
+    ctx.fillStyle = "#728491";
+    ctx.fill();
+    // lineas canvas terreno
     ctx.beginPath(); //para limpiar y que no se ponga todo del mismo color, tam, etc
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'green';
+    ctx.strokeStyle = '#009378';
     for(let i = 0; i <= 20; i++){
 
-        if(dim*i != cv.height ){
+        if(i >= 1 && i <= 19){
             //lineas verticales
-            ctx.moveTo(dim * i, 0);
+            ctx.moveTo(dim * i, dim);
             ctx.lineTo(i * dim, cv.height);
 
             //lineas horizontales
-            ctx.moveTo(0, dim * i);
-            ctx.lineTo(cv.width, i * dim);
+            ctx.moveTo(dim, dim * i);
+            ctx.lineTo(cv.width-dim, i * dim);
+
+            if(i >= 4 && i <= 7){
+                
+                //porteria 1 lineas horizontales
+                ctx.moveTo(0, dim * i);
+                ctx.lineTo(dim, i * dim);
+
+                //porteria 2 lineas horizontales
+                ctx.moveTo(cv.width-dim, dim * i);
+                ctx.lineTo(cv.width, i * dim);
+
+                if(i == 4){
+                    //porteria 1 lineas verticales 
+                    ctx.moveTo(0, dim*4);
+                    ctx.lineTo(0, dim*7);
+
+                    //porteria 2 lineas verticales 
+                    ctx.moveTo(cv.width, dim*4);
+                    ctx.lineTo(cv.width, dim*7);    
+                }
+            }
         }
     }
 
@@ -28,44 +64,75 @@ function dibujarCampoFutbol(){
     // Círculo central 
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = 'red';
-    ctx.arc(cv.width/2,cv.height/2,25,0,2*Math.PI);
+    ctx.strokeStyle = '#1C44AC';
+    ctx.arc(cv.width/2,(cv.height/2) + dim/2,25,0,2*Math.PI);
     ctx.stroke();
 
     // Semicirculo área 1
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = 'red';
-    ctx.arc(cv.width/4,cv.height/2,25,1.5*Math.PI,0.5*Math.PI);
+    ctx.strokeStyle = '#1C44AC';
+    ctx.arc(dim*4,(cv.height/2) + dim/2,25,1.5*Math.PI,0.5*Math.PI);
     ctx.stroke();
 
     // Semicirculo área 2
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = 'red';
-    ctx.arc(cv.width/1.25,cv.height/2,25,0.5*Math.PI,1.5*Math.PI);
+    ctx.strokeStyle = '1C44AC';
+    ctx.arc(dim*16,(cv.height/2) + dim/2,25,0.5*Math.PI,1.5*Math.PI);
     ctx.stroke();
 
-    // Líneas de banda
-    /*ctx.beginPath();
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = 'red';
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, cv.width);
-    ctx.stroke();*/
+    // Líneas de banda y de juego
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '1C44AC';
+    // También se pueden hacer estas lineas con un cuadrado,
+    // pero lo he hecho así para probar nuevas formas.
+    // izquierda
+    ctx.moveTo(dim, dim);
+    ctx.lineTo(dim, cv.height);
+    // derecha
+    ctx.moveTo(cv.width-dim, dim);
+    ctx.lineTo(cv.width-dim, cv.height);
+    // superior
+    ctx.moveTo(dim, dim);
+    ctx.lineTo(cv.width-dim, dim);
+    // inferior
+    ctx.moveTo(dim, cv.height);
+    ctx.lineTo(cv.width-dim, cv.height);
+    // área 1
+    ctx.rect(dim, dim*3, dim*3, dim*5);
+    // área 2
+    ctx.rect(cv.width-dim*4, dim*3, dim*3, dim*5);
+    ctx.stroke();
 
     // Línea central
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = 'red';
-    ctx.moveTo(cv.width/2, 0);
+    ctx.strokeStyle = '1C44AC';
+    ctx.moveTo(cv.width/2, dim);
     ctx.lineTo(cv.width/2, cv.height);
     ctx.stroke();
 
-
-
 }
 
+function prepararDragnDropFichas(){
+    // Zona Drag
+    let v = document.querySelectorAll('body>img'),
+
+    for(let i = 0; i< v.length; i++){
+        v[i].setAttribute('draggable', 'true');
+        v[i].id = 'img' + i;
+        v[i].ondragstart = function(e){
+            e.dataTransfer.setData('text/plain', v[i0.id]);
+        }
+    }
+
+    // Zona drop
+    let cv = document.getElementById('cv01');
+}
+
+// Index
 //FUNCIONES TO WAPAS DEL MANU ESE
 function checkform(){
 
@@ -83,12 +150,17 @@ function checkform(){
         }
 }
 
-//Almacena los nombres de los equipos en Session Storage
+// Almacena los nombres de los equipos en Session Storage
 function guardarEquipos(frm){
+ 
     sessionStorage.setItem('equipo1', frm.elements.item(0).value);
+ 
     sessionStorage.setItem('equipo2', frm.elements.item(1).value);
+ 
 }
-
+ 
 function escribirEquipos(frm){
+ 
   //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
+ 
 }
