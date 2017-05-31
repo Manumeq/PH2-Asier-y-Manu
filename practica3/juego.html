@@ -13,7 +13,12 @@
 			<h2>Pégate unos piques con tus enemigos más acérrimos</h2>
 		</div>
 	</header>
-	<canvas id="campo" width="480" height="240"></canvas>
+	<canvas id="campo" width="480" height="240"
+			onmousemove="mouse_move(event);"
+            onclick="mouse_click(event);"
+            onmousedown="mouse_down(event);"
+            onmouseup="mouse_up(event);">
+    </canvas>
 	<!--Imagenes svg-->
 	
 	

@@ -116,6 +116,28 @@ function dibujarCampoFutbol(){
 
 }
 
+function redibujarTerreno(){
+    let cv = document.getElementById('campo'),
+        ctx = cv.getContext('2d'),
+        img = new Image(),
+        dim = cv.width / 20;
+    //cv.width = cv.width;
+
+    dibujarCampoFutbol();
+
+    img.onload = function(){
+        let dim = cv.width / 20,
+            fila = Math.floor(y / dim),
+            columna = Math.floor(x / dim);
+        //ctx.drawImage(img,x,y);
+        if(fila!=0 && columna!=0 && columna!=19){
+            ctx.drawImage(img, columna*dim, fila*dim, dim, dim);
+        }
+    }
+    img.src = document.getElementById(id).src;
+}
+
+// Permite poner las fichas en el canvas del tereno de juego
 function prepararDragnDropFichas(){
     //Zona drag (las fichas)
     let v = document.querySelectorAll('body>div>div>img');
@@ -140,12 +162,17 @@ function prepararDragnDropFichas(){
             fila = Math.floor(y / dim),
             columna = Math.floor(x / dim);
 
+        console.log('dim:' + dim, 'fil:' + fila, 'col:' + columna);
+
         dibujarCampoFutbol();
 
         ctx.beginPath();
         ctx.strokeStyle = '#f00';
         ctx.lineWidth = 2;
-        ctx.strokeRect(columna*dim, fila*dim, dim, dim); //x,y,ancho,alto
+        if(fila!=0 && columna!=0 && columna!=19){
+            ctx.strokeRect(columna*dim, fila*dim, dim, dim); //x,y,ancho,alto    
+        }
+        
     }
 
     cv.ondrop = function(e){
@@ -164,7 +191,9 @@ function prepararDragnDropFichas(){
                 fila = Math.floor(y / dim),
                 columna = Math.floor(x / dim);
             //ctx.drawImage(img,x,y);
-            ctx.drawImage(img, columna*dim, fila*dim, dim, dim);
+            if(fila!=0 && columna!=0 && columna!=19){
+                ctx.drawImage(img, columna*dim, fila*dim, dim, dim);
+            }
             //ctx.drawImage(img,0,0,cv.width,cv.height);
             //img.src= document.getElementById(id).src;
             dibujarCampoFutbol();
@@ -172,6 +201,95 @@ function prepararDragnDropFichas(){
         img.src = document.getElementById(id).src;
         //ctx.drawImage(document.getElementById(id),x,y);
     }
+}
+
+var ficha = { //posicion de la ficha
+    "fila": 0,
+    "columna": 0
+};
+
+// 4 funciones para poder mover la ficha en el interior 
+// del canvas del terreno de juego
+function mouse_move(e){
+    // return; //que no devuelva nada
+    let cv = e.target,
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim);
+
+    //console.log(`Posicion: ${x} - ${y}`);
+    if (cv.getAttribute('data-down')) { //ESTOY ARRASTRANDO LA FICHA
+        console.log(`MOUSEMOVE=>Fila: ${fila} - columna: ${columna}`);
+        if (ficha.columna != columna || ficha.fila != fila) {
+            ficha.columna = columna;
+            ficha.fila = fila;
+            redibujarCanvasTerreno();
+        }
+    }
+}
+
+function mouse_click(e){
+    return;
+    let cv = e.target,
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim);
+
+    // console.log(`Posicion: ${x} - ${y}`);
+    // console.log(`Fila: ${fila} - columna: ${columna}`);
+    if (x < 1 || x > cv.width - 1 || y < 1 || y > cv.height - 1){
+        return;   
+    }
+
+    cv.width = cv.width; //limpiar canvas
+    dibujarTerreno();
+    let ctx = cv.getContext('2d'),
+        img = new Image();
+
+    img.onload = function () {
+        ctx.drawImage(img, columna * dim, fila * dim, dim, dim)
+    };
+    img.src = 'fichaRoja.svg';
+    ctx.beginPath(); //evitar historias
+    ctx.strokeStyle = '#234';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(columna * dim, fila * dim, dim, dim);
+}
+
+function mouse_down(e){
+    let cv = e.target,
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim);
+
+    //para todos los eventos hay que coger qué fila y columna hace el click
+    console.log(`DOWN=>Fila: ${fila} - columna: ${columna}`);
+    if (ficha.columna == columna && ficha.fila == fila) {
+        //hay ficha
+        cv.setAttribute('data-down', 'true'); //si el atributo existe, he hecho down
+        console.log("he tocado ficha");
+
+    }
+}
+
+function mouse_up(e){
+    let cv = e.target,
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim);
+
+    //para todos los eventos hay que coger que fila y columna hace el click
+    console.log(`UP=>Fila: ${fila} - columna: ${columna}`);
+
+    cv.removeAttribute('data-down'); //sueltas la ficha, atributo fuera
 }
 
 // Index
