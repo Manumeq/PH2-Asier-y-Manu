@@ -1,4 +1,8 @@
 // Juego
+if(sessionStorage['jugando']==null){
+    sessionStorage.setItem('jugando', 0);
+}
+
 function dibujarCampoFutbol(){
     let cv = document.getElementById('campo'),
         ctx = cv.getContext('2d'),
@@ -328,7 +332,20 @@ function guardarEquipos(frm){
 function escribirEquipos(){
   document.getElementById("team1text").innerHTML = sessionStorage['equipo1'];
   document.getElementById("team2text").innerHTML = sessionStorage['equipo2'];
+  
+  //desactivar el dado si el estado es igual a 0
+  if(sessionStorage['jugando']==0){
+  document.getElementById("dado").style = "visibility:hidden";}
     //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
+}
+
+function muestraDado(){
+  
+  /*
+  document.getElementById("imgDado").src="";
+  document.getElementById("imgDado").alt="none";
+  document.getElementById("throwDice").type='hidden';  
+  */
 }
 
 //lanza el dado y actualiza su imagen en el html
