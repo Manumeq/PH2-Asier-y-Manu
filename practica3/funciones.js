@@ -120,7 +120,7 @@ function dibujarCampoFutbol(){
 
 }
 
-function redibujarTerreno(){
+function redibujarCanvasTerreno(){
     let cv = document.getElementById('campo'),
         ctx = cv.getContext('2d'),
         img = new Image(),
@@ -203,6 +203,8 @@ function prepararDragnDropFichas(){
             dibujarCampoFutbol();
         }
         img.src = document.getElementById(id).src;
+        //console.log(img.src);
+        //console.log(id);
         //ctx.drawImage(document.getElementById(id),x,y);
     }
 }
@@ -223,6 +225,7 @@ function mouse_move(e){
         fila = Math.floor(y / dim),
         columna = Math.floor(x / dim);
 
+    //console.log(ficha.columna, ficha.fila);    
     //console.log(`Posicion: ${x} - ${y}`);
     if (cv.getAttribute('data-down')) { //ESTOY ARRASTRANDO LA FICHA
         console.log(`MOUSEMOVE=>Fila: ${fila} - columna: ${columna}`);
@@ -235,7 +238,7 @@ function mouse_move(e){
 }
 
 function mouse_click(e){
-    return;
+    //return;
     let cv = e.target,
         x = e.offsetX,
         y = e.offsetY,
@@ -250,18 +253,25 @@ function mouse_click(e){
     }
 
     cv.width = cv.width; //limpiar canvas
-    dibujarTerreno();
+    dibujarCampoFutbol();
     let ctx = cv.getContext('2d'),
+        //id = e.dataTransfer.getData('text/plain'),
         img = new Image();
 
-    img.onload = function () {
-        ctx.drawImage(img, columna * dim, fila * dim, dim, dim)
+    img.onload = function(){
+        if(fila!=0 && columna!=0 && columna!=19){
+            ctx.drawImage(img, columna * dim, fila * dim, dim, dim)
+        }
     };
-    img.src = 'fichaRoja.svg';
-    ctx.beginPath(); //evitar historias
-    ctx.strokeStyle = '#234';
-    ctx.lineWidth = 4;
-    ctx.strokeRect(columna * dim, fila * dim, dim, dim);
+    //console.log(id);
+    img.src = 'fichaRoja.svg'; // document.getElementById(id).src
+    //console.log(document.getElementById(id).src);
+    if(fila!=0 && columna!=0 && columna!=19){
+        ctx.beginPath(); //evitar historias
+        ctx.strokeStyle = '#f00';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(columna * dim, fila * dim, dim, dim);
+    }
 }
 
 function mouse_down(e){
