@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="funciones.js"></script>
+	<title>Juego</title>
+</head>
+<body onload=escribirEquipos();>
+	<header>
+		<div>
+			<h1>Fútbol Chapas</h1>
+			<h2>Pégate unos piques con tus enemigos más acérrimos</h2>
+		</div>
+	</header>
+	<canvas id="campo" width="480" height="240"
+			onmousemove="mouse_move(event);"
+            onclick="mouse_click(event);"
+            onmousedown="mouse_down(event);"
+            onmouseup="mouse_up(event);">
+    </canvas>
+	<!--Imagenes svg-->
+	
+	
+	<div id="dado">
+		<img id="imgDado" src="dado0.jpg" alt="0">
+		<button type="button" id="throwDice" onclick="lanzarDado();"> ¡Lanza el dado! </button>
+	</div>
+	<div id="banquillos">
+		<div id='team1'>
+			<h3 id='team1text'></h3>
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+		</div>
+		<div id='team2'>
+			<h3 id='team2text'></h3>
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+		</div>
+	</div>
+
+	<!--Fichas Verdes-->
+	<!--<ul>
+		<li><img src="fichaVerde.svg" alt="Ficha Verde"></li>
+		<li><img src="fichaVerde.svg" alt="Ficha Verde"></li>
+		<li><img src="fichaVerde.svg" alt="Ficha Verde"></li>
+		<li><img src="fichaVerde.svg" alt="Ficha Verde"></li>
+		<li><img src="fichaVerde.svg" alt="Ficha Verde"></li>
+	</ul>-->
+	<!--Fichas Rojas-->
+	<!--<ul>
+		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
+		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
+		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
+		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
+		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
+	</ul>-->
+
+
+	<footer>
+		<p>&copy; Asier Manzano Arévalo | Manuel Escorza Quinto || <time datetime="2017">2017 Ingeniería Multimedia Universidad de Alicante</time> | <a href="acerca.html">Acerca de nosotros</a></p>
+	</footer>
+</body>
+<script>
+	dibujarCampoFutbol();
+	prepararDragnDropFichas();
+</script>
+</html>

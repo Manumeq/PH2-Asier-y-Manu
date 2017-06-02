@@ -1,0 +1,166 @@
+*{
+    box-sizing:border-box;
+}
+
+section{
+    float: left;
+    margin-right: .5em;
+    display: inline-block;
+}
+
+/*CSS para el terreno de juego*/
+
+/*canvas, svg{
+    border: solid .1em red;
+}*/
+
+canvas[data-down]{
+    cursor: crosshair;
+}
+
+.img_peq{
+    max-width: 240px;
+}
+
+#campo{
+	margin:auto;
+	display: block;
+}
+/*Fin CSS para terreno del juego*/
+
+/*Fichas*/
+/*svg{
+	border: .1em solid #234;
+}
+/*Termina Fichas*/
+body{}
+body>header{
+		background-image: url(../banner.jpg);
+		background-position: right;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		overflow: hidden;
+		margin-top: 1.2em;
+	}
+
+		body>header>a>img{
+			align-self: center;
+			width: 160px;
+			padding: .3em;
+		}
+
+		body>header>h1{
+		}
+
+
+#imgDado{
+	 max-height: 100px; 
+	 max-width: 100px;
+}
+
+#team1text{
+	font-size: 2em;
+	text-align: center;
+	background-color: green;
+}
+#team2text{
+	font-size: 2em;
+	text-align: center;
+	background-color: red;
+}
+
+.ficha{
+	max-width: 40px;
+	max-height: 40px;
+}
+
+#banquillos{
+	display: inline-flex;
+	margin-left: 10%;
+}
+
+#team1{
+	margin:auto;
+	display: block;
+}
+
+#team2{
+
+	position: absolute;
+	right:0;
+	margin-right: 10%;
+}
+
+@media all and (min-width:480px){ 
+	div>form>ul>li{
+		width:90%;
+	}
+}
+
+@media all and (min-width:960px){
+
+	div>form{
+		font-size: 2em;
+		padding: .5em;
+		margin: 1em;
+	}
+
+	div{
+		align-self: center;
+	}
+
+	div>form>ul>li{
+		display: inline-block;
+		width:49%;
+	}
+
+	div>form>ul>li>label{
+		margin-left: 30%;
+		font-size: 1.2em;
+	}
+
+	div>form>ul>li>input{
+		font-size: 1em;
+	}
+
+	div>form>ul>li:hover{
+		font-weight: bold;
+	}
+
+	div>form>ul>li>input:focus{
+		background-color: rgba(42,92,0,0.2);
+	}
+
+	div>form>ul>li>input:hover{
+		background-color: rgba(42,92,0,0.2);
+	}
+
+	input{
+	    width: 100%;
+	    padding: 12px 20px;
+	    margin: 8px 0;
+	    display: inline-block;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    box-sizing: border-box;
+	}
+
+	input[type=submit]{
+	    width: 100%;
+	    background-color: green;
+	    color: white;
+	    padding: 14px 20px;
+	    margin: 8px 0;
+	    border: none;
+	    border-radius: 8px;
+	    cursor: pointer;
+	    font-size: 2em;
+	}
+
+	input[type=submit]:hover{
+	    background-color: rgb(107,236,0);
+	}
+
+}

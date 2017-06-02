@@ -1,11 +1,16 @@
 var first;
+var section;
+var pagmax;
+var pagaux1;
+var pagaux2;
 
 if(sessionStorage['pointer']==undefined){
 	sessionStorage['pointer'] = 0;
+
 }
 
 firstpointer=0;
-
+var lastpointer=0;
 
 if(sessionStorage['maxpointer']==undefined){
 	sessionStorage['maxpointer']=0;
@@ -64,7 +69,7 @@ function mostrarEntradas(frm){
 				html += 	'<h3><a href="entrada.html/?id=' + e.id + '">' + e.nombre + '</a></h3>';
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a href="entrada.html?id=' + e.id + '">Ver más</a></footer></figcaption>';
 				html += 	'</figure>';
 				html += 	'<footer>';
 				html += 	'<ul>';
@@ -86,6 +91,32 @@ function mostrarEntradas(frm){
 	return false;
 }
 
+function maxPageCalc(){
+	let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PH2/Practica2/rest/entrada/',
+		pagaux1=0;
+	xhr.open('GET', url, true);
+	//Cuando es get no se pasa nada por parametros, se concatena con la url
+	//url += '?pag=' + frm.pag.value + '&lpag=' + frm.lpag.value;
+	xhr.onload = function(){
+		let v = JSON.parse(xhr.responseText);
+
+		if(v.RESULTADO == 'ok'){
+			pagmax=v.FILAS.length;
+			console.log("Numero de entradas: "+pagmax);
+			pagaux1=pagmax/3;
+			sessionStorage['maxpointer']=parseInt(pagmax/6);
+			lastpointer = parseInt(pagmax/6);
+			if(pagaux1>pagaux2){
+				sessionStorage['maxpointer']=pagaux2+1;
+				lastpointer = pagaux2+1;
+			}
+			console.log("Paginas totales: "+pagaux2);
+		}
+	};
+	xhr.send();
+}
+
 function mostrarEntradasDefault(frm){
 	console.log(frm.document.body.getElementsByTagName("SECTION")[0]);
 	console.log(sessionStorage['pointer']);
@@ -99,12 +130,14 @@ function mostrarEntradasDefault(frm){
 		let v = JSON.parse(xhr.responseText);
 		if(v.RESULTADO == 'ok'){
 			if(v.FILAS.length>=6){
-				console.log("entras");
-				sessionStorage['maxpointer'] = Math.floor(v.FILAS.length/6);
+				console.log("entras: " + v.RESULTADO.length);
+				//sessionStorage['maxpointer'] = v.RESULTADO.length;
+				//console.log("esta asignatura es una puta mierda: " + sessionStorage['maxpointer']);
+				//lastpointer = Math.floor(v.RESULTADO.length);
 			}
 			else{
 				
-				sessionStorage['maxpointer'] = 0;
+				//sessionStorage['maxpointer'] = 0;
 			}
 			let html = '';
 
@@ -117,7 +150,7 @@ function mostrarEntradasDefault(frm){
 				html +=   '<h3><a href="entrada.html?id=' + e.id + '">' + e.nombre + '</a></h3>'; 
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a href="entrada.html?id=' + e.id + '">Ver más</a></footer></figcaption>';
 				html += 	'</figure>';
 				html += 	'<footer>';
 				html += 	'<ul>';
@@ -131,6 +164,11 @@ function mostrarEntradasDefault(frm){
 
 			}//for(let i=0; i<v.FILAS.length; i++)
 			section.querySelector('h2+div').innerHTML = html;
+			
+			section = frm.document.getElementById("contpag");
+			var suma = (parseFloat(sessionStorage['pointer']) + 1); // SI, EFECTIVAMENTE HACE FALTA PORQUE JAVASCRIPT
+			section.innerHTML = 'Página ' + suma + ' de ' + sessionStorage['maxpointer']; 
+			console.log("section: " + section);
 
 		}
 	}
@@ -249,7 +287,7 @@ function mostrarEntradaId(frm, id){ //MUESTRA UNA ENTRADA CONCRETA POR ID
 		let v3 = JSON.parse(xhr3.responseText);
 		if(v3.RESULTADO == 'ok'){
 			html = '';
-			html += '<h2>Comentarios</h2>';
+			//html += '<h2>Comentarios</h2>';
 			
 			for(let i=0; i<v3.FILAS.length && i<10; i++){
 				let e = v3.FILAS[i];
@@ -310,18 +348,21 @@ function firstPage(){
 function prevPage(){
 	if(sessionStorage['pointer']>0){
 		sessionStorage['pointer']--;
+		mostrarEntradasDefault(section);
 	}
 }
 
 function nextPage(){
-	if(sessionStorage['pointer']<maxpointer)
+	if(sessionStorage['pointer']<sessionStorage['maxpointer'])
 		sessionStorage['pointer']++;
+		mostrarEntradasDefault(section);
 }
 
 function lastPage(){
-	sessionStorage['pointer']=maxpointer;
+	sessionStorage['pointer'] = parseFloat(sessionStorage['maxpointer']) -1 ;
 }
 
+/** NUEVA ENTRADA* */
 function nuevaFotoEntrada(frm){
 	//console.log(frm);
 	var test = frm.parentNode.firstChild.nextSibling.nextSibling.nextSibling;
@@ -333,10 +374,11 @@ function nuevaFotoEntrada(frm){
 	newPic = '';
 	newPic += '<article>';
 	newPic += 	 '<div>';
-	newPic += 		'<img src="imgs/users.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
+	newPic += 		'<img src="imgs/imagen_no_disponible.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector(&quot;[type=file]&quot;).click();" class="n-entrada-img">';
 	newPic += 		'<textarea placeholder="descripcion aquí"></textarea>';
-	newPic +=		'<span></span>'
-	newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
+	newPic +=		'<span></span>';
+	newPic +=		'<input type="file" multiple accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);"/>';
+	/*newPic +=		'<input type="file" accept="image/*" onchange="mostrarFoto(this); comprobarTamanyo(this);">';*/
 	newPic +=	 '</div>';
 	newPic += 	'<button type="button" id="delFoto" onclick="borrarFotoEntrada(this);"> Eliminar Foto </button>';
 	newPic += '</article>';
@@ -344,8 +386,7 @@ function nuevaFotoEntrada(frm){
 	//console.log(test);
 	test.innerHTML += newPic;
 	
-	//document.getElementsByTagName("h2")[3].innerHTML = html;	
-	
+	//document.getElementsByTagName("h2")[3].innerHTML = html;		
 }
 
 function comprobarTamanyo(input){
@@ -355,11 +396,11 @@ function comprobarTamanyo(input){
 	console.log(parent);
 	input = input.files[0];
 	 
-	if(input.size>51000){
+	if(input.size>512000){
 		parent.setAttribute("style", "border: solid 3px red;");
 		parent = parent.nextSibling;
 		parent = parent.nextSibling;
-		parent.innerHTML= 'Vamos a ver subnormal, ¿tu que parte de 500 kb no has entendido?';
+		parent.innerHTML= 'Vamos a ver Javier, ¿tú que parte de 500 kb no has entendido?';
 		parent.setAttribute("style", "color:red;");
 	}
 	else{
@@ -377,6 +418,143 @@ function borrarFotoEntrada(frm){
 	foto.innerHTML='';
 }
 
+function mostrarFoto(inp) {
+
+	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
+	var fr = new FileReader(); 
+
+	fr.onload = function(){
+		inp.parentNode.querySelector('img').src = fr.result;
+		inp.parentNode.querySelector('img').alt = inp.files[0].name;
+	};
+
+	fr.readAsDataURL(inp.files[0]);
+}
+
+function enviarEntrada(btn){
+
+
+	let foto = document.querySelectorAll('[type=file]');
+	console.log(foto);
+	
+	let tamanyo_grande = false;
+
+	for(var i=0; i<foto.length; i++){
+		
+		let article = foto[i].parentNode.parentNode;
+		console.log(article);
+
+		// Ponemos esta primera condicin porque si se añaden más fotos
+		// a la entrada, se ponen como undefined y entonces no se podría
+		// sacar el tamaño del input file del article y no se mostraría
+		// nada por consola y no haría nada.
+		if(article.querySelector('[type=file]').files[0] != undefined){ 
+
+			if(article.querySelector('[type=file]').files[0].size > 512000){
+				tamanyo_grande = true;
+			}
+		}					
+
+	}
+
+	if(tamanyo_grande == false){
+
+		let xhr = new XMLHttpRequest(),
+		url = 'http://localhost/PHII/practica2/rest/entrada/',
+		fd = new FormData(),
+		du = JSON.parse(sessionStorage['du']);
+
+		//console.log(btn);
+		fd.append('login', du.login);
+		fd.append('nombre', btn.parentNode.querySelector('[type=text]').value);
+		fd.append('descripcion', btn.parentNode.querySelector('textarea').value);
+
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			let v = JSON.parse(xhr.responseText);
+
+			if(v.RESULTADO == 'ok'){
+				enviarFoto(v.id);
+				mostrarMensajeEntradaCorrecta();
+			}
+
+		};
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(fd);
+
+		return false;
+	}else{
+		alert("Las fotos no deben superar los 500KB");
+	}
+	// return false;
+}
+
+
+function enviarFoto(id_entrada){
+
+	let xhr = new XMLHttpRequest(),
+			url = 'http://localhost/PHII/practica2/rest/foto/',
+			form = new FormData(),
+			du = JSON.parse(sessionStorage['du']);
+
+	let foto = document.querySelectorAll('[type=file]');
+	console.log(foto);
+	
+	for(var i=0; i<foto.length; i++){
+		
+		
+		let article = foto[i].parentNode.parentNode;
+		console.log(article);
+
+		console.log(article.querySelector('[type=file]').files[0]);
+		console.log(article.querySelector('textarea').value);
+
+		form.append('login', du.login);
+		form.append('id_entrada', id_entrada);
+		form.append('texto', article.querySelector('textarea').value);
+		form.append('foto', article.querySelector('[type=file]').files[0]);
+
+		//console.log(form.get("foto"));
+
+		xhr.open('POST', url, true);
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			console.log("entra");
+		};
+
+		xhr.setRequestHeader('Authorization', du.clave);
+		xhr.send(form);
+
+		// Reiniciamos el xhr y el FormData
+		form = new FormData();
+		xhr = new XMLHttpRequest();
+
+	}			
+}
+
+// Función para mostrar el mensaje emergente cuando se
+// ha enviado la entrada correctamente.
+function mostrarMensajeEntradaCorrecta(){
+    let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>Entrada realizada correctamente</h2>';
+    html+= '<a href="login.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
+}
+
+/** TERMINA NUEVA ENTRADA **/
+
 function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario con los datos recibidos por parametro
 	//console.log(document.getElementById("tituloComentario"));
 	console.log(Answer);
@@ -387,7 +565,7 @@ function rellenaForm(Answer){ //rellena el formulario de respuesta de comentario
 }
 
 function numPag(frm){
-
+/*
 	mysection = frm.document.body.getElementsByTagName("SECTION")[1];
 	mysection = mysection.getElementsByTagName("UL")[0];
 	mysection = mysection.getElementsByTagName("LI")[2];
@@ -401,16 +579,15 @@ function numPag(frm){
 	mysection.innerHTML = myhtml;
 
 	console.log(mysection);
-	
+*/	
 }
 
 /* FIN DE MODIFICACIONES DE MANU*/
 
-
 function mostrarComentarios(frm){
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/comentario/';
-		section = frm.parentNode.parentNode; // ASIER - NO SE PARA QUE sirve
+		section = frm.parentNode.parentNode;
 
 
 	url += '?u=10'; // + frm.pag.value + '&lpag=' + frm.lpag.value; 
@@ -453,7 +630,7 @@ function mostrarComentarios(frm){
 function mostrarComentariosDefault(frm){
 	let xhr = new XMLHttpRequest(),
 		url = 'http://localhost/PHII/practica2/rest/comentario/';
-		section = frm.document.body.getElementsByTagName("SECTION")[2] // ASIER - NO SE PARA QUE sirve
+		section = frm.document.body.getElementsByTagName("SECTION")[2]
 		console.log(section);
 
 	url += '?u=10'; // + frm.pag.value + '&lpag=' + frm.lpag.value; 
@@ -472,10 +649,10 @@ function mostrarComentariosDefault(frm){
 				console.log(e.id);
 				html += '<div class="cabComentario">';
 				html += 	'<ul>';
-				html += 		'<li><span><img src="' + foto + '"></span></li>';
+				html += 		'<li><span><img src="' + foto + '" alt="foto_perfil"></span></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>'; 		
-				html += 		'<li><span aria-hidden="true" class="icon-calendar></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
-				html += 		'<li><h3><a href="entrada.html?id=' + e.id_entrada + '&&id_comentario=' + e.id + '"><p class="pSuspensivos">' + e.nombre_entrada + '</p></a></h3></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><h3><a class="pSuspensivos" href="entrada.html?id=' + e.id_entrada + '&&id_comentario=' + e.id + '">' + e.nombre_entrada + '</a></h3></li>';
 				html += 	'</ul>';
 				html += '</div>';
 				html += '<div class="bodComentario">';
@@ -540,9 +717,13 @@ function mostrarMensajeLoginCorrecto(fecha_acceso){
 
     capa_fondo.appendChild(capa_frente);    
 
+ 	fecha = fecha_acceso.split(" ");
+ 	sinhoras = fecha[0].split("-");
+ 	fecha_completa = sinhoras[2]+'/'+sinhoras[1]+'/'+sinhoras[0]+' a las '+fecha[1]+' h';
+
     html+= '<h2>Login Correcto</h2>';
     html+= '<p>Bienvenido a nuestra web</p>';
-    html+= '<p>Último acceso: ' + fecha_acceso + '</p>';
+    html+= '<p>Su último acceso fue: ' + fecha_completa + '</p>';
     html+= '<a href="index.html"><button onclick="this.parentNode.parentNode.remove();">Cerrar</button></a>';
     
     capa_frente.innerHTML = html;
@@ -708,25 +889,6 @@ function hacerRegistro(frm){
 
 /*PETICIONES AJAX entradas*/
 
-/*
-■ rest/entrada/?u={número}
-Devuelve las últimas (número) entradas más recientes.
-
-■ rest/entrada/?n={texto}
-Devuelve las entradas que tengan la subcadena t exto en el nombre.
-■ rest/entrada/?d={texto}
-Devuelve las entradas que tengan la subcadena t exto en la
-descripción .
-■ rest/entrada/?l={login}
-Devuelve las entradas creadas por el usuario login .
-■ rest/entrada/?fi={aaaa-mm-dd}
-Devuelve las entradas cuya fecha sea posterior a la fecha fi .
-■ rest/entrada/?ff={aaaa-mm-dd}
-Devuelve las entradas cuya fecha sea anterior a la fecha ff .
-■ rest/entrada/?pag={pagina}&lpag={registros_por_pagina}
-*/
-/*ejemplo: http://localhost/PHII/practica2/rest/entrada/?l=usu1&&t=a*/
-
 // Función que realiza la busqueda
 function realizarBusqueda(frm){
 
@@ -749,14 +911,7 @@ function realizarBusqueda(frm){
 	url += '&fi=' + anyo_inicio_value + '-' + mes_inicio_value + '-' + dia_inicio_value;
 	url += '&ff=' + anyo_final_value + '-' + mes_final_value + '-' + dia_final_value;
 
-	console.log(url);
-
-	/*Pruebas para ver si recojo bien el value del formulario*/
-	/*console.log(titulo_value);
-	console.log(descripcion_value);
-	console.log(autor_value);
-	console.log(fi_value);
-	console.log(ff_value);*/	
+	console.log(url);	
 
 	xhr.open('GET', url, true);
 
@@ -779,13 +934,13 @@ function realizarBusqueda(frm){
 				html +=   '<h3><a href="entrada.html?id=' + e.id + '">' + e.nombre + '</a></h3>'; 
 				html += 	'<figure>';
 				html += 		'<img src="' + foto + '" alt="' + e.descripcion_foto + '">';
-				html += 		'<figcaption>' + e.descripcion + '<footer><a>Ver más</a></footer></figcaption>';
+				html += 		'<figcaption>' + e.descripcion + '<footer><a href="entrada.html?id=' + e.id + '">Ver más</a></footer></figcaption>';
 				html += 	'</figure>';
 				html += 	'<footer>';
 				html += 	'<ul>';
 				html += 		'<li><span aria-hidden="true" class="icon-comment"></span>' + e.ncomentarios + '</li>';
 				html += 		'<li><span aria-hidden="true" class="icon-picture"></span>' + e.nfotos + '</li>';
-				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha + '">' + e.fecha + '</time></li>';
+				html += 		'<li><span aria-hidden="true" class="icon-calendar"></span><time datetime="'+ e.fecha +'">' + e.fecha + '</time></li>';
 				html += 		'<li><span aria-hidden="true" class="icon-user"></span>' + e.login + '</li>';
 				html += 	'</ul>';
 				html += 	'</footer>';
@@ -966,40 +1121,3 @@ function mensajeComentarioIncorrecto(){
 }
 
 /*FIN NUEVO HECHO POR ASIER*/
-
-
-/*ASIER NUEVA ENTRADA*/
-
-function mostrarFoto(inp) {
-
-	// let es igual a var pero lo hace a nivel local y cuando se sale de la funcion deja de tener valor
-	let fr = new FileReader(); 
-
-	fr.onload = function(){
-		inp.parentNode.querySelector('img').src = fr.result;
-		inp.parentNode.querySelector('img').alt = inp.files[0].name;
-	};
-
-	fr.readAsDataURL(inp.files[0]);
-}
-
-function enviarFoto(btn){
-	let xhr = new XMLHttpRequest(),
-		url = 'http://localhost/PHII/practica2/rest/foto/',
-		fd = new FormData(),
-		du = JSON.parse(sessionStorage['du']);
-
-	fd.append('login', du.login);
-	fd.append('id_entrada', 1);
-	fd.append('texto', btn.parentNode.querySelector('textarea').value);
-	fd.append('foto', btn.parentNode.querySelector('[type=file]').files[0]);
-
-	xhr.open('POST', url, true);
-	xhr.onload = function(){
-		console.log(xhr.responseText);
-	};
-	xhr.setRequestHeader('Authorization', du.clave);
-	xhr.send(fd);
-}
-
-/*ASIER TERMIAN NUEVA ENTRADA*/

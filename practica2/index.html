@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Index</title>
 </head>
-<body onload="mostrarEntradasDefault(this); mostrarComentariosDefault(this); menu(); numPag(this)">
+<body onload="maxPageCalc(); mostrarEntradasDefault(this); mostrarComentariosDefault(this); menu(); numPag(this)">
 	<header>
 		<a href="index.html">
 			<img src="imgs/logo1.png" alt="logotipo">
@@ -33,18 +33,7 @@
 		</ul>-->
 	</nav>
 	<section>
-		<h1>Parte Principal</h1>
-		<!--
-		<form onsubmit="return mostrarEntradas(this);">
-					<div>
-						<span>Página:</span>
-						<input type="text" name="pag" value="0">
-						<span>de</span>
-						<input type="text" name="lpag" value="4">
-						<input type="submit">
-					</div>
-		</form>
-		-->
+		<h2>Parte Principal</h2>
 		<h2>Entradas</h2>
 		<div>
 		<template>
@@ -60,7 +49,7 @@
             	<footer>
 					<ul>
 						<li><span aria-hidden="true" class="icon-comment"></span></li>
-						<li><span aria-hidden="true" class="icon-picture"></span><time></time></li>
+						<li><span aria-hidden="true" class="icon-picture"></span></li>
 						<li><span aria-hidden="true" class="icon-calendar"></span></li>
 						<li><span aria-hidden="true" class="icon-user"></span></li>
 					</ul>
@@ -68,97 +57,6 @@
 				
 			</article>
 		</template>
-
-	
-
-		<!--
-			<article>
-				<h3><a href="entrada.html" onclick="cargarEntrada(this);" id="1">Entrada 1</a></h3>
-				<button onclick="cargarEntrada(this);" value="entrada1" id="2"> Entrada 1</button>
-				<figure>
-            		<img src="imgs/paisaje1.jpg" alt="entrada"/>
-                		<figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.
-                		<footer><a href="entrada.html">Ver más</a></footer>
-                		</figcaption>
-            	</figure>
-            	<footer>
-					<ul>
-						<li><span aria-hidden="true" class="icon-comment"></span>2</li>
-						<li><span aria-hidden="true" class="icon-picture"></span>3</li>
-						<li><span aria-hidden="true" class="icon-calendar"></span>05/03/2017</li>
-						<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					</ul>
-				</footer>
-			</article>
-			<article>
-				<h3><a href="entrada.html">Entrada 1</a></h3>
-				<figure>
-            		<img src="imgs/paisaje1.jpg" alt="entrada"/>
-                		<figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.
-                		<footer><a href="entrada.html">Ver más</a></footer>
-                		</figcaption>
-            	</figure>
-            	<footer>
-					<ul>
-						<li><span aria-hidden="true" class="icon-comment"></span>2</li>
-						<li><span aria-hidden="true" class="icon-picture"></span>3</li>
-						<li><span aria-hidden="true" class="icon-calendar"></span>05/03/2017</li>
-						<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					</ul>
-				</footer>
-			</article>
-			<article>
-				<h3><a href="entrada.html">Entrada 1</a></h3>
-				<figure>
-            		<img src="imgs/paisaje1.jpg" alt="entrada"/>
-                		<figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.
-                		<footer><a href="entrada.html">Ver más</a></footer>
-                		</figcaption>
-            	</figure>
-            	<footer>
-					<ul>
-						<li><span aria-hidden="true" class="icon-comment"></span>2</li>
-						<li><span aria-hidden="true" class="icon-picture"></span>3</li>
-						<li><span aria-hidden="true" class="icon-calendar"></span>05/03/2017</li>
-						<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					</ul>
-				</footer>
-			</article>
-			<article>
-				<h3><a href="entrada.html">Entrada 1</a></h3>
-				<figure>
-            		<img src="imgs/paisaje1.jpg" alt="entrada"/>
-                		<figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.
-                		<footer><a href="entrada.html">Ver más</a></footer>
-                		</figcaption>
-            	</figure>
-            	<footer>
-					<ul>
-						<li><span aria-hidden="true" class="icon-comment"></span>2</li>
-						<li><span aria-hidden="true" class="icon-picture"></span>3</li>
-						<li><span aria-hidden="true" class="icon-calendar"></span>05/03/2017</li>
-						<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					</ul>
-				</footer>
-			</article>
-			<article>
-				<h3><a href="entrada.html">Entrada 1</a></h3>
-				<figure>
-            		<img src="imgs/paisaje1.jpg" alt="entrada"/>
-                		<figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis reiciendis numquam dolorem beatae excepturi autem debitis. Dolores aliquid magni asperiores, ducimus suscipit officiis accusantium, officia, maiores, magnam sit sequi eaque.
-                		<footer><a href="entrada.html">Ver más</a></footer>
-                		</figcaption>
-            	</figure>
-            	<footer>
-					<ul>
-						<li><span aria-hidden="true" class="icon-comment"></span>2</li>
-						<li><span aria-hidden="true" class="icon-picture"></span>3</li>
-						<li><span aria-hidden="true" class="icon-calendar"></span>05/03/2017</li>
-						<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					</ul>
-				</footer>
-			</article>		
-			-->
 		</div>
 	</section>
 	
@@ -167,13 +65,6 @@
 		<ul>
 			<li><a href="index.html"><span aria-hidden="true" onclick="firstPage();" class="icon-left-open">Primera Página</span></a></li>
 			<li><a href="index.html"><span aria-hidden="true" onclick="prevPage();" class="icon-left-open"></span></a></li>
-			<!--
-				<li><a href="index.html" id="active">1</a></li>
-				<li><a href="index2.html">2</a></li>
-				<li><a href="index3.html">3</a></li>
-				<li><a href="index4.html">4</a></li>
-				<li><a href="index5.html">5</a></li>
-			-->
 			<li id="contpag"></li>
 			<li><a href="index.html"><span aria-hidden="true" onclick="nextPage();" class="icon-right-open"></span></a></li>
 			<li><a href="index.html"><span aria-hidden="true" onclick="lastPage();" class="icon-right-open">Última Página</span></a></li>
@@ -181,82 +72,24 @@
 		</ul>
 	</section>
 
-	<!--Parte de los 10 ultimos comentarios de los usuarios-->
-	<!--
-	<form onsubmit="return mostrarComentarios(this);">
-					<div>
-						<span>Ultimos comentarios generados</span>
-						<input type="submit">
-					</div>
-	</form>
-	-->
 	<section class="comentarios">
-
-	<h2>Comentarios</h2>
-	<section>
-		<template>
-			<div class="cabComentario">
-				<ul>
-					<li><span><img src="" alt="usuario1"></span></li>
-					<li><span aria-hidden="true" class="icon-user"></span></li>
-					<li><span aria-hidden="true" class="icon-calendar"></span><time></time></li>
-				</ul>
-			</div>
-			<div class="bodComentario">
-				<h4 class="pSuspensivos">Título comentario</h4>
-				<p>Descripcion del comentario</p>
-				<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Titulo de la entrada asociada a este comentario específico</p></a>
-			</div>
-		</template>
-	</section>
-
-		
-	<!--<h2>Comentarios</h2>
+		<h2>Comentarios</h2>
 		<section>
-			<div class="cabComentario">
-				<ul>
-					<li><span><img src="imgs/user1.jpg" alt="usuario1"></span></li>
-					<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					<li><span aria-hidden="true" class="icon-calendar"></span>Martes, 14/02/2017, 09:32h</li>
-				</ul>
-			</div>
-			<div class="bodComentario">
-				<h4 class="pSuspensivos">Comentario 1 realmente extenso para probar los puntos suspensivos</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro asperiores tenetur ad numquam sequi voluptatibus aut amet totam quibusdam rerum minus quod, repudiandae vitae dignissimos. Nihil accusantium ipsam animi fugiat!</p>
-				<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Entrada realmente extensa y muy larga para probar los puntos suspensivos</p></a>
-			</div>
-		</section>-->
-
-
-		<!--<section>
-			<div class="cabComentario">
-				<ul>
-					<li><span><img src="imgs/user1.jpg" alt="usuario1"></span></li>
-					<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					<li><span aria-hidden="true" class="icon-calendar"></span>Martes, 14/02/2017, 09:32h</li>					
-				</ul>
-			</div>
-			<div class="bodComentario">
-				<h4 class="pSuspensivos">Comentario 1 realmente extenso para probar los puntos suspensivos</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro asperiores tenetur ad numquam sequi voluptatibus aut amet totam quibusdam rerum minus quod, repudiandae vitae dignissimos. Nihil accusantium ipsam animi fugiat!</p>
-				<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Entrada realmente extensa y muy larga para probar los puntos suspensivos</p></a>
-			</div>
+			<template>
+				<div class="cabComentario">
+					<ul>
+						<li><span><img src="" alt="usuario1"></span></li>
+						<li><span aria-hidden="true" class="icon-user"></span></li>
+						<li><span aria-hidden="true" class="icon-calendar"></span></li>
+					</ul>
+				</div>
+				<div class="bodComentario">
+					<h4 class="pSuspensivos">Título comentario</h4>
+					<p>Descripcion del comentario</p>
+					<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Titulo de la entrada asociada a este comentario específico</p></a>
+				</div>
+			</template>
 		</section>
-		<section>
-			<div class="cabComentario">
-				<ul>
-					<li><span><img src="imgs/user1.jpg" alt="usuario1"></span></li>
-					<li><span aria-hidden="true" class="icon-user"></span>Asier</li>
-					<li><span aria-hidden="true" class="icon-calendar"></span>Martes, 14/02/2017, 09:32h</li>
-					<li><a href="entrada.html">Entrada</a></li>
-				</ul>
-			</div>
-			<div class="bodComentario">
-				<h4 class="pSuspensivos">Comentario 1 realmente extenso para probar los puntos suspensivos</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro asperiores tenetur ad numquam sequi voluptatibus aut amet totam quibusdam rerum minus quod, repudiandae vitae dignissimos. Nihil accusantium ipsam animi fugiat!</p>
-				<a href="entrada.html#inicioComentarios"><p class="pSuspensivos">Entrada realmente extensa y muy larga para probar los puntos suspensivos</p></a>
-			</div>
-		</section>-->
 	</section>
 
 	<footer>

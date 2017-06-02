@@ -36,7 +36,7 @@
 	<section>
 		<h2>Crear una nueva entrada</h2>
 
-		<form onsubmit="return hacerRegistro(this)";><!--action="index.html"-->
+		<form onsubmit="return enviarEntrada(this);" enctype="multipart/form-data"><!--action="index.html"-->
 			<fieldset>
 				<ul class="formList">
 					<li>
@@ -53,55 +53,10 @@
 
 			<fieldset>
 				<h2>Fotos de la entrada:</h2>
-					<div id="seccionFotos"> </div>
-					<button type="button" onclick="nuevaFotoEntrada(this);">Añadir foto</button>
-				  <!--
-					<section>
-						<div>
-							<img src="imgs/users.jpg" alt="No hay imagen" onclick="this.parentNode.querySelector('[type=file]').click();" class="n-entrada-img">
-							<textarea placeholder="descripcion aquí"></textarea>
-							<input type="file" accept="image/*" onchange="mostrarFoto(this);"/> <!--Con atributo multimple permite mas ficheros--> <!--
-							<button onclick="enviarFoto(this);">Enviar</button>
-						</div>
-					</section>
-					-->
+					<div id="seccionFotos"></div>
+					<button type="button" onclick="nuevaFotoEntrada(this);">Añadir foto</button>			
 			</fieldset>
-				<!--<section id="datosEntrada">
-					<ul class="formList">
-						<li>
-							<label for="titleEntrada">Título</label>
-							<input type="text" name="titleEntrada" id="titleEntrada" maxlength="200" required>
-						</li>
-
-						<li>
-							<label for="descEntrada">Descripción</label>
-							<textarea name="descEntrada" id="descEntrada" rows=4 cols="80" maxlength="300" required></textarea>
-						</li>
-					</ul>
-				</section>-->
-			
-				<!--Zona del formualario donde se mostraran las imaganes asociadas a cada entrega-->
-				<!--<section id="imagenesEntrada">
-					<h2>Fotografías Entrada</h2>
-					<div>
-						<article>
-							<h3>Fotografia 1</h3>
-							<figure class="fotoEntrada">
-			            		<img src="imgs/paisaje1.jpg" alt="foto usuario 1"/>         
-			            	</figure>
-							
-							<ul>
-								<li>
-									<p><input type="file" id="foto1" name="foto1" ></p>
-								</li>
-								<li>
-									<button>Eliminar foto</button>
-								<li>
-							</ul>
-						</article>
-					</div>
-				</section>
-				<input type="submit" name="creaEntrada" id="creaEntrada" value="Crear Entrada">-->
+				
 			<input type="submit" name="creaEntrada" id="creaEntrada" value="Crear Entrada">
 		</form>			
 	</section>
