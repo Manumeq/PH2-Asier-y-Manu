@@ -3,6 +3,10 @@ if(sessionStorage['jugando']==null){
     sessionStorage.setItem('jugando', 0);
 }
 
+var fichas1; //fichas restantes en el banquillo del equipo verde
+var fichas2; //fichas restantes en el banquillo del equipo rojo
+
+
 function dibujarCampoFutbol(){
     let cv = document.getElementById('campo'),
         ctx = cv.getContext('2d'),
@@ -387,4 +391,37 @@ function lanzarDado(){
             document.getElementById("imgDado").alt = "6"; 
             break;
     }
+}
+
+function rellenaTeam1(){
+    
+    if(fichas1==undefined){
+        fichas1=5;
+    }
+
+    var writer = document.getElementById('fichasTeam1');
+    var text = '';
+    
+
+    for(var i = 0; i<fichas1; i++){
+        text += '<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">';
+    }
+
+    writer.innerHTML = text;
+}
+
+function rellenaTeam2(){
+    if(fichas2==undefined){
+        fichas2=5;
+    }
+
+    var writer = document.getElementById('fichasTeam2');
+    var text = '';
+
+
+    for(var i=0; i<fichas2;i++){
+        text += '<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">';
+    }
+
+    writer.innerHTML = text;
 }
