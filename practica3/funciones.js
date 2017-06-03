@@ -254,14 +254,14 @@ function mouse_click(e){
 
     // console.log(`Posicion: ${x} - ${y}`);
     // console.log(`Fila: ${fila} - columna: ${columna}`);
-    /*if (x < 1 || x > cv.width - 1 || y < 1 || y > cv.height - 1){
+    if (x < 1 || x > cv.width - 1 || y < 1 || y > cv.height - 1){
         return;   
-    }*/
-    console.log(fila, columna);
-    console.log(dim);
+    }
+    /*console.log(fila, columna);
+    console.log(dim);*/
 
     //cv.width = cv.width; //limpiar canvas - solo deja poner una al limpiar el canvas
-    dibujarCampoFutbol(); // dibuja el campo de nuevo para eliminar el cuadro destacada de cada ficha
+    //dibujarCampoFutbol(); // dibuja el campo de nuevo para eliminar el cuadro destacada de cada ficha
     let ctx = cv.getContext('2d'),
         //id = e.dataTransfer.getData('text/plain'),
         img1 = new Image(),
@@ -270,13 +270,20 @@ function mouse_click(e){
     img1.src = 'fichaRoja.svg'; // document.getElementById(id).src
     img2.src = 'fichaVerde.svg';    
     //img.onload = function(){
-        if((fila!=0 && columna!=0 && columna!=19) && (contFichasR<5 || contFichasV<5)){
+        if(fila!=0 && columna!=0 && columna!=19){
             if((columna>=1 && columna<=9) && contFichasR<5){
                 sessionStorage["ficha1y"] = fila;
                 sessionStorage["ficha1x"] = columna;
                 console.log(sessionStorage["ficha1y"] ,sessionStorage["ficha1x"]);
                 ctx.drawImage(img1, columna * dim, fila * dim, dim, dim);
+                console.log(columna*dim, fila*dim, dim, dim);
                 contFichasR++;
+
+                // Pintar cuadrado rojo para destacar ficha
+                ctx.beginPath(); //evitar historias
+                ctx.strokeStyle = '#f00';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(columna * dim, fila * dim, dim, dim);
             }
             if((columna>=10 && columna<=18) && contFichasV<5){
                 sessionStorage["ficha1y"] = fila;
@@ -284,19 +291,18 @@ function mouse_click(e){
                 console.log(sessionStorage["ficha1y"] ,sessionStorage["ficha1x"]);
                 ctx.drawImage(img2, columna * dim, fila * dim, dim, dim);
                 contFichasV++;
-            }
-            // condición para destacar el cuadro con un cuadro rojo la ficha seleccionada 
-            if(fila!=0 && columna!=0 && columna!=19){
+
+                // Pintar cuadrado rojo para destacar ficha
                 ctx.beginPath(); //evitar historias
                 ctx.strokeStyle = '#f00';
-                ctx.lineWidth = 2;
+                ctx.lineWidth = 1;
                 ctx.strokeRect(columna * dim, fila * dim, dim, dim);
             }
-        }  
+        }
+        // Dibujo el campo de nuevo para eliminar el cuadro destacada de cada ficha
+        dibujarCampoFutbol();
     //};
     //console.log(id);
-   
-    //console.log(document.getElementById(id).src);
 }
 
 /*function mouse_down(e){
