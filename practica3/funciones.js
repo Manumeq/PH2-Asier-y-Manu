@@ -220,7 +220,7 @@ var ficha = { //posicion de la ficha
 
 // 4 funciones para poder mover la ficha en el interior 
 // del canvas del terreno de juego
-function mouse_move(e){
+/*function mouse_move(e){
     // return; //que no devuelva nada
     let cv = e.target,
         x = e.offsetX,
@@ -239,7 +239,9 @@ function mouse_move(e){
             redibujarCanvasTerreno();
         }
     }
-}
+}*/
+var contFichasR = 0;
+var contFichasV = 0;
 
 function mouse_click(e){
     //return;
@@ -252,33 +254,52 @@ function mouse_click(e){
 
     // console.log(`Posicion: ${x} - ${y}`);
     // console.log(`Fila: ${fila} - columna: ${columna}`);
-    if (x < 1 || x > cv.width - 1 || y < 1 || y > cv.height - 1){
+    /*if (x < 1 || x > cv.width - 1 || y < 1 || y > cv.height - 1){
         return;   
-    }
+    }*/
+    console.log(fila, columna);
+    console.log(dim);
 
-    cv.width = cv.width; //limpiar canvas
-    dibujarCampoFutbol();
+    //cv.width = cv.width; //limpiar canvas - solo deja poner una al limpiar el canvas
+    dibujarCampoFutbol(); // dibuja el campo de nuevo para eliminar el cuadro destacada de cada ficha
     let ctx = cv.getContext('2d'),
         //id = e.dataTransfer.getData('text/plain'),
-        img = new Image();
+        img1 = new Image(),
+        img2 = new Image();
 
-    img.onload = function(){
-        if(fila!=0 && columna!=0 && columna!=19){
-            ctx.drawImage(img, columna * dim, fila * dim, dim, dim)
-        }
-    };
+    img1.src = 'fichaRoja.svg'; // document.getElementById(id).src
+    img2.src = 'fichaVerde.svg';    
+    //img.onload = function(){
+        if((fila!=0 && columna!=0 && columna!=19) && (contFichasR<5 || contFichasV<5)){
+            if((columna>=1 && columna<=9) && contFichasR<5){
+                sessionStorage["ficha1y"] = fila;
+                sessionStorage["ficha1x"] = columna;
+                console.log(sessionStorage["ficha1y"] ,sessionStorage["ficha1x"]);
+                ctx.drawImage(img1, columna * dim, fila * dim, dim, dim);
+                contFichasR++;
+            }
+            if((columna>=10 && columna<=18) && contFichasV<5){
+                sessionStorage["ficha1y"] = fila;
+                sessionStorage["ficha1x"] = columna;
+                console.log(sessionStorage["ficha1y"] ,sessionStorage["ficha1x"]);
+                ctx.drawImage(img2, columna * dim, fila * dim, dim, dim);
+                contFichasV++;
+            }
+            // condición para destacar el cuadro con un cuadro rojo la ficha seleccionada 
+            if(fila!=0 && columna!=0 && columna!=19){
+                ctx.beginPath(); //evitar historias
+                ctx.strokeStyle = '#f00';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(columna * dim, fila * dim, dim, dim);
+            }
+        }  
+    //};
     //console.log(id);
-    img.src = 'fichaRoja.svg'; // document.getElementById(id).src
+   
     //console.log(document.getElementById(id).src);
-    if(fila!=0 && columna!=0 && columna!=19){
-        ctx.beginPath(); //evitar historias
-        ctx.strokeStyle = '#f00';
-        ctx.lineWidth = 4;
-        ctx.strokeRect(columna * dim, fila * dim, dim, dim);
-    }
 }
 
-function mouse_down(e){
+/*function mouse_down(e){
     let cv = e.target,
         x = e.offsetX,
         y = e.offsetY,
@@ -294,9 +315,9 @@ function mouse_down(e){
         console.log("he tocado ficha");
 
     }
-}
+}*/
 
-function mouse_up(e){
+/*function mouse_up(e){
     let cv = e.target,
         x = e.offsetX,
         y = e.offsetY,
@@ -308,7 +329,7 @@ function mouse_up(e){
     console.log(`UP=>Fila: ${fila} - columna: ${columna}`);
 
     cv.removeAttribute('data-down'); //sueltas la ficha, atributo fuera
-}
+}*/
 
 // Index
 //FUNCIONES TO WAPAS DEL MANU ESE
@@ -407,7 +428,7 @@ function rellenaTeam1(){
         text += '<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">';
     }
 
-    writer.innerHTML = text;
+    //writer.innerHTML = text;
 }
 
 function rellenaTeam2(){
@@ -423,5 +444,5 @@ function rellenaTeam2(){
         text += '<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">';
     }
 
-    writer.innerHTML = text;
+   // writer.innerHTML = text;
 }

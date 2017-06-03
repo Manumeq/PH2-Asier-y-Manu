@@ -6,18 +6,18 @@
 	<script src="funciones.js"></script>
 	<title>Juego</title>
 </head>
-<body onload="escribirEquipos(); rellenaTeam1(); rellenaTeam2();"">
+<body onload="escribirEquipos(); rellenaTeam1(); rellenaTeam2(); dibujarCampoFutbol(); prepararDragnDropFichas();">
 	<header>
 		<div>
 			<h1>Fútbol Chapas</h1>
 			<h2>Pégate unos piques con tus enemigos más acérrimos</h2>
 		</div>
 	</header>
-	<canvas id="campo" width="480" height="240"
-			onmousemove="mouse_move(event);"
+	<canvas id="campo" width="480" height="240" onclick="mouse_click(event);"">
+		<!--onmousemove="mouse_move(event);"
             onclick="mouse_click(event);"
             onmousedown="mouse_down(event);"
-            onmouseup="mouse_up(event);">
+            onmouseup="mouse_up(event);"-->
     </canvas>
 	<!--Imagenes svg-->
 	
@@ -75,8 +75,8 @@
 		<p>&copy; Asier Manzano Arévalo | Manuel Escorza Quinto || <time datetime="2017">2017 Ingeniería Multimedia Universidad de Alicante</time> | <a href="acerca.html">Acerca de nosotros</a></p>
 	</footer>
 </body>
-<script>
+<!--<script>
 	dibujarCampoFutbol();
 	prepararDragnDropFichas();
-</script>
+</script>-->
 </html>
