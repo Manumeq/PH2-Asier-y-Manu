@@ -6,13 +6,21 @@
 	<script src="funciones.js"></script>
 	<title>Juego</title>
 </head>
-<body onload="escribirEquipos(); rellenaTeam1(); rellenaTeam2(); dibujarCampoFutbol(); prepararDragnDropFichas();">
+<body onload="escribirEquipos(); rellenaTeam1(); rellenaTeam2(); dibujarCampoFutbol(); prepararDragnDropFichas(); botonPartida(); muestraDado(); enableTurnoDe();">
 	<header>
 		<div>
 			<h1>Fútbol Chapas</h1>
 			<h2>Pégate unos piques con tus enemigos más acérrimos</h2>
 		</div>
 	</header>
+	
+	<div id="textoMarcador" style="visibility: hidden">
+		<h2> Marcador </h2>
+	</div>
+
+	<div id="marcador" style="visibility: hidden">
+		<h2></h2>
+	</div>
 	<canvas id="campo" width="480" height="240" onclick="mouse_click(event);"">
 		<!--onmousemove="mouse_move(event);"
             onclick="mouse_click(event);"
@@ -26,29 +34,30 @@
 		<img id="imgDado" src="dado0.jpg" alt="0">
 		<button type="button" id="throwDice" onclick="lanzarDado();"> ¡Lanza el dado! </button>
 	</div>
+
+	<div id="turnoDe">
+		
+	</div>
+
 	<div id="banquillos">
 		<div id='team1'>
 			<h3 id='team1text'></h3>
 			<!--<span id="fichasTeam1">-->
-			
-				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-				
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
 			<!--</span>-->
 		</div>
 		<div id='team2'>
 			<h3 id='team2text'></h3>
 			<!--<span id="fichasTeam2">-->
-			
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">			
 			<!--</span>-->
 		</div>
 	</div>
@@ -69,7 +78,10 @@
 		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
 		<li><img src="fichaRoja.svg" alt="Ficha Roja"></li>
 	</ul>-->
-
+	
+	<div>
+		<input id="empezarButton" type="hidden" value="Amoh a ver si jugamos no?" onclick="empezarPartida();">
+	</div>
 
 	<footer>
 		<p>&copy; Asier Manzano Arévalo | Manuel Escorza Quinto || <time datetime="2017">2017 Ingeniería Multimedia Universidad de Alicante</time> | <a href="acerca.html">Acerca de nosotros</a></p>

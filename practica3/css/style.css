@@ -63,12 +63,12 @@ body>header{
 #team1text{
 	font-size: 2em;
 	text-align: center;
-	background-color: green;
+	background-color: red;
 }
 #team2text{
 	font-size: 2em;
 	text-align: center;
-	background-color: red;
+	background-color: green;
 }
 
 .ficha{
@@ -91,6 +91,17 @@ body>header{
 	position: absolute;
 	right:0;
 	margin-right: 10%;
+}
+
+#marcador, #textoMarcador{
+	margin: auto;
+	display: block;
+	text-align: center;
+}
+
+#turnoDe{
+	text-align: center;
+	font-size: 2em;
 }
 
 @media all and (min-width:480px){ 
@@ -162,5 +173,23 @@ body>header{
 	input[type=submit]:hover{
 	    background-color: rgb(107,236,0);
 	}
+
+	input[type=button]{
+	    width: 100%;
+	    background-color: green;
+	    color: white;
+	    padding: 14px 20px;
+	    margin: 8px 0;
+	    border: none;
+	    border-radius: 8px;
+	    cursor: pointer;
+	    font-size: 2em;
+	}
+
+	input[type=button]:hover{
+	    background-color: rgb(107,236,0);
+	}
+
+	
 
 }
