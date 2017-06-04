@@ -188,97 +188,6 @@ imgVerde = new Image();
 
 imgRoja.src = 'fichaRoja.svg'; // document.getElementById(id).src
 imgVerde.src = 'fichaVerde.svg';
-// Función para poner fichas random
-/*function randomFichas(e){
-
-    let cv = document.getElementById('campo'),
-        x = e.offsetX,
-        y = e.offsetY,
-        dim = cv.width / 20,
-        fila = Math.floor(y / dim),
-        columna = Math.floor(x / dim),
-        esta = true,
-        jugador = e.id,
-        ctx = cv.getContext('2d');
-
-        cantidadFichasRojas=0;
-        cantidadFichasVerdes=0;
-        cv.width = cv.width;
-
-    dibujarCampoFutbol();
-
-    if(jugador=="j1"){ 
-        let salcagadoleches=false;
-        for(let i=0; i<5; i++){
-            //Asignar valor columan e fila    
-            while(esta){
-                columna=Math.round(Math.random()*8)+1;
-                fila=Math.round(Math.random()*8);
-                if(cantidadFichasRojas>0){
-                    for(let ficha=0; ficha<=cantidadFichasRojas; ficha++){
-                        if(parseInt(sessionStorage["fichaR"+ficha+"x"])==columna && parseInt(sessionStorage["fichaR"+ficha+"y"])==fila){
-                            salcagadoleches=true;
-                        }
-                        //else
-                        console.log("ficha " + ficha + " "+ parseInt(sessionStorage["fichaR"+ficha+"x"]) + " comparado con "  + parseInt((columna*dim-dim/4)-2))  ;
-                    }
-                    if(salcagadoleches!=true){
-                        esta=false
-                    }
-                }else{                
-                    esta=false;
-                }
-                salcagadoleches=false;
-            }//While esa ficha esta repetida
-
-            //Dibujar la ficha
-            sessionStorage["fichaR"+cantidadFichasRojas+"x"]=columna;
-            sessionStorage["fichaR"+cantidadFichasRojas+"y"]=fila;
-            //ctx.drawImage(imgr, columna * dim, fila * dim, dim, dim);
-
-            cantidadFichasRojas = cantidadFichasRojas+1;
-            sessionStorage["NumfichasRojas"] = null;
-            sessionStorage["NumfichasRojas"] = cantidadFichasRojas;
-            esta=true;
-            salcagadoleches=false;
-        }//for(let i=0; i<5; i++){
-
-    }else{
-
-        let salcagadoleches=false;
-        for(let i=0; i<5; i++){
-        //Asignar valor columan e fila    
-            while(esta){
-                columna=Math.round(Math.random()*8)+10;
-                fila=Math.round(Math.random()*8);
-                if(cantidadFichasVerdes>0){
-                    for(let ficha=0; ficha<=cantidadFichasVerdes; ficha++){
-                        if(parseInt(sessionStorage["fichaV"+ficha+"x"])==columna && parseInt(sessionStorage["fichaV"+ficha+"y"])==fila){
-                            salcagadoleches=true;
-                        }
-                        console.log("ficha " + ficha + " "+ parseInt(sessionStorage["fichaV"+ficha+"x"]) + " comparado con "  + parseInt((columna*dim-dim/4)-2))  ;
-                    }
-                    if(salcagadoleches!=true){
-                        esta=false
-                    }
-                }else{
-                    esta=false;
-                }
-                salcagadoleches=false;
-            }//While esa ficha esta repetida
-            //Dibujar la ficha
-            sessionStorage["fichaV"+cantidadFichasVerdes+"x"]=columna;
-            sessionStorage["fichaV"+cantidadFichasVerdes+"y"]=fila;
-            ctx.drawImage(imgVerde, columna * dim, fila * dim, dim, dim);
-
-            cantidadFichasVerdes = cantidadFichasVerdes+1;
-            sessionStorage["NumfichasVerdes"] = null;
-            sessionStorage["NumfichasVerdes"] = cantidadFichasVerdes;
-            esta=true;
-            salcagadoleches=false;
-        }//for(let i=0; i<5; i++){
-    }
-}*/
 
 function randomFichas1(e){
 
@@ -522,25 +431,9 @@ function prepararDragnDropFichas(){
                 }
             }
 
-            //ctx.drawImage(img,0,0,cv.width,cv.height);
-
-            //img.src= document.getElementById(id).src;
-
             dibujarCampoFutbol();
-            //cv.querySelector('campo').appendChild(document.getElemtnByID(id));
-        //}
+         
         console.log(id);
-
-        //img.src = document.getElementById(id).src;
-
-        //console.log(img.src.id);
-        //console.log(img.src);
-
-        //console.log(id);
-
-        //ctx.drawImage(document.getElementById(id),x,y);
-        //contFichasV++;
-        //contFichasR++;
     }
 
 }
@@ -608,11 +501,6 @@ function mouse_click(e){
     if (x < 1 || x > cv.width - 1 || y < 1 || y > cv.height - 1){
         return;
     }
-
-    /*console.log(fila, columna);
-    console.log(dim);*/
-    //cv.width = cv.width; //limpiar canvas - solo deja poner una al limpiar el canvas
-    //dibujarCampoFutbol(); // dibuja el campo de nuevo para eliminar el cuadro destacada de cada ficha
 
     let ctx = cv.getContext('2d'),
         //id = e.dataTransfer.getData('text/plain'),
@@ -753,7 +641,6 @@ function mouse_click(e){
 // Index
 
 //FUNCIONES TO WAPAS DEL MANU ESE
-
 function checkform(){
 
 
@@ -779,11 +666,8 @@ function checkform(){
         else{
 
             document.getElementById('aJugarB').type = 'hidden';   
-
         }
-
 }
-
 
 
 //rellena el formulario de index si se recarga la pagina
@@ -791,13 +675,9 @@ function checkform(){
 function rellenaForm(){
 
     if(sessionStorage['equipo1']!=null){
-
         document.forms["formEquipos"].elements[0].value=sessionStorage['equipo1'];
-
         document.forms["formEquipos"].elements[1].value=sessionStorage['equipo2'];
-
         document.getElementById('aJugarB').type = 'submit';
-
     }
 
 }
@@ -810,7 +690,6 @@ function guardarEquipos(frm){
 
     sessionStorage.clear();
     sessionStorage.setItem('equipo1', frm.elements.item(0).value);
-
     sessionStorage.setItem('equipo2', frm.elements.item(1).value);
 
 }
@@ -818,37 +697,21 @@ function guardarEquipos(frm){
  
 
 function escribirEquipos(){
-
   document.getElementById("team1text").innerHTML = sessionStorage['equipo1'];
-
   document.getElementById("team2text").innerHTML = sessionStorage['equipo2'];
-
-  
-
   //desactivar el dado si el estado es igual a 0
-
-  
-
     //document.getElementsByTagName("BODY")[0].innerHTML = sessionStorage['equipo2'];
-
 }
 
 
 
 function muestraDado(){
-
   console.log("Dime que no entras por favor");
-
   console.log(sessionStorage['jugando']);
-
   if(sessionStorage['jugando']=='0'){
-
     document.getElementById("dado").style = "visibility:hidden";
-
   }else{
-
     document.getElementById("dado").style = "visibility:default";
-
   }
 
 }
@@ -864,53 +727,34 @@ function lanzarDado(){
     switch(res){
 
         case 1:
-
             document.getElementById("imgDado").src = "dado1.png";
-
             document.getElementById("imgDado").alt = "1"; 
-
             break;
 
         case 2:
-
             document.getElementById("imgDado").src = "dado2.png";
-
             document.getElementById("imgDado").alt = "2"; 
-
             break;
 
         case 3:
-
             document.getElementById("imgDado").src = "dado3.png";
-
             document.getElementById("imgDado").alt = "3"; 
-
             break;
 
         case 4:
-
             document.getElementById("imgDado").src = "dado4.png";
-
             document.getElementById("imgDado").alt = "4"; 
-
             break;
 
         case 5:
-
             document.getElementById("imgDado").src = "dado5.png";
-
             document.getElementById("imgDado").alt = "5"; 
-
             break;
 
         case 6:
-
             document.getElementById("imgDado").src = "dado6.png";
-
             document.getElementById("imgDado").alt = "6"; 
-
             break;
-
     }
 
 }
