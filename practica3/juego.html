@@ -6,7 +6,7 @@
 	<script src="funciones.js"></script>
 	<title>Juego</title>
 </head>
-<body onload="escribirEquipos(); rellenaTeam1(); rellenaTeam2(); dibujarCampoFutbol(); prepararDragnDropFichas(); botonPartida(); muestraDado(); enableTurnoDe();">
+<body onload="escribirEquipos(); rellenaTeam1(); rellenaTeam2(); dibujarCampoFutbol(); prepararDragnDropFichas(); botonPartida(); muestraDado(); enableTurnoDe(); comprobarAccesoJuego();">
 	<header>
 		<div>
 			<h1>Fútbol Chapas</h1>
@@ -42,23 +42,23 @@
 	<div id="banquillos">
 		<div id='team1'>
 			<h3 id='team1text'></h3>
-			<!--<span id="fichasTeam1">-->
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
-			<!--</span>-->
+			<span id="fichasTeam1">
+			<!--	<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+				<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+				<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+				<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+				<img src="fichaRoja.svg" alt="Ficha Roja" class="ficha">
+			--></span>
 		</div>
 		<div id='team2'>
 			<h3 id='team2text'></h3>
-			<!--<span id="fichasTeam2">-->
-			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
-			<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">			
-			<!--</span>-->
+			<span id="fichasTeam2">
+			 <!--  <img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">
+				<img src="fichaVerde.svg" alt="Ficha Verde" class="ficha">			
+			--></span>
 		</div>
 	</div>
 

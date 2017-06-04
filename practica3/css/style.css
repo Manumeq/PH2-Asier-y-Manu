@@ -104,6 +104,22 @@ body>header{
 	font-size: 2em;
 }
 
+/*El profesor también puso un aside*/
+body>footer{
+	margin-top: 5%;
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	background-color: #006534;
+	color: white;
+	text-align: center;
+	padding: 2em;
+}
+	
+	body>footer>p>a{
+		color: white;
+	}
+
 @media all and (min-width:480px){ 
 	div>form>ul>li{
 		width:90%;
