@@ -471,8 +471,10 @@ function prepararDragnDropFichas(){
                 muestraDado();
                 //ctx.drawImage(img, columna*dim, fila*dim, dim, dim);
                 console.log(fila, columna);
-                if((columna>=1 && columna<=9 && id>=0 && id<=4) && contFichasR<5){
-
+                if((columna>=1 && columna<=9 && id>=0 && id<=4) && contFichasR<=5){
+                    if(contFichasR==5){
+                        lanzaMensajeEmergente("GÜARNIN: te has quedado sin fichas rojas en el banquillo");
+                    }
                     sessionStorage["ficha1y"] = fila;
                     sessionStorage["ficha1x"] = columna;
 
@@ -495,8 +497,10 @@ function prepararDragnDropFichas(){
                     botonPartida();
                 }
 
-                if((columna>=10 && columna<=18 && id>=5 && id<=9) && contFichasV<5){
-
+                if((columna>=10 && columna<=18 && id>=5 && id<=9) && contFichasV<=5){
+                    if(contFichasV==5){
+                    lanzaMensajeEmergente('GÜARNIN: te has quedado sin fichas verdes en el banquillo');
+                    }
                     sessionStorage["ficha1y"] = fila;
                     sessionStorage["ficha1x"] = columna;
 
@@ -1058,4 +1062,24 @@ function muestraCancelar(){
 function cancelarPartida(){
     sessionStorage.clear();
     location.replace('index.html');
+}
+
+function lanzaMensajeEmergente(textoWapo){
+    let capa_fondo = document.createElement('div'),
+        capa_frente = document.createElement('article'),
+
+        html = '';
+
+    capa_fondo.appendChild(capa_frente);    
+
+    html+= '<h2>';
+    html+= textoWapo;
+    html+= '</h2>';
+    html+= '<button onclick="this.parentNode.parentNode.remove();">Cerrar</button>';
+    
+    capa_frente.innerHTML = html;
+    capa_fondo.classList.add('capa-fondo'); 
+    capa_frente.classList.add('capa-frente');
+
+    document.body.appendChild(capa_fondo);
 }
