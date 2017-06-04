@@ -34,35 +34,22 @@ function dibujarCampoFutbol(){
     //console.log(dim);
 
     // fondo terreno
-
     /*ctx.beginPath();
-
     ctx.rect(dim, dim, dim*18, dim*9);
-
     ctx.fillStyle = "#BDFFBA";
-
     ctx.fill();
 
     // fondo porteria 1
-
     ctx.beginPath();
-
     ctx.rect(0, dim*4, dim, dim*3);
-
     ctx.fillStyle = "#728491";
-
     ctx.fill();
 
     // fondo porteria 2
-
     ctx.beginPath();
-
     ctx.rect(dim*19, dim*4, dim, dim*3);
-
     ctx.fillStyle = "#728491";
-
     ctx.fill();*/
-
     // lineas canvas terreno
 
     ctx.beginPath(); //para limpiar y que no se ponga todo del mismo color, tam, etc
@@ -105,8 +92,6 @@ function dibujarCampoFutbol(){
         }
     }
 
-
-
     //ctx.rect(1, 1, cv.width - 1, cv.height - 1);
     //ctx.rect(0, 0, cv.width - 1, cv.height - 1);
     ctx.stroke(); //pintar;
@@ -115,7 +100,7 @@ function dibujarCampoFutbol(){
     ctx.beginPath();
     ctx.lineWidth = 3;
     ctx.strokeStyle = '#1C44AC';
-    ctx.arc(cv.width/2,(cv.height/2) + dim/2,25,0,2*Math.PI);
+    ctx.arc(cv.width/2,(cv.height/2) + dim/2,25,0,2*Math.PI); 
     ctx.stroke();
 
     // Semicirculo área 1
@@ -173,7 +158,6 @@ function dibujarCampoFutbol(){
 }
 
 
-
 function redibujarCanvasTerreno(){
 
     let cv = document.getElementById('campo'),
@@ -199,10 +183,222 @@ function redibujarCanvasTerreno(){
     img.src = document.getElementById(id).src;
 }
 
+imgRoja = new Image();
+imgVerde = new Image();
 
+imgRoja.src = 'fichaRoja.svg'; // document.getElementById(id).src
+imgVerde.src = 'fichaVerde.svg';
+// Función para poner fichas random
+/*function randomFichas(e){
+
+    let cv = document.getElementById('campo'),
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim),
+        esta = true,
+        jugador = e.id,
+        ctx = cv.getContext('2d');
+
+        cantidadFichasRojas=0;
+        cantidadFichasVerdes=0;
+        cv.width = cv.width;
+
+    dibujarCampoFutbol();
+
+    if(jugador=="j1"){ 
+        let salcagadoleches=false;
+        for(let i=0; i<5; i++){
+            //Asignar valor columan e fila    
+            while(esta){
+                columna=Math.round(Math.random()*8)+1;
+                fila=Math.round(Math.random()*8);
+                if(cantidadFichasRojas>0){
+                    for(let ficha=0; ficha<=cantidadFichasRojas; ficha++){
+                        if(parseInt(sessionStorage["fichaR"+ficha+"x"])==columna && parseInt(sessionStorage["fichaR"+ficha+"y"])==fila){
+                            salcagadoleches=true;
+                        }
+                        //else
+                        console.log("ficha " + ficha + " "+ parseInt(sessionStorage["fichaR"+ficha+"x"]) + " comparado con "  + parseInt((columna*dim-dim/4)-2))  ;
+                    }
+                    if(salcagadoleches!=true){
+                        esta=false
+                    }
+                }else{                
+                    esta=false;
+                }
+                salcagadoleches=false;
+            }//While esa ficha esta repetida
+
+            //Dibujar la ficha
+            sessionStorage["fichaR"+cantidadFichasRojas+"x"]=columna;
+            sessionStorage["fichaR"+cantidadFichasRojas+"y"]=fila;
+            //ctx.drawImage(imgr, columna * dim, fila * dim, dim, dim);
+
+            cantidadFichasRojas = cantidadFichasRojas+1;
+            sessionStorage["NumfichasRojas"] = null;
+            sessionStorage["NumfichasRojas"] = cantidadFichasRojas;
+            esta=true;
+            salcagadoleches=false;
+        }//for(let i=0; i<5; i++){
+
+    }else{
+
+        let salcagadoleches=false;
+        for(let i=0; i<5; i++){
+        //Asignar valor columan e fila    
+            while(esta){
+                columna=Math.round(Math.random()*8)+10;
+                fila=Math.round(Math.random()*8);
+                if(cantidadFichasVerdes>0){
+                    for(let ficha=0; ficha<=cantidadFichasVerdes; ficha++){
+                        if(parseInt(sessionStorage["fichaV"+ficha+"x"])==columna && parseInt(sessionStorage["fichaV"+ficha+"y"])==fila){
+                            salcagadoleches=true;
+                        }
+                        console.log("ficha " + ficha + " "+ parseInt(sessionStorage["fichaV"+ficha+"x"]) + " comparado con "  + parseInt((columna*dim-dim/4)-2))  ;
+                    }
+                    if(salcagadoleches!=true){
+                        esta=false
+                    }
+                }else{
+                    esta=false;
+                }
+                salcagadoleches=false;
+            }//While esa ficha esta repetida
+            //Dibujar la ficha
+            sessionStorage["fichaV"+cantidadFichasVerdes+"x"]=columna;
+            sessionStorage["fichaV"+cantidadFichasVerdes+"y"]=fila;
+            ctx.drawImage(imgVerde, columna * dim, fila * dim, dim, dim);
+
+            cantidadFichasVerdes = cantidadFichasVerdes+1;
+            sessionStorage["NumfichasVerdes"] = null;
+            sessionStorage["NumfichasVerdes"] = cantidadFichasVerdes;
+            esta=true;
+            salcagadoleches=false;
+        }//for(let i=0; i<5; i++){
+    }
+}*/
+
+function randomFichas1(e){
+
+    let cv = document.getElementById('campo'),
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim),
+        esta = true,
+        jugador = e.id,
+        ctx = cv.getContext('2d');
+
+        cantidadFichasRojas=0;
+        cantidadFichasVerdes=0;
+        cv.width = cv.width;
+
+    dibujarCampoFutbol();
+
+    //if(jugador=="j1"){ 
+        let salcagadoleches=false;
+        for(let i=0; i<5; i++){
+            //Asignar valor columan e fila    
+            while(esta){
+                columna=Math.round(Math.random()*8)+1;
+                fila=Math.round(Math.random()*8);
+                if(cantidadFichasRojas>0){
+                    for(let ficha=0; ficha<=cantidadFichasRojas; ficha++){
+                        if(parseInt(sessionStorage["fichaR"+ficha+"x"])==columna && parseInt(sessionStorage["fichaR"+ficha+"y"])==fila){
+                            salcagadoleches=true;
+                        }
+                        //else
+                        console.log("ficha " + ficha + " "+ parseInt(sessionStorage["fichaR"+ficha+"x"]) + " comparado con "  + parseInt((columna*dim-dim/4)-2))  ;
+                    }
+                    if(salcagadoleches!=true){
+                        esta=false
+                    }
+                }else{                
+                    esta=false;
+                }
+                salcagadoleches=false;
+            }//While esa ficha esta repetida
+
+            //Dibujar la ficha
+            sessionStorage["fichaR"+cantidadFichasRojas+"x"]=columna;
+            sessionStorage["fichaR"+cantidadFichasRojas+"y"]=fila;
+            ctx.drawImage(imgRoja, columna * dim, fila * dim, dim, dim);
+
+            cantidadFichasRojas = cantidadFichasRojas+1;
+            sessionStorage["NumfichasRojas"] = null;
+            sessionStorage["NumfichasRojas"] = cantidadFichasRojas;
+            esta=true;
+            salcagadoleches=false;
+        }//for(let i=0; i<5; i++){
+
+    //}else{
+
+    //}
+}
+
+function randomFichas2(e){
+
+    let cv = document.getElementById('campo'),
+        x = e.offsetX,
+        y = e.offsetY,
+        dim = cv.width / 20,
+        fila = Math.floor(y / dim),
+        columna = Math.floor(x / dim),
+        esta = true,
+        jugador = e.id,
+        ctx = cv.getContext('2d');
+
+        cantidadFichasRojas=0;
+        cantidadFichasVerdes=0;
+        cv.width = cv.width;
+
+    dibujarCampoFutbol();
+
+    //if(jugador=="j1"){ 
+        let salcagadoleches=false;
+        for(let i=0; i<5; i++){
+            //Asignar valor columan e fila    
+            while(esta){
+                columna=Math.round(Math.random()*8)+10;
+                fila=Math.round(Math.random()*8);
+                if(cantidadFichasRojas>0){
+                    for(let ficha=0; ficha<=cantidadFichasRojas; ficha++){
+                        if(parseInt(sessionStorage["fichaR"+ficha+"x"])==columna && parseInt(sessionStorage["fichaR"+ficha+"y"])==fila){
+                            salcagadoleches=true;
+                        }
+                        //else
+                        console.log("ficha " + ficha + " "+ parseInt(sessionStorage["fichaR"+ficha+"x"]) + " comparado con "  + parseInt((columna*dim-dim/4)-2))  ;
+                    }
+                    if(salcagadoleches!=true){
+                        esta=false
+                    }
+                }else{                
+                    esta=false;
+                }
+                salcagadoleches=false;
+            }//While esa ficha esta repetida
+
+            //Dibujar la ficha
+            sessionStorage["fichaR"+cantidadFichasRojas+"x"]=columna;
+            sessionStorage["fichaR"+cantidadFichasRojas+"y"]=fila;
+            ctx.drawImage(imgVerde, columna * dim, fila * dim, dim, dim);
+
+            cantidadFichasRojas = cantidadFichasRojas+1;
+            sessionStorage["NumfichasRojas"] = null;
+            sessionStorage["NumfichasRojas"] = cantidadFichasRojas;
+            esta=true;
+            salcagadoleches=false;
+        }//for(let i=0; i<5; i++){
+
+    //}else{
+
+    //}
+}
 
 // Permite poner las fichas en el canvas del tereno de juego
-
 function prepararDragnDropFichas(){
 
     //Zona drag (las fichas)
@@ -220,9 +416,7 @@ function prepararDragnDropFichas(){
     }
 
     //Zona drop
-
     let cv = document.getElementById('campo');
-
     cv.ondragover = function(e) {
 
         e.preventDefault();
@@ -247,7 +441,6 @@ function prepararDragnDropFichas(){
         if(fila!=0 && columna!=0 && columna!=19){
             ctx.strokeRect(columna*dim, fila*dim, dim, dim); //x,y,ancho,alto    
         }     
-
     }
 
     cv.ondrop = function(e){
@@ -261,6 +454,7 @@ function prepararDragnDropFichas(){
             ctx = cv.getContext('2d'),
             img = new Image();
 
+        console.log(id);
         img.src = document.getElementById(id).src;
         //cv.querySelector('canvas').appendChild(document.getElementById(id));
 
@@ -289,6 +483,8 @@ function prepararDragnDropFichas(){
                     console.log(columna*dim, fila*dim, dim, dim);
 
                     contFichasR++;
+                    /*fichas1--;
+                    rellenaTeam1();*/
 
                     // Destacar el cuadro con un cuadro rojo la ficha seleccionada 
                     ctx.beginPath(); //evitar historias
@@ -307,7 +503,10 @@ function prepararDragnDropFichas(){
                     console.log(sessionStorage["ficha1y"] ,sessionStorage["ficha1x"]);
 
                     ctx.drawImage(img, columna * dim, fila * dim, dim, dim);
+
                     contFichasV++;
+                    /*fichas2--;
+                    rellenaTeam2();*/
 
                     // Destacar el cuadro con un cuadro rojo la ficha seleccionada 
                     ctx.beginPath(); //evitar historias
@@ -324,7 +523,7 @@ function prepararDragnDropFichas(){
             //img.src= document.getElementById(id).src;
 
             dibujarCampoFutbol();
-
+            //cv.querySelector('campo').appendChild(document.getElemtnByID(id));
         //}
         console.log(id);
 
@@ -372,12 +571,24 @@ var ficha = { //posicion de la ficha
     }
 }*/
 
+/*function destacarFicha(){
+
+    console.log(this.getElementById(0));
+    let v = document.querySelectorAll('body>div>div>span>img');
+
+    for (let i = 0; i < v.length; i++) {
+        console.log('entramos');
+
+        document.getElementById(i).style.border = "solid red";
+        
+    }
+}*/
+
 function mouse_click(e){
     //return;
 
     //comprobaciones de botones que aparecen y desaparecen, etc...
     muestraCancelar();
-
 
     let cv = e.target,
         x = e.offsetX,
@@ -425,7 +636,8 @@ function mouse_click(e){
                 console.log(columna*dim, fila*dim, dim, dim);
 
                 contFichasR++;
-
+                fichas1--;
+                rellenaTeam1();
                 // Destacar el cuadro con un cuadro rojo la ficha seleccionada 
                 ctx.beginPath(); //evitar historias
                 ctx.strokeStyle = '#f00';
@@ -443,8 +655,9 @@ function mouse_click(e){
                 console.log(sessionStorage["ficha1y"] ,sessionStorage["ficha1x"]);
 
                 ctx.drawImage(img2, columna * dim, fila * dim, dim, dim);
-                contFichasV++;
-
+                contFichasV++;  
+                fichas2--;
+                rellenaTeam2();
                 // Destacar el cuadro con un cuadro rojo la ficha seleccionada 
                 ctx.beginPath(); //evitar historias
                 ctx.strokeStyle = '#f00';
@@ -707,8 +920,8 @@ function rellenaTeam1(){
     }
 
     var writer = document.getElementById('fichasTeam1');
-
     var text = '';
+
     for(var i = 0; i<fichas1; i++){
         text += '<img src="fichaRoja.svg" id="'+ i +'" alt="Ficha Roja" class="ficha">';
     }
@@ -779,7 +992,10 @@ function empezarPartida(){
 
         text2 += sessionStorage['equipo2'];
 
-        document.getElementById("turnoDe").innerHTML = text;}
+        document.getElementById("turnoDe").innerHTML = text;
+    }
+
+    document.getElementById("banquillos").style = "display: none";
 
 }
 
