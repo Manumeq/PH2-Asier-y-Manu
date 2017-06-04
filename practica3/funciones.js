@@ -375,6 +375,10 @@ var ficha = { //posicion de la ficha
 function mouse_click(e){
     //return;
 
+    //comprobaciones de botones que aparecen y desaparecen, etc...
+    muestraCancelar();
+
+
     let cv = e.target,
         x = e.offsetX,
         y = e.offsetY,
@@ -587,6 +591,7 @@ function rellenaForm(){
 
 function guardarEquipos(frm){
 
+    sessionStorage.clear();
     sessionStorage.setItem('equipo1', frm.elements.item(0).value);
 
     sessionStorage.setItem('equipo2', frm.elements.item(1).value);
@@ -732,31 +737,22 @@ function botonPartida(){
     var botoncete = document.getElementById("empezarButton");
 
     if(sessionStorage['jugando']==0){
-
         if(contFichasR==5 && contFichasV==5){
-
             botoncete.type='button';
-
         }
-
         else{
-
             botoncete.type='hidden';
-
         }
-
     }
-
 }
 
 
 
 function empezarPartida(){
-
     //console.log("porque MIERDA ESTO NO VA");
 
     sessionStorage.setItem('jugando', '1');
-
+    muestraCancelar();
     var botoncete = document.getElementById("empezarButton");
 
     botoncete.type='hidden';
@@ -810,25 +806,40 @@ function actualizaMarcador(){
 }
 
 
-
 function enableTurnoDe(){
 
      if(sessionStorage['jugando']=='1'){
 
         var text = 'Turno de '; 
-
         text += sessionStorage['equipo1'];
-
         document.getElementById("turnoDe").innerHTML = text;}
 
     else if(sessionStorage['jugando']=='2'){
 
         var text2 = 'Turno de ';
-
         text2 += sessionStorage['equipo2'];
-
         document.getElementById("turnoDe").innerHTML = text;}
 
-    
+}
 
+function muestraCancelar(){
+    console.log("muestraCancelar: " + sessionStorage['jugando']);
+    var writer;
+    var text;
+    writer = document.getElementById("cancelaPartida");
+    if(sessionStorage['jugando']=='0'){
+        text = '';
+    }
+
+    else{
+        text = '';
+        text += '<button onclick="cancelarPartida();">Cancelar Partida</button>';
+    }
+    writer.innerHTML = text;
+
+}
+
+function cancelarPartida(){
+    sessionStorage.clear();
+    location.replace('index.html');
 }
